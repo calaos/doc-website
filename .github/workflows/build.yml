@@ -1,0 +1,35 @@
+name: Build and deploy on commit
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          lfs: true
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Compress archive
+        run: (cd public && tar -cvf ../archive.tar.zst --zstd .)
+       
+      - name: Deploy to server
+        uses: JantHsueh/upload-file-action@1.0
+        with:
+          url: https://doc-deploy.calaos.fr/deploy
+          forms: '{"key":"${{ secrets.deploy_key }}"}'
+          fileForms: '{"file":"archive.tar.zst"}'
