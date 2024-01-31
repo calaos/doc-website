@@ -1,0 +1,69 @@
+baseURL = 'https://doc.calaos.fr'
+title = 'Calaos Documentation'
+
+theme = "hugo-theme-learn"
+metaDataFormat = "yaml"
+
+# English is the default language
+defaultContentLanguage = "en"
+languageCode = 'en-us'
+
+# Force to have /en/my-page and /fr/my-page routes, even for default language.
+defaultContentLanguageInSubdir= true
+
+[params]
+  editURL = "https://github.com/calaos/doc-website/"
+  description = "Documentation for Calaos"
+  author = "Calaos Team"
+  showVisitedLinks = true
+  disableBreadcrumb = false
+  disableNextPrev = true
+  disableLandingPageButton = false
+  disableMermaid = false
+  customMermaidURL = "https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"
+  titleSeparator = "::"
+  themeVariant = "calaos"
+
+# For search functionality
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
+
+[Languages]
+
+## English
+
+[Languages.en]
+title = "Calaos Documentation"
+weight = 1
+languageName = "English"
+
+[[Languages.en.menu.shortcuts]] 
+name = "<i class='fa-arrow-up-right-from-square'></i> Calaos Website"
+identifier = "site"
+url = "https://calaos.fr/en/"
+weight = 10
+
+[[Languages.en.menu.shortcuts]] 
+name = "<i class='fab fa-github'></i> Github repo"
+identifier = "ds"
+url = "https://github.com/calaos/"
+weight = 20
+
+## French
+
+[Languages.fr]
+title = "Documentation Calaos"
+weight = 1
+languageName = "Français"
+
+[[Languages.fr.menu.shortcuts]] 
+name = "<i class='fa-arrow-up-right-from-square'></i> Site Calaos"
+identifier = "site"
+url = "https://calaos.fr/fr/"
+weight = 10
+
+[[Languages.fr.menu.shortcuts]] 
+name = "<i class='fab fa-github'></i> Dépot Github"
+identifier = "ds"
+url = "https://github.com/calaos/"
+weight = 20
