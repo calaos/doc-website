@@ -44,6 +44,7 @@ The documentation covers all the topics around the installation, setup, configur
 ### Audio Receivers
 
 ## Calaos Installer
+
 ### Create Rooms
 ### Create IOs
 #### Internal variables
@@ -52,6 +53,25 @@ The documentation covers all the topics around the installation, setup, configur
 ### Create Rules
 ### LUA Scripting
 ### Wago Configuration
+
+
+## Calaos OS
+### Installation
+### Configuration
+#### Network
+#### Services
+#### Logs
+#### calaos_config
+#### TouchScreen
+#### Date/Time/Timezone
+#### Language
+#### e-mail
+
+
+#### calaos_ddns
+### Update
+### Roll Back / Restore
+
 
 ## Examples of use
 ### 
