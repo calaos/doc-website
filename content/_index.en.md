@@ -11,3 +11,55 @@ pre = "<b>X. </b>"
 # Some Chapter title
 
 The documentation covers all the topics around the installation, setup, configuration, and usage of Calaos.
+
+## Getting started
+### Requirements
+### Installation
+### Configuration
+#### Create an I/O
+#### Create a rule
+#### Upload your config
+#### Test
+
+## Supported Hardware
+
+### Wago PLC
+#### Codesys
+#### Input Modules
+#### Output Modules
+#### Dali Modules
+#### DMX Modules
+#### Degraded mode
+
+### KNX
+### MQTT
+### Zigbee
+### Dali
+### DMX
+### OneWire
+### WebIO
+### GPIO
+### Camera
+### Music
+### Audio Receivers
+
+## Calaos Installer
+### Create Rooms
+### Create IOs
+#### Internal variables
+### Scenarios
+### Time Scheduling
+### Create Rules
+### LUA Scripting
+### Wago Configuration
+
+## Examples of use
+### 
+
+## Calaos SW Stack
+### Calaos Server
+### Calaos Home
+### Calaos Mobile
+### Calaos WebApp
+### Calaos config
+### Calaos DDNS
