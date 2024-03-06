@@ -5,8 +5,10 @@ weight = 5
 chapter = true
 +++
 
-### Débuter avec Calaos
+### Démarrage
 
-# Comment faire ca blablabla
+# Débuter avec Calaos
 
-Lorem Ipsum.
+Découvrez comment installer et configurer rapidement Calaos.
+
+![Calaos Home](/en/getting_started/images/pic_kitchen.jpg?width=50pc)
