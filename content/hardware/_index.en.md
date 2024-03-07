@@ -5,8 +5,10 @@ weight = 20
 chapter = true
 +++
 
-### Chapter X
+### Hardware
 
-# Some Chapter title
+# Hardware supported by Calaos
 
-Lorem Ipsum.
+Calaos supports a variety of hardware. Here is the list for the current version:
+
+{{% children description="true" %}}

@@ -5,8 +5,10 @@ weight = 20
 chapter = true
 +++
 
-### Chapter X
+### Matériel
 
-# Some Chapter title
+# Matériel supporté par Calaos
 
-Lorem Ipsum.
+Calaos supporte un certain nombre de matériel. Voici la liste pour la version actuelle:
+
+{{% children description="true" %}}
