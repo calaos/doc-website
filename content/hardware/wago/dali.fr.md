@@ -111,7 +111,7 @@ Pour utiliser des detecteurs de presence ou des interrupteurs Dali, il faut util
 
 Ex:
 
-| Adresse DALI | Adresse Wago Dali Configurator | Adresse Calaos installer inter |
+| Adresse DALI | Adresse Wago Dali Configurator | Adresse Calaos installer entrée |
 |----------|------|------|
 | 1 | 0 | 6656 |
 | 2 | 1 | 6657 |
@@ -127,7 +127,7 @@ Il est possible de recuperer la valeur des luxmetres dans calaos. Pour cela, il 
 
 Ex:
 
-| Adresse DALI | Adresse Wago Dali Configurator | Adresse Calaos installer inter |
+| Adresse DALI | Adresse Wago Dali Configurator | Adresse Calaos installer détecteur |
 |----------|------|------|
 | 1 | 0 | 256 |
 | 2 | 1 | 257 |

@@ -21,9 +21,9 @@ Bon courage!
 
 Pour une installation domotique dans une maison neuve ou dans le cadre de rénovations importantes, nous recommandons fortement l'approche Calaos avec une base d'automate Wago pour sa durabilité et son efficacité économique. Voici quelques conseils clés pour démarrer sur de bonnes bases :
 
-- Topologie de câblage spécifique : L'architecture de câblage pour Calaos avec un automate Wago diffère des installations électriques classiques. Il est essentiel de prévoir une topologie adaptée qui facilitera l'intégration de la domotique et la rendra plus efficace.
+- **Topologie de câblage spécifique** : L'architecture de câblage pour Calaos avec un automate Wago diffère des installations électriques classiques. Il est essentiel de prévoir une topologie adaptée qui facilitera l'intégration de la domotique et la rendra plus efficace.
 
-- Compatibilité des matériaux : Tous les composants électriques ne se valent pas pour une utilisation avec Calaos. Il est crucial de sélectionner des matériaux compatibles pour garantir le bon fonctionnement de votre système domotique.
+- **Compatibilité des matériaux** : Tous les composants électriques ne se valent pas pour une utilisation avec Calaos. Il est crucial de sélectionner des matériaux compatibles pour garantir le bon fonctionnement de votre système domotique.
 
 Bien que Calaos soit compatible avec des technologies populaires comme Zigbee, pour une installation pérenne et fiable, privilégier un câblage et des équipements dédiés dès le départ est la meilleure approche. Cette méthode minimise les risques de dysfonctionnement et assure une meilleure longévité de votre système domotique.
 
@@ -31,7 +31,7 @@ Adopter Calaos dès la conception de votre maison ou au début d'une grande rén
 
 #### Câblage du circuit de commande
 
-Le circuit de commande est séparé et provient directement du tableau de communication ou d'une boîte de dérivation. Le câblage est alors effectué par bouclage arborescent (quatre ou cinq interrupteurs à la suite selon le type de câble) avec du câble de type téléphone quatre paires (section 0,6 mm²) ou plus. 
+Le circuit de commande est séparé et provient directement du tableau de communication ou d'une boîte de dérivation. Le câblage est alors effectué par bouclage arborescent (quatre ou cinq interrupteurs à la suite selon le type de câble) avec du câble de type téléphone quatre paires (section 0,6 mm²) ou plus.
 
 {{% notice info %}}
 Toutes les commandes sont des boutons poussoirs simples
