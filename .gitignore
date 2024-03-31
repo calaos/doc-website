@@ -2,3 +2,4 @@
 public/
 exampleSite/public
 .hugo_build.lock
+*:Zone.Identifier

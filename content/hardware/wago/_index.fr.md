@@ -7,6 +7,8 @@ summary = 'Automate Wago de type 750-841, 750-880, ...'
 
 ## Automate Wago
 
+![module](/en/hardware/wago/images/20080819-IMG_9203.jpg?width=40pc&classes=shadow)
+
 L'automate Wago constitue le socle d'une installation Calaos. Doté de composants industriels pour assurer qualité et durabilité, cet automate est chargé de piloter tous les éléments électriques de la maison, ainsi que d'acquérir l'état des interrupteurs, des sondes de température, des capteurs, et bien d'autres. Il joue ainsi un rôle crucial en faisant le lien entre le monde informatique de la centrale et le monde électrique.
 
 ### Sécurité

@@ -16,8 +16,10 @@ La borne permet de connecter 4, 8 ou 16 contacts secs et est galvaniquement isol
 - 750-430: 8 entrées 24V
 - 750-1405: 16 entrées 24V
 
-![module](/en/hardware/wago/images/borne_entree8.jpg?width=20pc&classes=shadow)
+![module](/en/hardware/wago/images/borne_entree8.jpg?width=10pc&classes=shadow)
+![module](/en/hardware/wago/images/borne_entree16.jpg?width=10pc&classes=shadow)
 
+## Câblage
 
 Le câblage des interrupteurs s'effectue en basse tension 24V et en injectant du +24V dans la borne d'entrée. Pour ce faire, on peut donc câbler comme présenté sur la figure ci-dessous, en utilisant l’alimentation 24V de l'automate.
 
