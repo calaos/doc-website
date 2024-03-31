@@ -6,7 +6,8 @@
 			"task": "server",
 			"group": "build",
 			"problemMatcher": [],
-			"label": "hugo: Serve site"
+			"label": "hugo: Serve site",
+			"args": ["server", "--buildDrafts", "--buildFuture", "--disableFastRender"]
 		}
 	]
 }
