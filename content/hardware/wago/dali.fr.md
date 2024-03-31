@@ -51,6 +51,13 @@ Une fois les ballasts connectés au bus, il va falloir les identifier.
 
 Il va falloir utiliser le logiciel [Calaos Installer]({{%relref "calaos_installer/wago" %}}) et faire une recherche d'adresses. Le principe du bus DALI est simple, chaque élément reçoit une adresse comprise entre 1 et 64. La centrale et l'automate ont besoin de savoir l'adresse à laquelle l’équipement pourra être commander.
 
+- Débrancher le serveur Calaos
+- Ouvrez Calaos Installer, se connecter à l'automate et utiliser l'outil **Configuration DALI...**
+
+![module](/en/hardware/wago/images/calaos_installer_dali.png?width=20pc&classes=shadow)
+
+Il est possible de faire les adressages, ainsi que de configurer les groupes DALI directement dans l'interface.
+
 #### 750-647
 
 L'adressage des equipements DALI devra se faire avec le logiciel **Wago Dali Configurator**. Ce logiciel ne fonctionne qu'avec la borne 753-647. Sur le bus DALI avec la borne maitre, 64 addresses de ballasts sont supportées. A cela s'ajoute 14 addresses pour les detecteurs. Attention cependant, un detecteur de type Tridonic M-Sensor2 a besoin de 3 addresses. Il faut faire attention à ne pas depasser ces limites (qui sont liés au bus DALI).
@@ -68,17 +75,17 @@ L'adressage des equipements DALI devra se faire avec le logiciel **Wago Dali Con
 Il est conseillé de changer l'adresse des ballasts par une adresse supérieure à 3. En effet, si un ballast est ajouté par la suite, il peut rentrer en conflit avec les ballasts existants.
 {{% /notice %}}
 
-![module](/en/hardware/wago/images/daliconfiguratorparametres.png?width=20pc&classes=shadow)
+![module](/en/hardware/wago/images/daliconfiguratorparametres.jpg?width=20pc&classes=shadow)
 
 {{% notice note %}}
 La position de la borne ne correspond pas à la position de la carte sur le bus mais au nombre de carte DALI (1)
 {{% /notice %}}
 
-![module](/en/hardware/wago/images/daliconfiguratoradressage.png?width=20pc&classes=shadow)
+![module](/en/hardware/wago/images/daliconfiguratoradressage.jpg?width=20pc&classes=shadow)
 
-![module](/en/hardware/wago/images/daliconfiguratorpoweron.png?width=20pc&classes=shadow)
+![module](/en/hardware/wago/images/daliconfiguratorpoweron.jpg?width=20pc&classes=shadow)
 
-![module](/en/hardware/wago/images/daliconfiguratorwriteparam.png?width=20pc&classes=shadow)
+![module](/en/hardware/wago/images/daliconfiguratorwriteparam.jpg?width=20pc&classes=shadow)
 
 ##### Configuration dans Calaos Installer
 
@@ -86,7 +93,7 @@ Une fois dans Calaos Installer, il ne suffit pas d'ajouter des equipements Wago 
 
 Pour ca, il faut se connecter a l'automate avec calaos installer. Puis se rendre sur la page **Automate Wago** → **Upload Dali Master 647 Configuration**
 
-![pic](/en/hardware/wago/images/calaos_installer_dali_master.png?width=20pc&classes=shadow)
+![pic](/en/hardware/wago/images/calaos_installer_dali_master.jpg?width=20pc&classes=shadow)
 
 Dans cet outil dédié a la borne Dali Master, il faut lister tous les équipements Dali sur le bus ainsi que leur adresses respectivent. Le bouton **Load from PLC** va permettre de recharger une configuration stocké dans l'automate. Le bouton **Send to PLC** fera l'inverse et va envoyer la configuration dans l'automate. Un redemarrage de l'automate sera effectué automatiquement.
 
