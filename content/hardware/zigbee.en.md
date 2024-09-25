@@ -45,7 +45,7 @@ Zigbee devices can act as **routers** or **coordinators** to extend the network 
    The configuration file is located at:
 
    ```bash
-   /mnt/calaos/zigbee2mqtt/data/configuration.yaml
+   /mnt/calaos/zigbee2mqtt/configuration.yaml
    ```
 
    > You can edit this file using the `nano` command-line editor.
@@ -102,8 +102,8 @@ Zigbee devices can act as **routers** or **coordinators** to extend the network 
    Zigbee2MQTT is already included in **Calaos OS**. To activate it, execute the following command in your Calaos server terminal:
 
    ```bash
-   sudo systemctl enable zigbee2mqtt.service
-   sudo systemctl restart zigbee2mqtt.service
+   systemctl enable zigbee2mqtt.service
+   systemctl restart zigbee2mqtt.service
    ```
 
 3. **Restarting the Service**
@@ -111,7 +111,7 @@ Zigbee devices can act as **routers** or **coordinators** to extend the network 
    After modifying the configuration, restart the service to apply the changes:
 
    ```bash
-   sudo systemctl restart zigbee2mqtt.service
+   systemctl restart zigbee2mqtt.service
    ```
 
 ---

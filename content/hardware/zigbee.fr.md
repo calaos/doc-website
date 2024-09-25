@@ -45,7 +45,7 @@ Les dispositifs Zigbee peuvent agir en tant que **routeurs** ou **coordinateurs*
 Le fichier de configuration se trouve à l'emplacement :
 
 ```bash
-/mnt/calaos/zigbee2mqtt/data/configuration.yaml
+/mnt/calaos/zigbee2mqtt/configuration.yaml
 ```
 
 > Avec l'éditeur `nano` en ligne de commande il est possible d'éditer ce fichier.
@@ -102,8 +102,8 @@ Il faudra également modifier les paramètres MQTT si besoin, en particulier `us
 Zigbee2MQTT est déjà inclus dans **Calaos OS**. Pour l'activer, exécutez la commande suivante dans le terminal de votre serveur Calaos :
 
 ```bash
-sudo systemctl enable zigbee2mqtt.service
-sudo systemctl restart zigbee2mqtt.service
+systemctl enable zigbee2mqtt.service
+systemctl restart zigbee2mqtt.service
 ```
 
 3. **Redémarrage du Service**
@@ -111,7 +111,7 @@ sudo systemctl restart zigbee2mqtt.service
 Après avoir modifié la configuration, redémarrez le service pour appliquer les changements :
 
 ```bash
-sudo systemctl restart zigbee2mqtt.service
+systemctl restart zigbee2mqtt.service
 ```
 
 ---
