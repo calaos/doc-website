@@ -10,6 +10,8 @@ La carte **Waveshare ESP32-P4 Smart 86 Box** est un panneau mural tactile au for
 Vous pouvez l'acheter directement sur le site Waveshare (version avec port Ethernet + 2 relais recommandée pour Calaos) :
 👉 [Waveshare ESP32-P4 Smart 86 Box — version Ethernet + 2ch Relay](https://www.waveshare.com/esp32-p4-wifi6-touch-lcd-4b.htm?sku=31570)
 
+![Remote UI installé sur un mur](/en/hardware/remote_ui/images/IMG_7580.jpg?width=25pc&classes=shadow)
+
 ## Caractéristiques principales
 
 - **Format 86 mm** : s'encastre dans les boîtiers muraux standard de type 86 (boîte d'encastrement non fournie, profondeur minimale recommandée : 33 mm)

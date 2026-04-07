@@ -11,6 +11,8 @@ Calaos Remote UI is a system that allows **embedded touch screens** to connect d
 
 Screens automatically provision themselves on the Calaos server over Wi-Fi or Ethernet and communicate securely using HMAC-SHA256 authentication.
 
+![Remote UI in a living room](/en/hardware/remote_ui/images/IMG_7581.jpg?width=25pc&classes=shadow)
+
 ## Supported Hardware
 
 Calaos currently supports the **ESP32-P4 Smart 86 Box** board by Waveshare — a standard 86 mm wall panel with a 4-inch IPS touch display (720 × 720 pixels), powered by the high-performance ESP32-P4 microcontroller with Wi-Fi and Ethernet.

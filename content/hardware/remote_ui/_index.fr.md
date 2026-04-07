@@ -11,6 +11,8 @@ Calaos Remote UI est un système permettant de connecter des **écrans tactiles 
 
 Les écrans se provisionnent automatiquement sur le serveur Calaos via Wi-Fi ou Ethernet et communiquent de façon sécurisée grâce à une authentification HMAC-SHA256.
 
+![Remote UI dans un salon](/en/hardware/remote_ui/images/IMG_7581.jpg?width=25pc&classes=shadow)
+
 ## Carte supportée
 
 Calaos supporte actuellement la carte **ESP32-P4 Smart 86 Box** de Waveshare — un panneau 86 mm au format standard avec un écran IPS tactile 4 pouces (720 × 720 pixels), basé sur le microcontrôleur ESP32-P4 haute performance avec Wi-Fi et Ethernet.
