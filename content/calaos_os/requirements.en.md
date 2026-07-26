@@ -10,7 +10,7 @@ summary = "The hardware needed to run Calaos OS."
 To install Calaos OS you need:
 
 - **a PC-type computer** that will stay powered on permanently;
-- **a USB stick** of at least 4 GB, used for the installation;
+- **a USB stick** of at least 4 GB, used for the installation — **get a fast one**, see below;
 - **a network cable** to connect the computer to your router or switch.
 
 And optionally:
@@ -27,6 +27,14 @@ In practice, a **fanless mini PC** is the best choice for a permanent installati
 {{% notice tip %}}
 To simply try Calaos OS, you need no dedicated hardware at all: **Live** mode boots the system from the USB stick without installing anything, and without touching the computer's disk. See [Installation]({{% relref "calaos_os/installation" %}}).
 {{% /notice %}}
+
+## The USB stick
+
+Any stick of at least 4 GB will do, but **its speed determines how long your installation will take**.
+
+On the first boot, Calaos OS unpacks and installs all its services from the stick. On a fast stick this takes a few minutes; on a slow or low-end one, **it can take 30 to 60 minutes**.
+
+So get a **branded USB 3.0 stick**, and plug it preferably into a USB 3.0 port on the computer — often recognisable by its blue colour. You will save that time twice: when copying the image, then on the first boot.
 
 ## The disk
 

@@ -23,6 +23,22 @@ Find the symptom that most closely matches what you see, and follow the checks i
 
 ---
 
+## The first boot seems stuck
+
+You see the Calaos OS welcome screen and the message *"Calaos-OS is currently initializing. Please wait..."*, and nothing has happened for a long time.
+
+**This is normal, and you must not switch the machine off.** On the very first boot, Calaos OS unpacks and installs all its services. On a slow USB stick, this step can last **30 to 60 minutes**.
+
+Let it run. It only happens once: later boots are quick.
+
+If you did switch the machine off along the way, simply turn it back on — installing the services will resume.
+
+{{% notice tip %}}
+For next time: the duration depends almost entirely on the speed of your USB stick. A branded USB 3.0 stick brings this wait down to a few minutes. See [What do I need?]({{% relref "calaos_os/requirements" %}}).
+{{% /notice %}}
+
+---
+
 ## The server no longer boots since an update
 
 This is exactly the situation restore points exist for: your previous system is still there.

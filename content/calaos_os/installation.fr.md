@@ -13,7 +13,7 @@ L'installation se déroule en trois temps :
 2. vous démarrez l'ordinateur sur cette clé, ce qui vous permet d'essayer le système **sans rien installer** ;
 3. quand tout vous convient, vous installez sur le disque de l'ordinateur.
 
-Comptez une trentaine de minutes en tout, dont l'essentiel est du temps d'attente.
+L'essentiel du temps est de l'attente. Prévoyez large : le premier démarrage sur la clé peut à lui seul demander une heure si votre clé USB est lente (voir l'étape 4).
 
 ## 1. Préparer la clé USB
 
@@ -48,7 +48,23 @@ Une fois démarré sur la clé, un menu vous propose deux possibilités :
 
 Vous avez cinq secondes pour choisir avec les flèches du clavier, puis la touche Entrée. Sans intervention de votre part, le mode Live démarre.
 
-## 4. Essayer sans rien installer
+## 4. Le premier démarrage est long
+
+{{% notice warning %}}
+**Au tout premier démarrage sur la clé, Calaos OS doit décompresser et installer tous ses services. C'est long.**
+
+Un écran d'accueil s'affiche avec le message *« Calaos-OS is currently initializing. Please wait... »*. Comptez **plusieurs minutes** sur une clé rapide, et **jusqu'à 30 à 60 minutes sur une clé lente**.
+
+L'ordinateur n'est pas planté. Ne l'éteignez pas, ne le redémarrez pas : laissez-le terminer, même si rien ne semble bouger pendant un long moment.
+{{% /notice %}}
+
+Cette opération n'a lieu **qu'une seule fois**. Les démarrages suivants sur la clé sont rapides.
+
+{{% notice tip %}}
+La durée dépend presque entièrement de la vitesse de votre clé USB. Si vous devez en acheter une, prenez une clé USB 3.0 de marque : vous gagnerez l'essentiel de ce temps d'attente, ici comme au moment de la copie de l'image.
+{{% /notice %}}
+
+## 5. Essayer sans rien installer
 
 Le mode **Live** fait tourner un système Calaos OS complet depuis la clé USB.
 
@@ -58,9 +74,9 @@ Le mode **Live** fait tourner un système Calaos OS complet depuis la clé USB.
 
 C'est le moment idéal pour vérifier que votre matériel fonctionne : que la carte réseau est reconnue, que l'écran s'affiche correctement, que vos périphériques USB sont détectés.
 
-Vous pouvez même déjà configurer votre installation domotique — créer vos entrées/sorties, vos règles — car **cette configuration sera reprise lors de l'installation sur le disque** (voir l'étape 6).
+Vous pouvez même déjà configurer votre installation domotique — créer vos entrées/sorties, vos règles — car **cette configuration sera reprise lors de l'installation sur le disque** (voir l'étape 7).
 
-## 5. Installer sur le disque
+## 6. Installer sur le disque
 
 Deux façons de lancer l'installation, selon votre équipement.
 
@@ -80,7 +96,7 @@ Si vous répondez oui, la liste des disques de la machine s'affiche, avec pour c
 **Le disque que vous choisissez est entièrement effacé.** Tout ce qu'il contient est définitivement perdu. Vérifiez bien le modèle et la capacité affichés avant de valider, surtout si la machine contient plusieurs disques.
 {{% /notice %}}
 
-## 6. Patienter
+## 7. Patienter
 
 L'installation prépare le disque, y copie le système et met en place le démarrage. Elle enregistre aussi le premier point de restauration de votre serveur.
 
@@ -90,9 +106,17 @@ Cette étape dure plusieurs minutes. Ne coupez pas l'alimentation. Quand elle es
 **Votre configuration du mode Live est conservée.** Tout ce que vous avez configuré pendant l'essai — réglages Calaos, entrées/sorties, règles — se retrouve à l'identique sur le système installé. Vous ne recommencez pas de zéro.
 {{% /notice %}}
 
-## 7. Premier démarrage
+## 8. Premier démarrage
 
-L'ordinateur démarre désormais sur son disque. Le serveur Calaos se lance automatiquement, ainsi que les services complémentaires.
+L'ordinateur démarre désormais sur son disque.
+
+{{% notice warning %}}
+**Ce premier démarrage est long, lui aussi.** Le système réinstalle ses services sur le disque, exactement comme il l'avait fait sur la clé. Le même écran d'attente s'affiche.
+
+C'est en général plus rapide que sur la clé, le disque étant plus véloce, mais comptez tout de même plusieurs minutes. Là encore, laissez la machine terminer. Et là encore, cela n'arrive **qu'une fois**.
+{{% /notice %}}
+
+Une fois cette étape passée, le serveur Calaos se lance automatiquement, ainsi que les services complémentaires.
 
 Si un écran est branché, l'interface Calaos Home s'affiche. Sinon, le serveur est accessible depuis le réseau : c'est depuis Calaos Installer, sur votre ordinateur habituel, que vous allez le retrouver et lui envoyer votre configuration — voir [Envoyer le projet]({{% relref "getting_started/upload" %}}).
 

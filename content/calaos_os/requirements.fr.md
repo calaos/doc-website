@@ -10,7 +10,7 @@ summary = "Le matériel nécessaire pour faire tourner Calaos OS."
 Pour installer Calaos OS, il vous faut :
 
 - **un ordinateur** de type PC, qui restera allumé en permanence ;
-- **une clé USB** d'au moins 4 Go, qui servira à l'installation ;
+- **une clé USB** d'au moins 4 Go, qui servira à l'installation — **prenez-la rapide**, voir ci-dessous ;
 - **un câble réseau** pour relier l'ordinateur à votre box ou à votre switch.
 
 Et de façon optionnelle :
@@ -27,6 +27,14 @@ En pratique, un **mini-PC sans ventilateur** est le meilleur choix pour une inst
 {{% notice tip %}}
 Pour simplement essayer Calaos OS, vous n'avez besoin d'aucun matériel dédié : le mode **Live** permet de démarrer le système depuis la clé USB sans rien installer, et sans toucher au disque de l'ordinateur. Voir [Installation]({{% relref "calaos_os/installation" %}}).
 {{% /notice %}}
+
+## La clé USB
+
+N'importe quelle clé d'au moins 4 Go fera l'affaire, mais **sa vitesse détermine le temps que durera votre installation**.
+
+Au premier démarrage, Calaos OS décompresse et installe tous ses services depuis la clé. Sur une clé rapide, cela prend quelques minutes ; sur une clé lente ou d'entrée de gamme, **cela peut demander de 30 à 60 minutes**.
+
+Prenez donc une **clé USB 3.0 de marque**, et branchez-la de préférence sur un port USB 3.0 de l'ordinateur — souvent reconnaissable à sa couleur bleue. Vous gagnerez ce temps deux fois : à la copie de l'image, puis au premier démarrage.
 
 ## Le disque
 

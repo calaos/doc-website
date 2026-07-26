@@ -23,6 +23,22 @@ Cherchez le symptôme qui ressemble le plus à ce que vous constatez, et suivez 
 
 ---
 
+## Le premier démarrage semble bloqué
+
+Vous voyez l'écran d'accueil Calaos OS et le message *« Calaos-OS is currently initializing. Please wait... »*, et plus rien ne se passe depuis longtemps.
+
+**C'est normal, et il ne faut surtout pas éteindre la machine.** Au tout premier démarrage, Calaos OS décompresse et installe tous ses services. Sur une clé USB lente, cette étape peut durer **de 30 à 60 minutes**.
+
+Laissez faire. L'opération n'a lieu qu'une fois : les démarrages suivants sont rapides.
+
+Si vous avez éteint la machine en cours de route, rallumez-la simplement — l'installation des services reprendra.
+
+{{% notice tip %}}
+Pour la prochaine fois : la durée dépend presque entièrement de la vitesse de votre clé USB. Une clé USB 3.0 de marque ramène cette attente à quelques minutes. Voir [De quoi ai-je besoin ?]({{% relref "calaos_os/requirements" %}}).
+{{% /notice %}}
+
+---
+
 ## Le serveur ne démarre plus depuis une mise à jour
 
 C'est exactement la situation pour laquelle les points de restauration existent : votre système d'avant est toujours là.

@@ -13,7 +13,7 @@ The installation happens in three steps:
 2. you boot the computer from that stick, which lets you try the system **without installing anything**;
 3. when you are happy with it, you install onto the computer's disk.
 
-Allow about thirty minutes in total, most of which is waiting time.
+Most of the time is spent waiting. Allow plenty of it: the first boot from the stick alone can take an hour if your USB stick is slow (see step 4).
 
 ## 1. Prepare the USB stick
 
@@ -48,7 +48,23 @@ Once booted from the stick, a menu offers two options:
 
 You have five seconds to choose with the arrow keys, then Enter. If you do nothing, Live mode starts.
 
-## 4. Try without installing anything
+## 4. The first boot is slow
+
+{{% notice warning %}}
+**On the very first boot from the stick, Calaos OS has to unpack and install all its services. This takes a long time.**
+
+A welcome screen appears with the message *"Calaos-OS is currently initializing. Please wait..."*. Allow **several minutes** on a fast stick, and **up to 30 to 60 minutes on a slow one**.
+
+The computer has not crashed. Do not switch it off and do not restart it: let it finish, even if nothing seems to happen for a long while.
+{{% /notice %}}
+
+This only happens **once**. Later boots from the stick are quick.
+
+{{% notice tip %}}
+The duration depends almost entirely on the speed of your USB stick. If you need to buy one, get a branded USB 3.0 stick: you will save most of this waiting time, both here and when copying the image.
+{{% /notice %}}
+
+## 5. Try without installing anything
 
 **Live** mode runs a complete Calaos OS system from the USB stick.
 
@@ -58,9 +74,9 @@ You have five seconds to choose with the arrow keys, then Enter. If you do nothi
 
 This is the ideal moment to check that your hardware works: that the network card is recognised, that the screen displays correctly, that your USB devices are detected.
 
-You can even configure your home automation already — create your inputs/outputs and your rules — because **that configuration is carried over when you install onto the disk** (see step 6).
+You can even configure your home automation already — create your inputs/outputs and your rules — because **that configuration is carried over when you install onto the disk** (see step 7).
 
-## 5. Install onto the disk
+## 6. Install onto the disk
 
 There are two ways to start the installation, depending on your equipment.
 
@@ -80,7 +96,7 @@ If you answer yes, the list of disks in the machine is displayed, each with its 
 **The disk you choose is completely erased.** Everything it contains is permanently lost. Check the model and capacity displayed before confirming, especially if the machine holds several disks.
 {{% /notice %}}
 
-## 6. Wait
+## 7. Wait
 
 The installation prepares the disk, copies the system onto it and sets up booting. It also records the first restore point of your server.
 
@@ -90,9 +106,17 @@ This step takes several minutes. Do not cut the power. When it is finished, the 
 **Your Live mode configuration is kept.** Everything you configured during the trial — Calaos settings, inputs/outputs, rules — is found unchanged on the installed system. You are not starting from scratch.
 {{% /notice %}}
 
-## 7. First boot
+## 8. First boot
 
-The computer now boots from its disk. The Calaos server starts automatically, along with the additional services.
+The computer now boots from its disk.
+
+{{% notice warning %}}
+**This first boot is slow too.** The system reinstalls its services onto the disk, exactly as it did on the stick. The same waiting screen appears.
+
+It is usually quicker than on the stick, as the disk is faster, but still allow several minutes. Again, let the machine finish. And again, this only happens **once**.
+{{% /notice %}}
+
+Once that step is done, the Calaos server starts automatically, along with the additional services.
 
 If a screen is connected, the Calaos Home interface is displayed. Otherwise the server is reachable over the network: from Calaos Installer, on your everyday computer, you will find it and send it your configuration — see [Upload the project]({{% relref "getting_started/upload" %}}).
 
