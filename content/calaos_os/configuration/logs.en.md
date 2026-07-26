@@ -101,6 +101,34 @@ journalctl -u zigbee2mqtt
 
 See [Services and modules]({{% relref "calaos_os/containers" %}}).
 
+## Getting more detailed logs
+
+By default the Calaos server only records the essentials. When hunting for the cause of a specific problem, you can ask it to be far more talkative:
+
+```sh
+calaos_config set debug_enabled true
+calaos_config set debug_level 4
+systemctl restart calaos-server
+```
+
+You can also target a particular area, to avoid drowning in messages. Each area gets its own level:
+
+```sh
+calaos_config set debug_domains ota:5,remote_ui:5,remoteui:5
+```
+
+{{% notice warning %}}
+**Set this back to `false` once you are done diagnosing.** Detailed logs fill the disk quickly, and make ordinary logs much harder to read.
+
+```sh
+calaos_config set debug_enabled false
+systemctl restart calaos-server
+```
+
+{{% /notice %}}
+
+These settings are listed on the [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}) page.
+
 ## Going further
 
 Logs are stored in `/var/log`, which is **excluded from restore points**. Concretely: after a rollback, the logs of the incident are still there, and you can still understand what happened. See [Under the hood]({{% relref "calaos_os/advanced/btrfs" %}}).

@@ -29,7 +29,7 @@ Ces informations figurent dans l'aide de votre fournisseur, souvent sous l'intit
 Les réglages se définissent avec l'outil [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}) :
 
 ```sh
-calaos_config set smtp_server smtp.exemple.fr
+calaos_config set smtp_server smtp://smtp.exemple.fr
 calaos_config set smtp_port 587
 calaos_config set smtp_auth true
 calaos_config set smtp_tls true
@@ -41,7 +41,7 @@ Voici le rôle de chaque réglage :
 
 | Réglage | Rôle |
 |---|---|
-| `smtp_server` | Adresse du serveur d'envoi |
+| `smtp_server` | Adresse du serveur d'envoi, **précédée de `smtp://`** |
 | `smtp_port` | Port du serveur d'envoi |
 | `smtp_auth` | `true` si le serveur demande un identifiant et un mot de passe |
 | `smtp_tls` | `true` pour une connexion chiffrée |
@@ -92,3 +92,25 @@ C'est ce mécanisme qui permet de recevoir par email une image prise par une cam
 ## Utiliser l'email dans vos règles
 
 Une fois l'envoi configuré, vous pouvez déclencher des emails depuis vos règles domotiques. La création des règles est décrite dans [Règles]({{% relref "calaos_installer/rules" %}}), au chapitre Calaos Installer.
+
+## Être prévenu automatiquement
+
+Indépendamment de vos règles, le serveur peut vous alerter tout seul sur deux événements qui concernent vos équipements sans fil :
+
+```sh
+# Pile faible sur un équipement
+calaos_config set notif/battery_mail_enabled true
+calaos_config set notif/battery_push_enabled true
+
+# Équipement qui se connecte ou se déconnecte
+calaos_config set notif/io_connected_mail_enabled true
+calaos_config set notif/io_connected_push_enabled true
+```
+
+Les réglages `_mail_` envoient un email — et supposent donc la configuration ci-dessus — tandis que les réglages `_push_` envoient une notification sur votre téléphone. Vous pouvez activer l'un, l'autre, ou les deux.
+
+{{% notice tip %}}
+L'alerte de pile faible est celle qui rend le plus service : elle vous prévient avant qu'un détecteur cesse de fonctionner, plutôt que de vous laisser le découvrir le jour où vous en avez besoin.
+{{% /notice %}}
+
+Voir [Zigbee]({{% relref "hardware/zigbee" %}}) pour les équipements concernés.

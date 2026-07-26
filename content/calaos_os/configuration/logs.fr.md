@@ -101,6 +101,34 @@ journalctl -u zigbee2mqtt
 
 Voir [Services et modules]({{% relref "calaos_os/containers" %}}).
 
+## Obtenir des journaux plus détaillés
+
+Par défaut, le serveur Calaos ne consigne que l'essentiel. Quand on cherche la cause d'un problème précis, on peut lui demander d'être beaucoup plus bavard :
+
+```sh
+calaos_config set debug_enabled true
+calaos_config set debug_level 4
+systemctl restart calaos-server
+```
+
+Il est aussi possible de cibler un domaine particulier, pour éviter d'être noyé sous les messages. Chaque domaine reçoit son propre niveau :
+
+```sh
+calaos_config set debug_domains ota:5,remote_ui:5,remoteui:5
+```
+
+{{% notice warning %}}
+**Remettez ce réglage à `false` une fois le diagnostic terminé.** Les journaux détaillés remplissent le disque vite, et rendent la lecture des journaux ordinaires beaucoup plus pénible.
+
+```sh
+calaos_config set debug_enabled false
+systemctl restart calaos-server
+```
+
+{{% /notice %}}
+
+Ces réglages sont listés sur la page [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}).
+
 ## Pour aller plus loin
 
 Les journaux sont stockés dans `/var/log`, qui est **exclu des points de restauration**. Concrètement : après un retour en arrière, les journaux de l'incident sont toujours là, et vous pouvez encore comprendre ce qui s'est passé. Voir [Sous le capot]({{% relref "calaos_os/advanced/btrfs" %}}).

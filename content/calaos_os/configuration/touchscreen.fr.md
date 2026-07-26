@@ -114,10 +114,49 @@ Pour vérifier que le service tourne correctement :
 systemctl status usb-serial-touchscreen@ttyUSB0.service
 ```
 
+## Mise en veille de l'écran
+
+Un écran mural allumé en permanence s'use et éclaire la pièce la nuit. Calaos OS peut donc l'éteindre automatiquement après un moment sans utilisation, et le rallumer dès qu'on le touche.
+
+Ces réglages se font avec l'outil [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}) :
+
+```sh
+calaos_config set dpms_enable true
+calaos_config set dpms_standby 2
+```
+
+`dpms_enable` active la mise en veille, et `dpms_standby` définit le délai d'inactivité avant qu'elle se déclenche.
+
+Pour empêcher totalement l'écran de s'éteindre — utile pour un écran de supervision qui doit rester visible en permanence :
+
+```sh
+calaos_config set dpms_block true
+```
+
+## Le curseur de la souris
+
+Sur un écran purement tactile, la flèche de la souris n'a aucune utilité et traîne au milieu de l'affichage. Pour la masquer :
+
+```sh
+calaos_config set show_cursor false
+```
+
+Repassez la valeur à `true` si vous branchez une souris sur la machine.
+
+## Forcer la connexion à un serveur précis
+
+Par défaut, l'interface se connecte au serveur Calaos de la machine sur laquelle elle tourne. Vous pouvez lui indiquer un autre serveur, par exemple pour utiliser un écran déporté :
+
+```sh
+calaos_config set calaos_server_host ws://192.168.1.50:5454/api
+```
+
+Respectez bien cette forme : le préfixe `ws://`, l'adresse du serveur, le port `5454`, et le chemin `/api`.
+
 ## Pour aller plus loin
 
 Les réglages d'affichage et de calibration propres à votre installation sont conservés dans `/mnt/calaos/xorg.conf.d`. Ce dossier faisant partie de vos données, **son contenu survit aux mises à jour** — voir [Sauvegarder sa configuration]({{% relref "calaos_os/backup" %}}).
 
 {{% notice note %}}
-Les écrans tactiles étant très variés, certains réglages fins — rotation de l'affichage, mise en veille — dépendent du modèle que vous utilisez. Si vous rencontrez une difficulté avec un écran particulier, le forum Calaos est le meilleur endroit pour trouver une configuration déjà éprouvée.
+Les écrans tactiles étant très variés, certains réglages fins comme la rotation de l'affichage dépendent du modèle que vous utilisez. Si vous rencontrez une difficulté avec un écran particulier, le forum Calaos est le meilleur endroit pour trouver une configuration déjà éprouvée.
 {{% /notice %}}

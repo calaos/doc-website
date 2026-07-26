@@ -64,15 +64,75 @@ calaos_config del NOM_DU_RÉGLAGE
 
 Le réglage disparaît de la configuration, et le serveur reprend son comportement par défaut pour cette option.
 
-## Quelques clés utiles
+## Les réglages disponibles
 
-| Clé | Rôle | Page concernée |
-|---|---|---|
-| `cn_user` | Nom d'utilisateur de connexion au serveur | [Changer les mots de passe]({{% relref "calaos_os/security" %}}) |
-| `cn_pass` | Mot de passe de connexion au serveur | [Changer les mots de passe]({{% relref "calaos_os/security" %}}) |
-| `hwid` | Identifiant matériel de la machine, en lecture seule | — |
+### Connexion au serveur
 
-Les autres clés disponibles dépendent des fonctions que vous utilisez ; `calaos_config list` vous montre celles qui sont définies chez vous.
+| Clé | Rôle |
+|---|---|
+| `cn_user` | Nom d'utilisateur de connexion au serveur |
+| `cn_pass` | Mot de passe de connexion au serveur |
+
+Voir [Changer les mots de passe]({{% relref "calaos_os/security" %}}).
+
+### Position géographique
+
+| Clé | Rôle |
+|---|---|
+| `latitude` | Latitude de votre habitation |
+| `longitude` | Longitude de votre habitation |
+
+Ces deux valeurs permettent au serveur de calculer les heures de lever et de coucher du soleil, indispensables aux règles horaires qui en dépendent. Voir [Date & Heure]({{% relref "calaos_os/configuration/date" %}}).
+
+### Envoi d'emails
+
+| Clé | Rôle |
+|---|---|
+| `smtp_server` | Adresse du serveur d'envoi, sous la forme `smtp://serveur` |
+| `smtp_port` | Port du serveur d'envoi |
+| `smtp_auth` | `true` si le serveur demande une authentification |
+| `smtp_tls` | `true` pour une connexion chiffrée |
+| `smtp_username` | Identifiant |
+| `smtp_password` | Mot de passe |
+
+Voir [Email]({{% relref "calaos_os/configuration/email" %}}).
+
+### Notifications des équipements Zigbee
+
+| Clé | Rôle |
+|---|---|
+| `notif/battery_mail_enabled` | Prévenir par email quand une pile est faible |
+| `notif/battery_push_enabled` | Prévenir par notification mobile quand une pile est faible |
+| `notif/io_connected_mail_enabled` | Prévenir par email quand un équipement se connecte ou se déconnecte |
+| `notif/io_connected_push_enabled` | Prévenir par notification mobile quand un équipement se connecte ou se déconnecte |
+
+Toutes attendent `true` ou `false`. L'envoi d'emails suppose d'avoir configuré le serveur d'envoi au préalable. Voir [Zigbee]({{% relref "hardware/zigbee" %}}).
+
+### Interface Calaos Home
+
+| Clé | Rôle |
+|---|---|
+| `calaos_server_host` | Force l'interface à se connecter à un serveur précis, sous la forme `ws://adresse:5454/api` |
+| `show_cursor` | Affiche ou non le curseur de la souris à l'écran |
+| `dpms_enable` | Active la mise en veille automatique de l'écran |
+| `dpms_standby` | Délai avant la mise en veille |
+| `dpms_block` | Empêche la mise en veille de se déclencher |
+
+Voir [Écran tactile]({{% relref "calaos_os/configuration/touchscreen" %}}).
+
+### Journaux de diagnostic
+
+| Clé | Rôle |
+|---|---|
+| `debug_enabled` | Active les journaux détaillés du serveur |
+| `debug_level` | Niveau de détail global |
+| `debug_domains` | Niveau de détail par domaine, sous la forme `domaine:niveau,domaine:niveau` |
+
+À n'activer que le temps d'un diagnostic. Voir [Journaux]({{% relref "calaos_os/configuration/logs" %}}).
+
+---
+
+Cette liste couvre les réglages les plus courants. `calaos_config list` vous montre ceux qui sont réellement définis sur votre installation.
 
 {{% notice warning %}}
 **N'éditez pas les fichiers de configuration à la main** pendant que le serveur tourne. Vos modifications risquent d'être écrasées, et un fichier mal formé empêchera le serveur de démarrer. Passez toujours par `calaos_config`.

@@ -114,10 +114,49 @@ To check that the service runs correctly:
 systemctl status usb-serial-touchscreen@ttyUSB0.service
 ```
 
+## Screen sleep
+
+A wall screen left on permanently wears out and lights up the room at night. Calaos OS can therefore switch it off automatically after a while without use, and switch it back on as soon as it is touched.
+
+These settings are made with the [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}) tool:
+
+```sh
+calaos_config set dpms_enable true
+calaos_config set dpms_standby 2
+```
+
+`dpms_enable` turns sleep on, and `dpms_standby` sets the idle delay before it triggers.
+
+To stop the screen from ever switching off — useful for a supervision screen that must stay visible at all times:
+
+```sh
+calaos_config set dpms_block true
+```
+
+## The mouse cursor
+
+On a purely touch-driven screen, the mouse pointer is useless and sits in the middle of the display. To hide it:
+
+```sh
+calaos_config set show_cursor false
+```
+
+Set the value back to `true` if you connect a mouse to the machine.
+
+## Forcing the connection to a specific server
+
+By default the interface connects to the Calaos server on the machine it runs on. You can point it at another server, for instance to use a remote screen:
+
+```sh
+calaos_config set calaos_server_host ws://192.168.1.50:5454/api
+```
+
+Keep to this exact form: the `ws://` prefix, the server address, port `5454`, and the `/api` path.
+
 ## Going further
 
 The display and calibration settings specific to your installation are kept in `/mnt/calaos/xorg.conf.d`. As this folder is part of your data, **its contents survive updates** — see [Backing up your configuration]({{% relref "calaos_os/backup" %}}).
 
 {{% notice note %}}
-Touchscreens vary a great deal, so some fine settings — display rotation, sleep mode — depend on the model you use. If you run into difficulty with a particular screen, the Calaos forum is the best place to find a configuration that already works.
+Touchscreens vary a great deal, so some fine settings such as display rotation depend on the model you use. If you run into difficulty with a particular screen, the Calaos forum is the best place to find a configuration that already works.
 {{% /notice %}}

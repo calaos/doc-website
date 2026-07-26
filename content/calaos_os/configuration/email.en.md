@@ -29,7 +29,7 @@ This information is in your provider's help pages, often under a heading such as
 The settings are defined with the [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}) tool:
 
 ```sh
-calaos_config set smtp_server smtp.example.com
+calaos_config set smtp_server smtp://smtp.example.com
 calaos_config set smtp_port 587
 calaos_config set smtp_auth true
 calaos_config set smtp_tls true
@@ -41,7 +41,7 @@ Here is what each setting does:
 
 | Setting | Purpose |
 |---|---|
-| `smtp_server` | Address of the sending server |
+| `smtp_server` | Address of the sending server, **prefixed with `smtp://`** |
 | `smtp_port` | Port of the sending server |
 | `smtp_auth` | `true` if the server requires a user name and a password |
 | `smtp_tls` | `true` for an encrypted connection |
@@ -92,3 +92,25 @@ This is the mechanism that lets you receive a camera picture by email.
 ## Using email in your rules
 
 Once sending is configured, you can trigger emails from your automation rules. Creating rules is described in [Rules]({{% relref "calaos_installer/rules" %}}), in the Calaos Installer chapter.
+
+## Being warned automatically
+
+Independently of your rules, the server can alert you on its own about two events concerning your wireless devices:
+
+```sh
+# Low battery on a device
+calaos_config set notif/battery_mail_enabled true
+calaos_config set notif/battery_push_enabled true
+
+# Device connecting or disconnecting
+calaos_config set notif/io_connected_mail_enabled true
+calaos_config set notif/io_connected_push_enabled true
+```
+
+The `_mail_` settings send an email — and therefore assume the configuration above — while the `_push_` settings send a notification to your phone. You can enable either, or both.
+
+{{% notice tip %}}
+The low-battery alert is the most useful one: it warns you before a sensor stops working, rather than letting you find out on the day you need it.
+{{% /notice %}}
+
+See [Zigbee]({{% relref "hardware/zigbee" %}}) for the devices concerned.

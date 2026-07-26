@@ -62,6 +62,32 @@ timedatectl set-ntp true
 Si l'heure est systématiquement fausse après chaque coupure de courant, c'est souvent la **pile de la carte mère** qui est morte. C'est une pile bouton, peu coûteuse et facile à remplacer. La mise à l'heure automatique corrige le problème dès que le réseau est disponible, mais quelques minutes peuvent s'écouler avant.
 {{% /notice %}}
 
+## La position de votre habitation
+
+L'heure seule ne suffit pas pour savoir quand le soleil se lève : il faut aussi savoir **où vous êtes**. Sans cette information, les règles du type « fermer les volets au coucher du soleil » ne peuvent pas fonctionner correctement.
+
+Indiquez donc les coordonnées de votre habitation :
+
+```sh
+calaos_config set latitude 47.636507
+calaos_config set longitude 7.494156
+```
+
+Remplacez ces valeurs par les vôtres. Vous les obtiendrez facilement en cherchant votre adresse sur n'importe quelle carte en ligne : les deux nombres sont affichés, la latitude en premier.
+
+{{% notice tip %}}
+Une précision de quelques décimales est largement suffisante — inutile de viser le mètre près. En revanche, attention au **point décimal** : écrivez `47.636507` et non `47,636507`.
+{{% /notice %}}
+
+Pour vérifier ce qui est enregistré :
+
+```sh
+calaos_config get latitude
+calaos_config get longitude
+```
+
+L'utilisation du lever et du coucher du soleil dans vos règles est décrite dans [Gestion du temps]({{% relref "calaos_installer/time" %}}).
+
 ## Après un changement
 
 Redémarrez le serveur Calaos pour que le nouveau réglage soit pris en compte partout, ou redémarrez simplement la machine :

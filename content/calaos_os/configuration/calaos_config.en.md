@@ -64,15 +64,75 @@ calaos_config del SETTING_NAME
 
 The setting disappears from the configuration, and the server goes back to its default behaviour for that option.
 
-## A few useful keys
+## The available settings
 
-| Key | Purpose | Related page |
-|---|---|---|
-| `cn_user` | User name used to connect to the server | [Changing the passwords]({{% relref "calaos_os/security" %}}) |
-| `cn_pass` | Password used to connect to the server | [Changing the passwords]({{% relref "calaos_os/security" %}}) |
-| `hwid` | Hardware identifier of the machine, read-only | — |
+### Server connection
 
-The other available keys depend on the features you use; `calaos_config list` shows you the ones defined on your installation.
+| Key | Purpose |
+|---|---|
+| `cn_user` | User name used to connect to the server |
+| `cn_pass` | Password used to connect to the server |
+
+See [Changing the passwords]({{% relref "calaos_os/security" %}}).
+
+### Geographic position
+
+| Key | Purpose |
+|---|---|
+| `latitude` | Latitude of your home |
+| `longitude` | Longitude of your home |
+
+These two values let the server compute sunrise and sunset times, which are essential to the time rules that depend on them. See [Date & Time]({{% relref "calaos_os/configuration/date" %}}).
+
+### Sending emails
+
+| Key | Purpose |
+|---|---|
+| `smtp_server` | Address of the sending server, in the form `smtp://server` |
+| `smtp_port` | Port of the sending server |
+| `smtp_auth` | `true` if the server requires authentication |
+| `smtp_tls` | `true` for an encrypted connection |
+| `smtp_username` | User name |
+| `smtp_password` | Password |
+
+See [Email]({{% relref "calaos_os/configuration/email" %}}).
+
+### Zigbee device notifications
+
+| Key | Purpose |
+|---|---|
+| `notif/battery_mail_enabled` | Warn by email when a battery runs low |
+| `notif/battery_push_enabled` | Warn by mobile notification when a battery runs low |
+| `notif/io_connected_mail_enabled` | Warn by email when a device connects or disconnects |
+| `notif/io_connected_push_enabled` | Warn by mobile notification when a device connects or disconnects |
+
+All of them expect `true` or `false`. Sending emails requires the sending server to be configured first. See [Zigbee]({{% relref "hardware/zigbee" %}}).
+
+### Calaos Home interface
+
+| Key | Purpose |
+|---|---|
+| `calaos_server_host` | Forces the interface to connect to a specific server, in the form `ws://address:5454/api` |
+| `show_cursor` | Whether the mouse cursor is displayed on screen |
+| `dpms_enable` | Enables automatic screen sleep |
+| `dpms_standby` | Delay before the screen goes to sleep |
+| `dpms_block` | Prevents the screen from ever going to sleep |
+
+See [Touchscreen]({{% relref "calaos_os/configuration/touchscreen" %}}).
+
+### Diagnostic logs
+
+| Key | Purpose |
+|---|---|
+| `debug_enabled` | Enables the server's detailed logs |
+| `debug_level` | Global level of detail |
+| `debug_domains` | Level of detail per domain, in the form `domain:level,domain:level` |
+
+Only enable these while diagnosing a problem. See [Logs]({{% relref "calaos_os/configuration/logs" %}}).
+
+---
+
+This list covers the most common settings. `calaos_config list` shows you the ones actually defined on your installation.
 
 {{% notice warning %}}
 **Do not edit the configuration files by hand** while the server is running. Your changes may be overwritten, and a malformed file will prevent the server from starting. Always go through `calaos_config`.
