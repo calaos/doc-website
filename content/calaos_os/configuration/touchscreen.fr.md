@@ -122,10 +122,10 @@ Ces réglages se font avec l'outil [calaos_config]({{% relref "calaos_os/configu
 
 ```sh
 calaos_config set dpms_enable true
-calaos_config set dpms_standby 2
+calaos_config set dpms_standby 120
 ```
 
-`dpms_enable` active la mise en veille, et `dpms_standby` définit le délai d'inactivité avant qu'elle se déclenche.
+`dpms_enable` active la mise en veille, et `dpms_standby` définit le délai d'inactivité avant qu'elle se déclenche, **exprimé en secondes**. Dans l'exemple ci-dessus, l'écran s'éteint après deux minutes sans utilisation.
 
 Pour empêcher totalement l'écran de s'éteindre — utile pour un écran de supervision qui doit rester visible en permanence :
 

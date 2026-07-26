@@ -115,7 +115,7 @@ Toutes attendent `true` ou `false`. L'envoi d'emails suppose d'avoir configuré 
 | `calaos_server_host` | Force l'interface à se connecter à un serveur précis, sous la forme `ws://adresse:5454/api` |
 | `show_cursor` | Affiche ou non le curseur de la souris à l'écran |
 | `dpms_enable` | Active la mise en veille automatique de l'écran |
-| `dpms_standby` | Délai avant la mise en veille |
+| `dpms_standby` | Délai avant la mise en veille, en secondes |
 | `dpms_block` | Empêche la mise en veille de se déclencher |
 
 Voir [Écran tactile]({{% relref "calaos_os/configuration/touchscreen" %}}).
