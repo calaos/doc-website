@@ -89,8 +89,9 @@ Connectez-vous en SSH et regardez ce qui a échoué :
 
 ```sh
 systemctl --failed
-podman ps
 ```
+
+Cette commande couvre **tous** les services, y compris ceux des équipements Zigbee, MQTT ou des historiques.
 
 Puis consultez les journaux du service concerné, comme décrit dans [Journaux]({{% relref "calaos_os/configuration/logs" %}}).
 

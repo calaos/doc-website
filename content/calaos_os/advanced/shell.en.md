@@ -80,11 +80,13 @@ journalctl -b               # logs of the last boot
 
 See [Logs]({{% relref "calaos_os/configuration/logs" %}}).
 
-### Additional services
+### Containers
+
+Containerised services are driven with `systemctl`, like all the others. Podman only gives a complementary view, handy for diagnosis:
 
 ```sh
 podman ps                   # running containers
-podman logs NAME            # logs of a container
+podman images               # images available locally
 ```
 
 See [Services and modules]({{% relref "calaos_os/containers" %}}).

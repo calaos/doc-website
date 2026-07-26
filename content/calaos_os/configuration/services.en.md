@@ -60,15 +60,20 @@ systemctl --failed
 
 If this command returns nothing, all is well.
 
-## The additional services
+## One single way to do things, for every service
 
-The additional services (MQTT, Zigbee, history, graphs…) run in containers. To see which ones are active:
+The additional services (MQTT, Zigbee, history, graphs…) run in containers, but **that changes nothing for you**: they are driven by the system like all the others.
+
+In other words, `systemctl` sees and manages them in exactly the same way, and the commands on this page apply to them without distinction:
 
 ```sh
-podman ps
+systemctl status zigbee2mqtt
+systemctl restart zigbee2mqtt
 ```
 
-They are presented in detail on the [Services and modules]({{% relref "calaos_os/containers" %}}) page.
+So there are not two sets of commands to remember depending on the service.
+
+These services are presented in detail on the [Services and modules]({{% relref "calaos_os/containers" %}}) page.
 
 ## Restart a service
 

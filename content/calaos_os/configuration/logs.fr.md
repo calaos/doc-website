@@ -9,6 +9,8 @@ summary = "Consulter les journaux du système pour comprendre un problème."
 
 Le système note en permanence ce qu'il fait dans des **journaux**. Quand quelque chose ne fonctionne pas, c'est là que se trouve l'explication : quel service a échoué, à quel moment, et pourquoi.
 
+Tout y est regroupé, quel que soit le service concerné : une seule commande, `journalctl`, permet de tout consulter.
+
 Vous n'avez pas besoin de tout comprendre. Repérer le moment du problème et copier les quelques lignes correspondantes suffit largement pour demander de l'aide.
 
 Cette page se consulte en SSH (voir [Accès SSH]({{% relref "calaos_os/advanced/shell" %}})).
@@ -91,13 +93,13 @@ Relisez ce que vous publiez : les journaux peuvent contenir des adresses, des no
 
 ## Les journaux des services complémentaires
 
-Les services qui tournent en containers ont leurs propres journaux :
+Rien de particulier à retenir : les services qui tournent en containers écrivent dans le même journal que le reste du système. La commande vue plus haut fonctionne pour eux à l'identique :
 
 ```sh
-podman logs NOM_DU_CONTAINER
+journalctl -u zigbee2mqtt
 ```
 
-La liste des containers s'obtient avec `podman ps`. Voir [Services et modules]({{% relref "calaos_os/containers" %}}).
+Voir [Services et modules]({{% relref "calaos_os/containers" %}}).
 
 ## Pour aller plus loin
 

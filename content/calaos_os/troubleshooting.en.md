@@ -89,8 +89,9 @@ Connect over SSH and look at what failed:
 
 ```sh
 systemctl --failed
-podman ps
 ```
+
+This command covers **every** service, including those for Zigbee devices, MQTT or the history.
 
 Then check the logs of the service concerned, as described in [Logs]({{% relref "calaos_os/configuration/logs" %}}).
 

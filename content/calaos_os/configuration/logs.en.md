@@ -9,6 +9,8 @@ summary = "Reading the system logs to understand a problem."
 
 The system permanently records what it does in **logs**. When something does not work, that is where the explanation is: which service failed, when, and why.
 
+Everything is gathered in one place, whichever service is involved: a single command, `journalctl`, lets you read it all.
+
 You do not need to understand everything. Spotting the moment of the problem and copying the few matching lines is more than enough to ask for help.
 
 This page is used over SSH (see [SSH access]({{% relref "calaos_os/advanced/shell" %}})).
@@ -91,13 +93,13 @@ Read what you publish: logs can contain addresses, device names, sometimes crede
 
 ## Logs of the additional services
 
-Services running in containers have their own logs:
+Nothing special to remember: services running in containers write to the same journal as the rest of the system. The command shown above works for them identically:
 
 ```sh
-podman logs CONTAINER_NAME
+journalctl -u zigbee2mqtt
 ```
 
-The list of containers is obtained with `podman ps`. See [Services and modules]({{% relref "calaos_os/containers" %}}).
+See [Services and modules]({{% relref "calaos_os/containers" %}}).
 
 ## Going further
 

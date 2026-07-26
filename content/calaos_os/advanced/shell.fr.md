@@ -80,11 +80,13 @@ journalctl -b               # journaux du dernier démarrage
 
 Voir [Journaux]({{% relref "calaos_os/configuration/logs" %}}).
 
-### Services complémentaires
+### Containers
+
+Les services en containers se pilotent avec `systemctl`, comme tous les autres. Podman n'offre qu'une vue complémentaire, pratique pour du diagnostic :
 
 ```sh
-podman ps                   # containers actifs
-podman logs NOM             # journaux d'un container
+podman ps                   # containers en cours d'exécution
+podman images               # images disponibles localement
 ```
 
 Voir [Services et modules]({{% relref "calaos_os/containers" %}}).

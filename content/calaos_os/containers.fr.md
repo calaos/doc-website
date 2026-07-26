@@ -30,15 +30,26 @@ Vous n'avez rien à installer : ils sont déjà là. Certains ne servent que si 
 | Envoy | Récupère les données des onduleurs solaires Enphase | [Enphase]({{% relref "hardware/enphase" %}}) |
 | HAProxy | Aiguille les connexions réseau entrantes vers le bon service | — |
 
-## Voir ce qui tourne
+## Ils se gèrent comme les autres services
 
-Connectez-vous au serveur en SSH (voir [Accès SSH]({{% relref "calaos_os/advanced/shell" %}})), puis :
+{{% notice info %}}
+**Le fait qu'ils tournent dans des containers ne change rien à leur utilisation.** Chacun est piloté par le système au même titre que les autres services : vous les démarrez, les arrêtez et consultez leur état avec les mêmes commandes.
+{{% /notice %}}
+
+Connectez-vous au serveur en SSH (voir [Accès SSH]({{% relref "calaos_os/advanced/shell" %}})), puis utilisez `systemctl` comme pour n'importe quel service :
 
 ```sh
-podman ps
+systemctl status zigbee2mqtt
+systemctl restart zigbee2mqtt
 ```
 
-La liste affiche les services actifs, avec leur nom et depuis combien de temps ils tournent.
+Pour voir l'ensemble des services actifs, y compris ceux-ci :
+
+```sh
+systemctl list-units --type=service
+```
+
+Tout cela est détaillé sur la page [Services]({{% relref "calaos_os/configuration/services" %}}).
 
 Pour connaître les versions installées et savoir si des mises à jour existent :
 
@@ -88,16 +99,32 @@ Le dossier `zigbee2mqtt` mérite une attention particulière : il contient la li
 
 ## Quand un service ne fonctionne plus
 
-Consultez d'abord ses journaux, qui indiquent presque toujours la cause :
+Consultez d'abord son état et ses journaux, qui indiquent presque toujours la cause :
 
 ```sh
-podman logs NOM_DU_SERVICE
+systemctl status NOM_DU_SERVICE
+journalctl -u NOM_DU_SERVICE
 ```
+
+Ces commandes fonctionnent pour ces services comme pour tous les autres.
 
 Voir aussi [Journaux]({{% relref "calaos_os/configuration/logs" %}}) et [Services]({{% relref "calaos_os/configuration/services" %}}).
 
 ## Pour aller plus loin
 
 Les services s'exécutent avec **Podman**, une alternative à Docker qui n'a pas besoin de service central pour fonctionner.
+
+Chaque container est décrit par une unité systemd, ce qui explique qu'ils se pilotent tous avec `systemctl` : pour le système, un container est un service comme un autre.
+
+C'est aussi pourquoi **`journalctl` voit les journaux de tous les services**, containers compris : inutile de passer par Podman pour les lire.
+
+Si vous voulez regarder les choses depuis l'angle des containers plutôt que des services, Podman offre ses propres commandes :
+
+```sh
+podman ps                   # containers en cours d'exécution
+podman images               # images disponibles localement
+```
+
+Elles donnent une vue complémentaire, utile pour du diagnostic fin, mais ne remplacent ni `systemctl` pour démarrer et arrêter un service, ni `journalctl` pour consulter ses journaux.
 
 Les images des services sont décrites par des fichiers `.source` rangés dans `/usr/share/calaos/`. Lors de l'installation, elles sont exportées vers un cache local, dans `/var/lib/cache/containers` : c'est ce qui permet à votre serveur de démarrer une première fois **sans accès à Internet**.
