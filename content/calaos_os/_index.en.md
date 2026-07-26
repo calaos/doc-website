@@ -5,8 +5,12 @@ weight = 40
 chapter = true
 +++
 
-### Chapter X
+### The system
 
-# Some Chapter title
+# Calaos OS
 
-Lorem Ipsum.
+Calaos OS is the complete system you install on the computer that will run your home. Everything is already included: the Calaos server, the additional services and the configuration tools. There is nothing else to install.
+
+This chapter covers the whole life cycle of your server: installing it, updating it, rolling back if needed, backing up your configuration and solving common problems.
+
+{{% children description="true" %}}
