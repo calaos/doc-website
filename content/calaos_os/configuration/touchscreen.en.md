@@ -122,15 +122,15 @@ These settings are made with the [calaos_config]({{% relref "calaos_os/configura
 
 ```sh
 calaos_config set dpms_enable true
-calaos_config set dpms_standby 120
+calaos_config set dpms_standby 2
 ```
 
-`dpms_enable` turns sleep on, and `dpms_standby` sets the idle delay before it triggers, **expressed in seconds**. In the example above, the screen switches off after two minutes without use.
+`dpms_enable` turns sleep on, and `dpms_standby` sets the idle delay before it triggers, **expressed in minutes**. In the example above, the screen switches off after two minutes without use.
 
-To stop the screen from ever switching off — useful for a supervision screen that must stay visible at all times:
+To stop the screen from switching off — useful for a supervision screen that must stay visible at all times — simply disable sleep:
 
 ```sh
-calaos_config set dpms_block true
+calaos_config set dpms_enable false
 ```
 
 ## The mouse cursor

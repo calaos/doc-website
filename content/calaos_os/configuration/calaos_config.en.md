@@ -115,8 +115,7 @@ All of them expect `true` or `false`. Sending emails requires the sending server
 | `calaos_server_host` | Forces the interface to connect to a specific server, in the form `ws://address:5454/api` |
 | `show_cursor` | Whether the mouse cursor is displayed on screen |
 | `dpms_enable` | Enables automatic screen sleep |
-| `dpms_standby` | Delay before the screen goes to sleep, in seconds |
-| `dpms_block` | Prevents the screen from ever going to sleep |
+| `dpms_standby` | Delay before the screen goes to sleep, in minutes |
 
 See [Touchscreen]({{% relref "calaos_os/configuration/touchscreen" %}}).
 
