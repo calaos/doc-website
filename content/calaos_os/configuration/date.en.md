@@ -66,6 +66,12 @@ If the time is systematically wrong after every power cut, the **motherboard bat
 
 Time alone is not enough to know when the sun rises: you also need to know **where you are**. Without that information, rules such as "close the shutters at sunset" cannot work correctly.
 
+{{% notice warning %}}
+**The default coordinates are those of Paris.** If you do not live nearby, your shutters will close at the Parisian sunset, with an offset that can reach a good half hour at the far ends of the country — and much more abroad.
+
+This is a setting to make once and for all, and one that is easily forgotten since nothing flags the mistake.
+{{% /notice %}}
+
 So set the coordinates of your home:
 
 ```sh

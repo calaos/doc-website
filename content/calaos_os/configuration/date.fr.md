@@ -66,6 +66,12 @@ Si l'heure est systématiquement fausse après chaque coupure de courant, c'est 
 
 L'heure seule ne suffit pas pour savoir quand le soleil se lève : il faut aussi savoir **où vous êtes**. Sans cette information, les règles du type « fermer les volets au coucher du soleil » ne peuvent pas fonctionner correctement.
 
+{{% notice warning %}}
+**Les coordonnées par défaut sont celles de Paris.** Si vous n'habitez pas à proximité, vos volets se fermeront au coucher du soleil parisien, avec un décalage qui peut atteindre une bonne demi-heure aux extrémités du pays — et bien davantage à l'étranger.
+
+C'est un réglage à faire une fois pour toutes, et qu'on oublie facilement puisque rien ne signale l'erreur.
+{{% /notice %}}
+
 Indiquez donc les coordonnées de votre habitation :
 
 ```sh

@@ -127,6 +127,8 @@ calaos_config set dpms_standby 2
 
 `dpms_enable` active la mise en veille, et `dpms_standby` définit le délai d'inactivité avant qu'elle se déclenche, **exprimé en minutes**. Dans l'exemple ci-dessus, l'écran s'éteint après deux minutes sans utilisation.
 
+La mise en veille est **désactivée par défaut**. Si vous l'activez sans préciser de délai, l'écran s'éteint au bout d'une minute.
+
 Pour empêcher l'écran de s'éteindre — utile pour un écran de supervision qui doit rester visible en permanence — désactivez simplement la mise en veille :
 
 ```sh
@@ -145,13 +147,28 @@ Repassez la valeur à `true` si vous branchez une souris sur la machine.
 
 ## Forcer la connexion à un serveur précis
 
-Par défaut, l'interface se connecte au serveur Calaos de la machine sur laquelle elle tourne. Vous pouvez lui indiquer un autre serveur, par exemple pour utiliser un écran déporté :
+Par défaut, l'interface **cherche toute seule** un serveur Calaos sur le réseau local et s'y connecte. Dans la grande majorité des cas, vous n'avez donc rien à configurer.
+
+Si la détection automatique ne convient pas — plusieurs serveurs sur le même réseau, ou écran déporté qui doit viser une machine précise — indiquez l'adresse du serveur :
 
 ```sh
-calaos_config set calaos_server_host ws://192.168.1.50:5454/api
+calaos_config set calaos_server_host 192.168.1.50
 ```
 
-Respectez bien cette forme : le préfixe `ws://`, l'adresse du serveur, le port `5454`, et le chemin `/api`.
+Une adresse IP suffit. Vous pouvez aussi donner une adresse complète si votre installation le nécessite, par exemple pour passer par une connexion chiffrée :
+
+```sh
+calaos_config set calaos_server_host wss://mamaison.calaos.fr/api
+```
+
+{{% notice note %}}
+Dès que ce réglage est renseigné, **la détection automatique est désactivée** : l'interface ne se connectera qu'au serveur indiqué. Pour revenir au comportement normal, supprimez le réglage :
+
+```sh
+calaos_config del calaos_server_host
+```
+
+{{% /notice %}}
 
 ## Pour aller plus loin
 

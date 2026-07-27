@@ -112,7 +112,7 @@ Toutes attendent `true` ou `false`. L'envoi d'emails suppose d'avoir configuré 
 
 | Clé | Rôle |
 |---|---|
-| `calaos_server_host` | Force l'interface à se connecter à un serveur précis, sous la forme `ws://adresse:5454/api` |
+| `calaos_server_host` | Force l'interface à se connecter à un serveur précis, et désactive la détection automatique. Une adresse IP suffit |
 | `show_cursor` | Affiche ou non le curseur de la souris à l'écran |
 | `dpms_enable` | Active la mise en veille automatique de l'écran |
 | `dpms_standby` | Délai avant la mise en veille, en minutes |

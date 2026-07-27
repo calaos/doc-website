@@ -112,7 +112,7 @@ All of them expect `true` or `false`. Sending emails requires the sending server
 
 | Key | Purpose |
 |---|---|
-| `calaos_server_host` | Forces the interface to connect to a specific server, in the form `ws://address:5454/api` |
+| `calaos_server_host` | Forces the interface to connect to a specific server, and disables automatic discovery. An IP address is enough |
 | `show_cursor` | Whether the mouse cursor is displayed on screen |
 | `dpms_enable` | Enables automatic screen sleep |
 | `dpms_standby` | Delay before the screen goes to sleep, in minutes |

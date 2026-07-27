@@ -127,6 +127,8 @@ calaos_config set dpms_standby 2
 
 `dpms_enable` turns sleep on, and `dpms_standby` sets the idle delay before it triggers, **expressed in minutes**. In the example above, the screen switches off after two minutes without use.
 
+Sleep is **disabled by default**. If you enable it without setting a delay, the screen switches off after one minute.
+
 To stop the screen from switching off — useful for a supervision screen that must stay visible at all times — simply disable sleep:
 
 ```sh
@@ -145,13 +147,28 @@ Set the value back to `true` if you connect a mouse to the machine.
 
 ## Forcing the connection to a specific server
 
-By default the interface connects to the Calaos server on the machine it runs on. You can point it at another server, for instance to use a remote screen:
+By default the interface **finds a Calaos server on its own** on the local network and connects to it. In the vast majority of cases there is therefore nothing to configure.
+
+If automatic discovery does not suit you — several servers on the same network, or a remote screen that must target one specific machine — give the server address:
 
 ```sh
-calaos_config set calaos_server_host ws://192.168.1.50:5454/api
+calaos_config set calaos_server_host 192.168.1.50
 ```
 
-Keep to this exact form: the `ws://` prefix, the server address, port `5454`, and the `/api` path.
+An IP address is enough. You can also give a full address if your setup requires it, for instance to go through an encrypted connection:
+
+```sh
+calaos_config set calaos_server_host wss://myhome.calaos.fr/api
+```
+
+{{% notice note %}}
+As soon as this setting is filled in, **automatic discovery is disabled**: the interface will only connect to the server given. To go back to the normal behaviour, delete the setting:
+
+```sh
+calaos_config del calaos_server_host
+```
+
+{{% /notice %}}
 
 ## Going further
 
