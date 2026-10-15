@@ -298,6 +298,18 @@ void when(Rule *r, IOBase *in, const char *oper, const QString &val)
     r->AddCondition(c);
 }
 
+//The "Condition on output event" kind: the only one that can read a relay.
+void whenOutput(Rule *r, IOBase *out, const char *oper, const QString &val)
+{
+    if (!out)
+        return;
+    Condition *c = new Condition(COND_OUTPUT);
+    c->setOutput(out);
+    c->setOutputOper(oper);
+    c->setOutputParam(s(val));
+    r->AddCondition(c);
+}
+
 void then(Rule *r, IOBase *out, const QString &val)
 {
     if (!out)
@@ -458,17 +470,20 @@ void buildHouse(const QString &demoDir)
     when(r, ioById("salon_temp"), "<", "10");
     then(r, clim, R"({"mode":"heat","target_temp":17})");
 
-    const QList<QPair<QString, Device *>> thermostats = {
-        { "Radiateur bureau", radiateur }, { "PAC cuisine", pac }, { "Plancher séjour", plancher } };
-    for (const auto &t: thermostats)
+    //Zone valve outputs of the three thermostats: what the regulation actually drives.
+    const QList<QPair<QString, QString>> zoneOutputs = {
+        { "Relais radiateur bureau", "bureau_radiateur" }, { "PAC cuisine chaud", "cuisine_pac_chaud" },
+        { "PAC cuisine froid", "cuisine_pac_froid" }, { "Plancher chaud", "plancher_chaud" },
+        { "Plancher froid", "plancher_froid" } };
+    for (const auto &o: zoneOutputs)
     {
-        r = rule("Circulateur : " + t.first + " chauffe");
-        when(r, ioById(linkOf(t.second, "action")), "==", "heating");
+        r = rule("Circulateur : " + o.first + " allumé");
+        whenOutput(r, ioById(o.second.toStdString()), "==", "true");
         then(r, circulateur, "true");
     }
-    r = rule("Circulateur : plus aucun thermostat ne chauffe");
-    for (const auto &t: thermostats)
-        when(r, ioById(linkOf(t.second, "action")), "!=", "heating");
+    r = rule("Circulateur : toutes les zones éteintes");
+    for (const auto &o: zoneOutputs)
+        whenOutput(r, ioById(o.second.toStdString()), "==", "false");
     then(r, circulateur, "false");
 
     QDir().mkpath(demoDir);
@@ -650,7 +665,7 @@ void shootMainWindow(const QString &demoDir)
     }
 
     home->collapseAll();
-    if (showRule("Circulateur : plus aucun thermostat ne chauffe"))
+    if (showRule("Circulateur : toutes les zones éteintes"))
     {
         if (QTreeWidgetItem *tech = findItem(home, "Technique"))
         {

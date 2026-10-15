@@ -9,7 +9,7 @@ summary = "IO possédés, liens, paramètres, capacités : comment Calaos repré
 
 Une clim ESPHome publie une vingtaine de valeurs en MQTT : mode, température mesurée, consigne, ventilation, oscillation, état de la connexion... Sans autre outil, il faut créer chacune de ces valeurs comme un IO MQTT, les retrouver ensuite dans l'arborescence, et ne rien oublier à la suppression.
 
-Un **device** règle ce problème : c'est un objet qui regroupe tous les IO d'un même appareil. Il est créé en une fois depuis un modèle (voir [Créer un device]({{% relref "climate/templates" %}})), il s'affiche comme **un seul équipement** dans toutes les interfaces, et il disparaît **avec tous ses IO** quand on le supprime.
+Un **device** règle ce problème : c'est un objet qui regroupe tous les IO d'un même appareil. Il est créé en une fois depuis un modèle (voir [Créer un device]({{% relref "calaos_installer/devices/templates" %}})), il s'affiche comme **un seul équipement** dans toutes les interfaces, et il disparaît **avec tous ses IO** quand on le supprime.
 
 Calaos connaît pour l'instant une famille de devices, le **climat** (`climate`), avec deux comportements :
 
@@ -36,13 +36,13 @@ Un **lien** donne un **rôle** à un IO : « cet IO est la température de la pi
 | `target_temp_low`, `target_temp_high` | consigne basse et haute (plage du mode `auto`) |
 | `action` | ce que fait l'appareil : chauffe, refroidit, au repos... |
 | `fan_mode`, `swing_mode` | ventilation et oscillation |
-| `remote_temp`, `remote_temp_source` | température de pièce relayée à la clim (voir [Clim ESPHome]({{% relref "climate/esphome" %}})) |
+| `remote_temp`, `remote_temp_source` | température de pièce relayée à la clim (voir [Clim ESPHome]({{% relref "hardware/esphome_climate" %}})) |
 | `humidity` | humidité de la pièce |
 | `output_heat`, `output_cool` | relais de chauffage et de refroidissement d'un thermostat |
 
 ### Les paramètres
 
-Un **paramètre** est un réglage du device : hystérésis, durées minimales de marche et d'arrêt, modes proposés, délai avant de déclarer une sonde muette... Les valeurs par défaut viennent du modèle ; l'[éditeur de device]({{% relref "climate/templates" %}}) permet de les changer après coup.
+Un **paramètre** est un réglage du device : hystérésis, durées minimales de marche et d'arrêt, modes proposés, délai avant de déclarer une sonde muette... Les valeurs par défaut viennent du modèle ; l'[éditeur de device]({{% relref "calaos_installer/devices/templates" %}}) permet de les changer après coup.
 
 ## Les capacités viennent des liens
 
@@ -72,7 +72,7 @@ Qu'elle vienne d'une règle, d'un script Lua, d'une application ou de l'assistan
 
 Seuls les champs présents sont appliqués. Chaque champ est vérifié par rapport aux capacités de l'instance : un champ qui n'existe pas, une valeur hors liste sont **refusés et journalisés**, et les autres champs sont appliqués quand même. Les nombres sont ramenés dans les bornes et arrondis au pas.
 
-Dans Calaos Installer, une action de règle qui cible un device affiche un **formulaire** à la place du texte libre (voir [Règles de chauffage]({{% relref "climate/rules" %}})).
+Dans Calaos Installer, une action de règle qui cible un device affiche un **formulaire** à la place du texte libre (voir [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}})).
 
 ## Ce que ça donne dans io.xml
 

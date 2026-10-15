@@ -9,13 +9,13 @@ summary = "Calaos regulates: hysteresis, minimum times, safeties (silent sensor,
 
 The internal thermostat (`thermostat`) is for installations where **nothing regulates for you**: electric radiators behind a relay, a floor heating valve, a boiler with a contact, a heat pump driven on dry contacts. Calaos reads a temperature sensor, compares it to the setpoint, and switches one or two relays.
 
-If the appliance has its own regulation (split air conditioner, ESPHome heat pump), prefer the relayed kind: see [ESPHome air conditioner]({{% relref "climate/esphome" %}}).
+If the appliance has its own regulation (split air conditioner, ESPHome heat pump), prefer the relayed kind: see [ESPHome air conditioner]({{% relref "hardware/esphome_climate" %}}).
 
 ## What the thermostat does, and what stays in your rules
 
 The **regulation** lives in the thermostat and cannot be changed: it reacts to every change of temperature, setpoint, mode and humidity, and to its timers.
 
-The **policy** stays in your rules: night setback, away mode, open window, schedules. They write the thermostat's setpoint or mode, as they would for any IO. The thermostat has no scheduler of its own; see [Heating rules]({{% relref "climate/rules" %}}).
+The **policy** stays in your rules: night setback, away mode, open window, schedules. They write the thermostat's setpoint or mode, as they would for any IO. The thermostat has no scheduler of its own; see [Heating rules]({{% relref "calaos_installer/rules_heating" %}}).
 
 ## Regulation
 
@@ -84,10 +84,10 @@ A reading outside the bounds counts as **no valid reading**: the outputs are swi
 
 A relay linked as heating or cooling output belongs to **one** thermostat only. Two thermostats writing the same relay would fight: one turns it on, the other off. Calaos therefore refuses the second link at load (a message in the log), and the wizard does not offer an output that is already taken.
 
-![An output already taken, refused by the editor](/en/climate/images/inst-output-refused.png?width=30pc&classes=shadow)
+![An output already taken, refused by the editor](/en/calaos_installer/devices/images/inst-output-refused.png?width=30pc&classes=shadow)
 *A relay already used by another thermostat is refused.*
 
-For multi-zone heating sharing a boiler or a circulator, create **one output per zone** (a valve or relay per thermostat), and **one rule** that turns the common output on as soon as a zone is heating. See the example in [Heating rules]({{% relref "climate/rules" %}}).
+For multi-zone heating sharing a boiler or a circulator, create **one output per zone** (a valve or relay per thermostat), and **one rule** that turns the common output on as soon as a zone output is on. See the example in [Heating rules]({{% relref "calaos_installer/rules_heating" %}}).
 
 ## Outputs are protected
 
@@ -97,4 +97,4 @@ To switch a thermostat off, write its **mode** (`off`), never its relay.
 
 ## The thermostat in the interfaces
 
-The displayed status combines the action (heating, cooling, idle), the minimum-time lock-out and the faults above: see [Display and control]({{% relref "climate/clients" %}}).
+The displayed status combines the action (heating, cooling, idle), the minimum-time lock-out and the faults above: see [Display and control]({{% relref "calaos_installer/devices/clients" %}}).

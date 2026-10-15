@@ -93,6 +93,8 @@ Les règles prennent toute leur puissance en s'appuyant sur les autres objets du
 
 **Alerte** — condition : la sonde de congélateur dépasse un seuil. Actions : notification et email.
 
+Pour les thermostats et les clims, voir [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}) : consigne programmée, absence, fenêtre ouverte, hors-gel, circulateur commun.
+
 ## Les pièges courants
 
 **La règle qui se déclenche en boucle.** Si une règle modifie une IO qui figure dans ses propres conditions, elle peut se rappeler indéfiniment. Utilisez une variable interne pour mémoriser que l'action a déjà eu lieu.

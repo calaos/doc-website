@@ -5,7 +5,7 @@
 set -euo pipefail
 here=$(cd "$(dirname "$0")" && pwd)
 tree=$(cd "${1:?usage: run.sh <web-app-tree> [out-dir]}" && pwd)
-out=${2:-$here/../../../content/climate/images}
+out=${2:-$here/../../../content/calaos_installer/devices/images}
 work=$(mktemp -d "${TMPDIR:-/tmp}/doc5-web-XXXXXX")
 trap 'rm -rf "$work"' EXIT
 

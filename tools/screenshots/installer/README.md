@@ -17,7 +17,7 @@
 ./run.sh <calaos_installer tree> [images dir] [build dir]
 ```
 
-Images default to `content/climate/images/` of this doc tree, the build to
+Images default to `content/calaos_installer/devices/images/` of this doc tree, the build to
 `$TMPDIR/calaos-installer-doc-shots` (qmake6 and `make -j32`; `QMAKE`, `JOBS` override).
 Settings go to the build dir, never to the user's. It exits non-zero and lists what went wrong
 when a field, template, IO or widget is missing in the tree. `demo/` is rewritten on each run;
@@ -40,7 +40,7 @@ First run against calaos_installer `master` 3950fd2 (INST-4, INST-5, INST-7, INS
 | inst-device-editor.png | Device editor of Clim salon (links, params, owned IOs), full height |
 | inst-rule-complete.png | Rule "Bureau : confort en journée" in the main window |
 | inst-action-form.png | Its action opened: generated form (mode + consigne) of Radiateur bureau |
-| inst-rule-circulator.png | Rule "Circulateur : plus aucun thermostat ne chauffe" (3 conditions) |
+| inst-rule-circulator.png | Rule "Circulateur : toutes les zones éteintes" (5 conditions) |
 
 The device ids are the wizard's (`clim_salon`, `clim_chambre`, `radiateur_bureau`, `pac_cuisine`,
 `plancher_sejour`), not the fixture ids of `DEMO_HOUSE.md`. Hosts are 127.0.0.1 (MQTT) and

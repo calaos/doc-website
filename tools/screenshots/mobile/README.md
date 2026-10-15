@@ -4,7 +4,7 @@
 
 Example (writes straight into the documentation):
 
-    tools/screenshots/mobile/capture.sh /path/to/calaos_mobile content/climate/images
+    tools/screenshots/mobile/capture.sh /path/to/calaos_mobile content/calaos_installer/devices/images
 
 The script builds the repo's own Qt Quick Test harness (`tests/tst_climatewidget`, qmake6 + make in the build
 dir, default `/tmp/doc5-mobile-build`; nothing is written in the source tree) and runs two capture test files

@@ -9,13 +9,13 @@ summary = "Calaos régule : hystérésis, durées minimales, sûretés (sonde mu
 
 Le thermostat interne (`thermostat`) est fait pour les installations où **rien ne régule à votre place** : des radiateurs électriques derrière un relais, une vanne de plancher chauffant, une chaudière avec un contact, une pompe à chaleur pilotée sur contacts secs. Calaos lit une sonde de température, compare à la consigne, et commute un ou deux relais.
 
-Si l'appareil possède sa propre régulation (clim split, pompe à chaleur ESPHome), préférez le mode relayé : voir [Clim ESPHome]({{% relref "climate/esphome" %}}).
+Si l'appareil possède sa propre régulation (clim split, pompe à chaleur ESPHome), préférez le mode relayé : voir [Clim ESPHome]({{% relref "hardware/esphome_climate" %}}).
 
 ## Ce que le thermostat fait, et ce qui reste à vos règles
 
 La **régulation** est dans le thermostat et ne se modifie pas : elle réagit à chaque changement de la température, de la consigne, du mode et de l'humidité, ainsi qu'à ses minuteurs.
 
-La **politique** reste à vos règles : abaissement de nuit, absence, fenêtre ouverte, programmation horaire. Elles écrivent la consigne ou le mode du thermostat, comme elles le feraient pour n'importe quel IO. Le thermostat n'a pas de planificateur interne ; voir [Règles de chauffage]({{% relref "climate/rules" %}}).
+La **politique** reste à vos règles : abaissement de nuit, absence, fenêtre ouverte, programmation horaire. Elles écrivent la consigne ou le mode du thermostat, comme elles le feraient pour n'importe quel IO. Le thermostat n'a pas de planificateur interne ; voir [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}).
 
 ## La régulation
 
@@ -84,10 +84,10 @@ Une lecture hors bornes compte comme **une absence de lecture valide** : les sor
 
 Un relais lié comme sortie de chauffage ou de refroidissement appartient à **un seul** thermostat. Deux thermostats qui écrivent le même relais se battraient : l'un l'allume, l'autre l'éteint. Calaos refuse donc le second lien au chargement (un message dans le journal), et l'assistant d'installation ne propose pas une sortie déjà prise.
 
-![Sortie déjà prise, refusée par l'éditeur](/en/climate/images/inst-output-refused.png?width=30pc&classes=shadow)
+![Sortie déjà prise, refusée par l'éditeur](/en/calaos_installer/devices/images/inst-output-refused.png?width=30pc&classes=shadow)
 *Un relais déjà utilisé par un autre thermostat est refusé.*
 
-Pour un chauffage à plusieurs zones qui partagent une chaudière ou un circulateur, on crée **une sortie par zone** (une vanne ou un relais par thermostat), et **une règle** qui allume la sortie commune dès qu'une zone chauffe. Voir l'exemple dans [Règles de chauffage]({{% relref "climate/rules" %}}).
+Pour un chauffage à plusieurs zones qui partagent une chaudière ou un circulateur, on crée **une sortie par zone** (une vanne ou un relais par thermostat), et **une règle** qui allume la sortie commune dès qu'une sortie de zone est allumée. Voir l'exemple dans [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}).
 
 ## Les sorties sont protégées
 
@@ -97,4 +97,4 @@ Pour couper un thermostat, écrivez son **mode** (`off`), jamais son relais.
 
 ## Le thermostat dans les interfaces
 
-Le statut affiché combine l'action (chauffe, refroidit, en veille), le verrou de durée minimale et les défauts ci-dessus : voir [Afficher et régler]({{% relref "climate/clients" %}}).
+Le statut affiché combine l'action (chauffe, refroidit, en veille), le verrou de durée minimale et les défauts ci-dessus : voir [Afficher et régler]({{% relref "calaos_installer/devices/clients" %}}).

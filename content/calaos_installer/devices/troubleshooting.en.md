@@ -37,7 +37,7 @@ A device missing from this output is not loaded or not visible (see below). A de
 The device reads its mode on the topic `<prefix>/climate/<id>/mode/state`. Nothing arrives:
 
 1. Listen with `mosquitto_sub -v -t '<prefix>/#'`. If the module publishes nothing, the problem is on the ESPHome side (Wi-Fi, broker, `topic_prefix`).
-2. If the module publishes, compare the **prefix** and the entity **id** with the device's (device editor, "mode" IO, `topic_sub` field). A typo or confusing the module name with the entity name is the most frequent cause: see [ESPHome air conditioner]({{% relref "climate/esphome" %}}).
+2. If the module publishes, compare the **prefix** and the entity **id** with the device's (device editor, "mode" IO, `topic_sub` field). A typo or confusing the module name with the entity name is the most frequent cause: see [ESPHome air conditioner]({{% relref "hardware/esphome_climate" %}}).
 3. Check "Two setpoints": if the module publishes `target_temperature_low/state` and `target_temperature_high/state`, the device must have two setpoints; if it publishes `target_temperature/state`, one.
 4. Check that the device's broker, port, user and password are the module's.
 5. Restart the module so that it republishes its state.
@@ -48,7 +48,7 @@ The device is "offline" when the `<prefix>/status` topic is not `online`. ESPHom
 
 ## "Sensor silent", "Sensor disconnected"... on a thermostat
 
-These are safeties, not thermostat failures: see the table in [Internal thermostat]({{% relref "climate/thermostat" %}}). Check the linked sensor (value, connection); as soon as it delivers a valid reading, regulation resumes by itself.
+These are safeties, not thermostat failures: see the table in [Internal thermostat]({{% relref "calaos_installer/devices/thermostat" %}}). Check the linked sensor (value, connection); as soon as it delivers a valid reading, regulation resumes by itself.
 
 ## The thermostat does not heat
 

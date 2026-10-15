@@ -44,8 +44,8 @@ Time ranges: "Bureau occupé" (Mon-Fri 07:30-18:00), "Nuit" (22:00-06:30).
 | Fenêtre bureau ouverte | `bureau_fenetre` == true | `bureau_heat` = `off` |
 | Fenêtre bureau fermée | `bureau_fenetre` == false | `bureau_heat` = `heat` |
 | Hors-gel : nuit d'hiver | "Nuit" true AND `salon_temp` < 10 | `salon_ac` = `{"mode":"heat","target_temp":17}` |
-| Circulateur : un thermostat chauffe (x3, one per thermostat) | `<thermostat action IO>` == `heating` | `circulateur` = true |
-| Circulateur : plus aucun thermostat ne chauffe | the 3 action IOs != `heating` | `circulateur` = false |
+| Circulateur : `<zone output>` allumé (x5: bureau_radiateur, cuisine_pac_chaud, cuisine_pac_froid, plancher_chaud, plancher_froid) | `<zone output>` == true | `circulateur` = true |
+| Circulateur : toutes les zones éteintes | the 5 zone outputs == false | `circulateur` = false |
 
 (The installer produces the real `io.xml`/`rules.xml` from these tables with its own wizard and rule editor;
 web, mobile and panel use fixtures that follow spec section 5.3 for the same devices.)

@@ -2,7 +2,7 @@
 
     PLAYWRIGHT_BROWSERS_PATH=<dir with chromium> ./run.sh <calaos-web-app checkout> [out-dir]
 
-`out-dir` defaults to `content/climate/images`. The script builds the app into a temp dir (the tree's committed
+`out-dir` defaults to `content/calaos_installer/devices/images`. The script builds the app into a temp dir (the tree's committed
 `dist/` is untouched), generates the demo-house fixtures (`make-fixtures.mjs`, following DEMO_HOUSE.md and the
 wire format of spec 5.3), starts a copy of the tree's mock server and `vite preview` on ports 5601/4601
 (`MOCK_PORT`, `APP_PORT`), and drives Chromium (`shoot.mjs`). Nothing in the app tree is modified.

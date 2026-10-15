@@ -5,7 +5,7 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="${1:?usage: run.sh SRC_TREE [IMAGES_DIR]}"
-IMAGES="${2:-$HERE/../../../content/climate/images}"
+IMAGES="${2:-$HERE/../../../content/calaos_installer/devices/images}"
 WORK="${SIM_WORK:-/tmp/doc5-rui-work}"
 export SIM_BUILD_ROOT="${SIM_BUILD_ROOT:-$WORK/build}"
 SC="$WORK/scenarios"
