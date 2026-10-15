@@ -3,7 +3,10 @@
 // dialog and the shipped French templates; the project is then saved, reopened in the
 // real MainWindow and captured there.
 //
-//   installer_shots --out <images dir> --demo <dir for io.xml/rules.xml> [--qt-qm <qtbase_fr.qm>]
+//   installer_shots --out <images dir> --demo <dir for io.xml/rules.xml> [--zones] [--qt-qm <qtbase_fr.qm>]
+//
+// --zones adds the second house (reversible floor, heat pump contacts, domestic hot water), which
+// needs the "Reversible floor zone" template: a calaos_installer tree whose data/doc ships it.
 
 #include <QApplication>
 #include <QCheckBox>
@@ -21,18 +24,27 @@
 #include <QPainter>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QScrollBar>
 #include <QSplitter>
 #include <QTimer>
+#include <QToolBox>
 #include <QToolButton>
 #include <QTranslator>
 #include <QTreeWidget>
 #include <QTreeWidgetItemIterator>
 #include <QtTest/QTest>
 
+#ifdef QT_MQTT_AVAILABLE
+#include <QSignalSpy>
+#include "WidgetEsphomeDiscovery.h"
+#include "FakeMqttBroker.h"
+#endif
 #include "AppTheme.h"
 #include "ConfigOptions.h"
 #include "DeviceTemplates.h"
 #include "DialogEditDevice.h"
+#include "dialogioproperties.h"
+#include "Device.h"
 #include "DialogNewDevice.h"
 #include "FormActionStd.h"
 #include "formrules.h"
@@ -203,8 +215,8 @@ void setMulti(QWidget *d, const QString &name, const QStringList &picked)
             fail(QStringLiteral("%1 has no choice %2").arg(name, p));
 }
 
-// The whole form, neither scroll bar nor empty space below it.
-void fitScroll(QDialog *d, int width)
+// The whole form: neither scroll bar nor empty space below it.
+void fitScroll(QDialog *d, int width, bool again = true)
 {
     d->resize(width, 680);
     d->show();
@@ -212,22 +224,32 @@ void fitScroll(QDialog *d, int width)
     QScrollArea *scroll = d->findChild<QScrollArea *>();
     if (!scroll || !scroll->widget())
         return;
-    for (int i = 0;i < 4;i++)
+    int stable = 0;
+    for (int i = 0;i < 12 && stable < 2;i++)
     {
         QWidget *form = scroll->widget();
         const int vw = scroll->viewport()->width();
         const int need = form->hasHeightForWidth() ? form->heightForWidth(vw) : form->sizeHint().height();
         const int diff = need - scroll->viewport()->height();
-        if (qAbs(diff) < 2)
-            break;
-        d->resize(d->width(), d->height() + diff);
-        settle();
+        // A label wider than the dialog: widen it rather than cut the text.
+        const int overflow = scroll->horizontalScrollBar()->isVisible() ? scroll->horizontalScrollBar()->maximum() : 0;
+        stable = qAbs(diff) < 2 && !overflow ? stable + 1 : 0;
+        if (!stable)
+        {
+            d->resize(d->width() + overflow, d->height() + diff);
+            settle();
+        }
+        else
+            settle();
     }
+    // Laid out again from the width it needed: heights then follow the real wrapping.
+    if (again && d->width() != width)
+        fitScroll(d, d->width(), false);
 }
 
-void fitWizard(DialogNewDevice *d)
+void fitWizard(DialogNewDevice *d, int width = 660)
 {
-    fitScroll(d, 660);
+    fitScroll(d, width);
 }
 
 void clickCreate(DialogNewDevice *d)
@@ -237,7 +259,7 @@ void clickCreate(DialogNewDevice *d)
 }
 
 Device *runWizard(const QString &tpl, Room *room, const QString &shot,
-                  const std::function<void(DialogNewDevice *)> &fill)
+                  const std::function<void(DialogNewDevice *)> &fill, int width = 660)
 {
     DialogNewDevice d(DeviceTemplates::load("fr"), room);
     if (!d.selectTemplate(tpl))
@@ -246,7 +268,7 @@ Device *runWizard(const QString &tpl, Room *room, const QString &shot,
         return nullptr;
     }
     fill(&d);
-    fitWizard(&d);
+    fitWizard(&d, width);
     if (!shot.isEmpty())
         save(d.grab(), shot);
     clickCreate(&d);
@@ -679,6 +701,383 @@ void shootMainWindow(const QString &demoDir)
     w.findChild<FormRules *>()->setProjectModified(false);
 }
 
+// ---- ESPHome discovery panel (needs Qt MQTT, like the application) --------------------
+
+#ifdef QT_MQTT_AVAILABLE
+void shootDiscovery()
+{
+    FakeMqttBroker broker;
+    //A module publishing under clim_salon, a second one, and the retained states of a node that is gone.
+    broker.retained = {
+        { "esphome/discover/clim-salon", R"({"name":"clim-salon","friendly_name":"Clim salon","ip":"192.168.1.42"})" },
+        { "clim_salon/status", "online" },
+        { "clim_salon/climate/clim_salon/mode/state", "heat_cool" },
+        { "clim_salon/climate/clim_salon/target_temperature_low/state", "19.5" },
+        { "clim_salon/climate/clim_salon/target_temperature_high/state", "24.5" },
+        { "clim_salon/climate/clim_salon/current_temperature/state", "19.2" },
+        { "clim_salon/climate/clim_salon/action/state", "heating" },
+        { "clim_salon/climate/clim_salon/fan_mode/state", "auto" },
+        { "clim_salon/climate/clim_salon/swing_mode/state", "off" },
+        { "clim_buanderie/climate/clim_buanderie/mode/state", "cool" },
+        { "clim_buanderie/climate/clim_buanderie/target_temperature/state", "22" },
+        { "esphome/discover/clim-veranda", R"({"name":"clim-veranda","friendly_name":"Clim véranda","ip":"192.168.1.43"})" },
+        { "clim-veranda/status", "online" },
+        { "clim-veranda/climate/clim_veranda/mode/state", "cool" },
+        { "clim-veranda/climate/clim_veranda/target_temperature/state", "24" },
+        { "clim-veranda/climate/clim_veranda/current_temperature/state", "25.1" } };
+    const quint16 port = broker.start();
+
+    Room *salon = ListeRoom::Instance().get_room(0);
+    DialogNewDevice d(DeviceTemplates::load("fr"), salon);
+    if (!d.selectTemplate("esphome_climate"))
+        return fail("esphome_climate not shipped");
+    d.show();
+    QTest::qWaitForWindowExposed(&d);
+    settle();
+
+    WidgetEsphomeDiscovery *panel = d.findChild<WidgetEsphomeDiscovery *>("discoveryBox");
+    QLineEdit *host = d.findChild<QLineEdit *>("discoveryHost");
+    QPushButton *button = d.findChild<QPushButton *>("discoveryButton");
+    QTreeWidget *list = d.findChild<QTreeWidget *>("discoveryList");
+    if (!panel || !host || !button || !list)
+        return fail("the discovery panel is missing");
+
+    setNumber(&d, "mqtt_port", port);
+    host->setText("127.0.0.1");
+    panel->setTimings(300, 2000);
+    QSignalSpy done(panel, &WidgetEsphomeDiscovery::searchFinished);
+    button->click();
+    if (!done.wait(10000))
+        return fail("the discovery search did not finish");
+    settle();
+    if (list->topLevelItemCount() != 3)
+        fail(QStringLiteral("%1 climates listed, 3 expected").arg(list->topLevelItemCount()));
+
+    // The broker as the user's network names it, not this process.
+    host->setText("192.168.1.10");
+    setNumber(&d, "mqtt_port", 1883);
+    setText(&d, "mqtt_host", "192.168.1.10");
+    fitWizard(&d);
+    const QPixmap found = d.grab();
+    save(found.copy(0, 0, found.width(), qMin(found.height(), 330)), "inst-discovery-found");
+
+    for (int i = 0;i < list->topLevelItemCount();i++)
+        if (list->topLevelItem(i)->text(2) == "clim_salon")
+            list->setCurrentItem(list->topLevelItem(i));
+    setNumber(&d, "mqtt_port", 1883);
+    setText(&d, "mqtt_host", "192.168.1.10");
+    fitWizard(&d);
+    save(d.grab(), "inst-discovery-filled");
+    d.reject();
+}
+#endif
+
+// ---- The second house: reversible floor, heat pump contacts, hot water ------------------
+
+struct Zone
+{
+    QString key, room, name;
+    bool cool;
+};
+
+QList<Zone> zones()
+{
+    return { { "sejour", "Séjour", "séjour", true },
+             { "cuisine", "Cuisine", "cuisine", true },
+             { "bureau", "Bureau", "bureau", true },
+             { "parents", "Chambre parents", "chambre parents", true },
+             { "chambre1", "Chambre 1", "chambre 1", true },
+             { "chambre2", "Chambre 2", "chambre 2", true },
+             { "sdb", "Salle de bain", "salle de bain", false },
+             { "entree", "Entrée", "entrée", false },
+             { "buanderie", "Buanderie", "buanderie", false } };
+}
+
+void setDeviceParam(Device *dev, const char *name, const char *value)
+{
+    for (auto &p: dev->deviceParams())
+    {
+        if (p.first == name)
+        {
+            p.second = value;
+            return;
+        }
+    }
+    dev->deviceParams().push_back({ name, value });
+}
+
+bool buildFloorHouse(const QString &demoDir)
+{
+    ListeRule::Instance().clear();
+    ListeRoom::Instance().clear();
+
+    Room *technique = addRoom("Technique", "cave");
+    Room *maison = addRoom("Maison", "divers");
+    QHash<QString, Room *> rooms;
+    for (const Zone &z: zones())
+    {
+        const char *type = z.key == "sejour" ? "sam" : z.key == "cuisine" ? "cuisine" : z.key == "bureau" ? "bureau"
+                           : z.key.startsWith("chambre") || z.key == "parents" ? "chambre" : "divers";
+        rooms[z.key] = addRoom(z.room, type);
+    }
+
+    int var = 10;
+    for (const Zone &z: zones())
+    {
+        mqttTemp(rooms[z.key], "temp_" + z.key, "Température " + z.name, "maison/" + z.key + "/temperature");
+        wagoRelay(rooms[z.key], "vanne_" + z.key, "Vanne plancher " + z.name, var++);
+    }
+    mqttHumidity(rooms["sejour"], "hum_sejour", "Humidité séjour", "maison/sejour/humidite");
+
+    IOBase *chaud = wagoRelay(technique, "pac_demande_chaud", "PAC demande chaud", 30);
+    IOBase *froid = wagoRelay(technique, "pac_demande_froid", "PAC demande froid", 31);
+    IOBase *mode = input(maison, { { "type", "InternalInt" }, { "id", "mode_plancher" }, { "name", "Mode plancher" },
+                                   { "save", "true" }, { "value", "0" } });
+
+    QHash<QString, Device *> devs;
+    for (const Zone &z: zones())
+    {
+        QString shot;
+        if (z.key == "sejour")
+            shot = "inst-wizard-floor-zone";
+        else if (z.key == "sdb")
+            shot = "inst-wizard-floor-zone-heat";
+        devs[z.key] = runWizard("thermostat_floor_zone", rooms[z.key], shot, [&](DialogNewDevice *d)
+        {
+            setText(d, "name", "Plancher " + z.name);
+            choose(d, "current_temp", "temp_" + z.key);
+            choose(d, "output", "vanne_" + z.key);
+            setMulti(d, "modes", z.cool ? QStringList { "off", "heat", "cool" } : QStringList { "off", "heat" });
+            if (z.key == "sejour")
+            {
+                choose(d, "humidity", "hum_sejour");
+                setNumber(d, "humidity_max", 60);
+            }
+        });
+        if (!devs[z.key])
+            return false;
+    }
+
+    // Domestic hot water: its own sensor and relay, no link with the zones.
+    input(technique, { { "type", "WITemp" }, { "id", "ecs_temp" }, { "name", "Température ballon ECS" },
+                       { "host", "192.168.1.20" }, { "port", "502" }, { "var", "20" } });
+    wagoRelay(technique, "ecs_relais", "Relais ECS", 32);
+    Device *ecs = runWizard("thermostat_heat", technique, "inst-wizard-dhw", [](DialogNewDevice *d)
+    {
+        setText(d, "name", "Eau chaude sanitaire");
+        choose(d, "current_temp", "ecs_temp");
+        choose(d, "output_heat", "ecs_relais");
+        choose(d, "emitter", "water_radiator");
+    }, 770);
+    if (!ecs)
+        return false;
+    setDeviceParam(ecs, "hysteresis", "3");
+    setDeviceParam(ecs, "valid_min", "5");
+    setDeviceParam(ecs, "valid_max", "95");
+    for (IOBase *io: ecs->ownedIos())
+    {
+        if (io->get_param("id").find("target_temp") != std::string::npos)
+        {
+            io->set_param("value", "55");
+            io->set_param("value_max", "65");
+        }
+    }
+
+    // The global mode drives the zones.
+    Rule *r = rule("Plancher : arrêt général");
+    when(r, mode, "==", "0");
+    for (const Zone &z: zones())
+        then(r, devs[z.key], "off");
+
+    r = rule("Plancher : mode chaud");
+    when(r, mode, "==", "1");
+    for (const Zone &z: zones())
+        then(r, devs[z.key], "heat");
+
+    r = rule("Plancher : mode froid");
+    when(r, mode, "==", "2");
+    for (const Zone &z: zones())
+        then(r, devs[z.key], z.cool ? "cool" : "off");
+
+    // The valves ask the heat pump, the global mode says which contact.
+    for (const Zone &z: zones())
+    {
+        IOBase *vanne = ioById(("vanne_" + z.key).toStdString());
+        r = rule("PAC chaud : vanne " + z.name + " ouverte");
+        whenOutput(r, vanne, "==", "true");
+        when(r, mode, "==", "1");
+        then(r, froid, "false");
+        then(r, chaud, "true");
+
+        if (!z.cool)
+            continue;
+        r = rule("PAC froid : vanne " + z.name + " ouverte");
+        whenOutput(r, vanne, "==", "true");
+        when(r, mode, "==", "2");
+        then(r, chaud, "false");
+        then(r, froid, "true");
+    }
+    r = rule("PAC : toutes les vannes fermées");
+    for (const Zone &z: zones())
+        whenOutput(r, ioById(("vanne_" + z.key).toStdString()), "==", "false");
+    then(r, chaud, "false");
+    then(r, froid, "false");
+
+    // A zone set by hand to the other direction goes back to the global mode.
+    for (const Zone &z: zones())
+    {
+        if (z.cool)
+        {
+            r = rule("Plancher " + z.name + " : retour en chaud");
+            whenOutput(r, devs[z.key], "==", "cool");
+            when(r, mode, "==", "1");
+            then(r, devs[z.key], "heat");
+        }
+        r = rule("Plancher " + z.name + " : retour en froid");
+        whenOutput(r, devs[z.key], "==", "heat");
+        when(r, mode, "==", "2");
+        then(r, devs[z.key], z.cool ? "cool" : "off");
+    }
+
+    QDir().mkpath(demoDir);
+    QString io = QDir(demoDir).filePath("io.xml"), rules = QDir(demoDir).filePath("rules.xml");
+    if (!ProjectManager::saveIOsToFile(io) || !ProjectManager::saveRulesToFile(rules))
+        fail("cannot save the floor project in " + demoDir);
+    return true;
+}
+
+void shootFloorWindow(const QString &demoDir)
+{
+    ListeRule::Instance().clear();
+    ListeRoom::Instance().clear();
+
+    MainWindow w;
+    w.resize(1400, 860);
+    w.move(0, 0);
+    w.show();
+    QTest::qWaitForWindowExposed(&w);
+    const QString shown = QDir::tempPath() + "/maison-plancher";
+    QDir().mkpath(shown);
+    for (const char *f: { "io.xml", "rules.xml" })
+    {
+        QFile::remove(QDir(shown).filePath(f));
+        QFile::copy(QDir(demoDir).filePath(f), QDir(shown).filePath(f));
+    }
+    w.Load(shown);
+    w.ShowPage(PAGE_PROG);
+    settle();
+
+    FormRules *rules = w.findChild<FormRules *>();
+    QTreeWidget *home = w.findChild<QTreeWidget *>("tree_home");
+    QTreeWidget *ruleTree = w.findChild<QTreeWidget *>("tree_rules");
+    if (!rules || !home || !ruleTree)
+        return fail("FormRules widgets not found");
+    home->setAnimated(false);
+
+    auto deviceNamed = [](const QString &name) -> Device *
+    {
+        for (int i = 0;i < ListeRoom::Instance().size();i++)
+            for (Device *d: ListeRoom::Instance().get_room(i)->get_devices())
+                if (d->get_param("name") == s(name))
+                    return d;
+        return nullptr;
+    };
+    Device *ecs = deviceNamed("Eau chaude sanitaire");
+    if (ecs)
+    {
+        DialogEditDevice d(ecs, &w);
+        fitScroll(&d, 700);
+        // Only the parameters this page is about: the hysteresis down to the sensor bounds.
+        const QPixmap whole = d.grab();
+        auto labelTop = [&](const QString &text, bool bottom)
+        {
+            for (QLabel *l: d.findChildren<QLabel *>())
+                if (l->text() == text)
+                    return l->mapTo(&d, QPoint(0, bottom ? l->height() : 0)).y();
+            fail("no label " + text);
+            return 0;
+        };
+        const int from = labelTop("Hystérésis :", false) - 3;
+        const int to = labelTop("Visible :", false) - 6;
+        save(whole.copy(0, from, whole.width(), to - from), "inst-dhw-editor");
+        d.reject();
+
+        for (IOBase *io: ecs->ownedIos())
+        {
+            if (io->get_param("id").find("target_temp") == std::string::npos)
+                continue;
+            DialogIOProperties p(io, true, &w);
+            p.resize(480, 520);
+            p.show();
+            settle();
+            if (QToolBox *box = p.findChild<QToolBox *>("toolBox"))
+                box->setCurrentIndex(1);
+            settle();
+            save(p.grab(), "inst-dhw-setpoint");
+            p.reject();
+        }
+    }
+    else
+        fail("Eau chaude sanitaire not reloaded");
+
+    auto shootRule = [&](const QString &name, const QString &room, const QString &shot, int height)
+    {
+        QTreeWidgetItem *it = findRule(ruleTree, name);
+        if (!it)
+            return;
+        home->collapseAll();
+        if (QTreeWidgetItem *r = findItem(home, room))
+        {
+            r->setExpanded(true);
+            home->setCurrentItem(r);
+        }
+        ruleTree->setCurrentItem(it);
+        ruleTree->scrollToItem(it);
+        w.resize(1400, height);
+        settle();
+        // Room for every condition of a long rule.
+        QSplitter *column = nullptr;
+        for (QWidget *p = w.findChild<QTreeWidget *>("tree_condition");p && !column;p = p->parentWidget())
+            column = qobject_cast<QSplitter *>(p);
+        const QList<int> before = column ? column->sizes() : QList<int>();
+        if (column && height > 860)
+        {
+            column->setSizes({ 280, height - 650, 200 });
+            settle();
+        }
+        rules->setProjectModified(false);
+        settle();
+        save(w.grab(), shot);
+        if (column)
+            column->setSizes(before);
+        w.resize(1400, 860);
+        settle();
+    };
+    shootRule("Plancher : mode chaud", "Maison", "inst-rule-floor-mode", 860);
+    shootRule("PAC chaud : vanne séjour ouverte", "Technique", "inst-rule-floor-heat-contact", 860);
+    shootRule("PAC froid : vanne séjour ouverte", "Technique", "inst-rule-floor-cool-contact", 860);
+    shootRule("PAC : toutes les vannes fermées", "Technique", "inst-rule-floor-all-off", 1150);
+    shootRule("Plancher séjour : retour en chaud", "Séjour", "inst-rule-floor-putback", 860);
+
+    // The technical room, the mode variable and two zones: the others look the same.
+    home->collapseAll();
+    for (const char *room: { "Technique", "Maison", "Séjour", "Salle de bain" })
+        if (QTreeWidgetItem *r = findItem(home, room))
+            r->setExpanded(true);
+    for (QTreeWidgetItemIterator it(home);*it;++it)
+        if (dynamic_cast<QTreeWidgetItemDevice *>(*it) && ((*it)->text(0) == "Plancher séjour" || (*it)->text(0) == "Plancher salle de bain"))
+            (*it)->setExpanded(true);
+    settle();
+    int rows = 0;
+    for (QTreeWidgetItemIterator it(home);*it;++it)
+        if (!(*it)->isHidden() && home->visualItemRect(*it).isValid())
+            rows += home->visualItemRect(*it).height();
+    w.resize(1400, 860 + qMax(0, rows - home->viewport()->height() + 8));
+    settle();
+    save(home->grab(), "inst-tree-floor");
+    rules->setProjectModified(false);
+}
+
 }
 
 int main(int argc, char *argv[])
@@ -700,6 +1099,7 @@ int main(int argc, char *argv[])
         else if (args[i] == "--demo") demoDir = args[++i];
         else if (args[i] == "--qt-qm") qtQm = args[++i];
     }
+    const bool withZones = args.contains("--zones");
     if (g_out.isEmpty() || demoDir.isEmpty())
     {
         qCritical("usage: installer_shots --out <images dir> --demo <project dir> [--qt-qm <qtbase_fr.qm>]");
@@ -737,6 +1137,13 @@ int main(int argc, char *argv[])
 
     buildHouse(demoDir);
     shootMainWindow(demoDir);
+#ifdef QT_MQTT_AVAILABLE
+    shootDiscovery();
+#else
+    fail("built without Qt MQTT: no discovery panel");
+#endif
+    if (withZones && buildFloorHouse(demoDir + "/floor"))
+        shootFloorWindow(demoDir + "/floor");
 
     if (!g_failures.isEmpty())
     {

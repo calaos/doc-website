@@ -30,3 +30,10 @@ QT += testlib
 
 TARGET = installer_shots
 DESTDIR = $$OUT_PWD
+
+contains(DEFINES, QT_MQTT_AVAILABLE) {
+    # The broker side of the discovery tests: the panel is captured against it.
+    INCLUDEPATH += $$SRC/tests/tst_esphomediscovery
+    SOURCES += $$SRC/tests/tst_esphomediscovery/FakeMqttBroker.cpp
+    HEADERS += $$SRC/tests/tst_esphomediscovery/FakeMqttBroker.h
+}

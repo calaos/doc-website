@@ -4,7 +4,7 @@
         <calaos:room name="Salon" type="salon" hits="0">
             <calaos:input host="127.0.0.1" id="salon_temp" name="Température salon" path="temperature" port="1883" topic_sub="maison/salon/temperature" type="MqttInputTemp" unit="°C"/>
             <calaos:input host="127.0.0.1" id="salon_hum" name="Humidité salon" path="humidity" port="1883" topic_sub="maison/salon/humidite" type="MqttInputAnalog" unit="%"/>
-            <calaos:device id="clim_salon" impl="proxy" name="Clim salon" type="climate">
+            <calaos:device id="clim_salon" impl="proxy" name="Clim salon" type="climate" visible="true">
                 <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" data="__##VALUE##__" host="127.0.0.1" id="clim_salon_mode" name="Clim salon mode" port="1883" topic_pub="clim_salon/climate/clim_salon/mode/command" topic_sub="clim_salon/climate/clim_salon/mode/state" type="MqttOutputString" visible="false"/>
                 <calaos:input connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" host="127.0.0.1" id="clim_salon_current_temp" name="Clim salon température" port="1883" topic_sub="clim_salon/climate/clim_salon/current_temperature/state" type="MqttInputTemp" visible="false"/>
                 <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" data="__##VALUE##__" host="127.0.0.1" id="clim_salon_target_temp_low" name="Clim salon consigne basse" port="1883" step="0.5" topic_pub="clim_salon/climate/clim_salon/target_temperature_low/command" topic_sub="clim_salon/climate/clim_salon/target_temperature_low/state" type="MqttOutputAnalog" unit="°C" value_max="28" value_min="17" visible="false"/>
@@ -31,7 +31,7 @@
             </calaos:device>
         </calaos:room>
         <calaos:room name="Chambre" type="chambre" hits="0">
-            <calaos:device id="clim_chambre" impl="proxy" name="Clim chambre" type="climate">
+            <calaos:device id="clim_chambre" impl="proxy" name="Clim chambre" type="climate" visible="true">
                 <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_chambre/status" data="__##VALUE##__" host="127.0.0.1" id="clim_chambre_mode" name="Clim chambre mode" port="1883" topic_pub="clim_chambre/climate/clim_chambre/mode/command" topic_sub="clim_chambre/climate/clim_chambre/mode/state" type="MqttOutputString" visible="false"/>
                 <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_chambre/status" data="__##VALUE##__" host="127.0.0.1" id="clim_chambre_target_temp" name="Clim chambre consigne" port="1883" step="1" topic_pub="clim_chambre/climate/clim_chambre/target_temperature/command" topic_sub="clim_chambre/climate/clim_chambre/target_temperature/state" type="MqttOutputAnalog" unit="°C" value_max="30" value_min="16" visible="false"/>
                 <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_chambre/status" data="__##VALUE##__" host="127.0.0.1" id="clim_chambre_fan_mode" name="Clim chambre ventilation" port="1883" topic_pub="clim_chambre/climate/clim_chambre/fan_mode/command" topic_sub="clim_chambre/climate/clim_chambre/fan_mode/state" type="MqttOutputString" visible="false"/>
@@ -46,7 +46,7 @@
         <calaos:room name="Bureau" type="bureau" hits="0">
             <calaos:input host="127.0.0.1" id="bureau_temp" name="Température bureau" path="temperature" port="1883" topic_sub="maison/bureau/temperature" type="MqttInputTemp" unit="°C"/>
             <calaos:input host="192.168.1.20" id="bureau_fenetre" name="Fenêtre bureau" port="502" type="WIDigitalBP" var="4"/>
-            <calaos:device id="radiateur_bureau" impl="thermostat" name="Radiateur bureau" type="climate">
+            <calaos:device id="radiateur_bureau" impl="thermostat" name="Radiateur bureau" type="climate" visible="true">
                 <calaos:internal id="radiateur_bureau_target_temp" name="Radiateur bureau consigne" save="true" step="0.5" type="InternalInt" unit="°C" value="20" value_max="30" value_min="7" visible="false"/>
                 <calaos:internal id="radiateur_bureau_action" name="Radiateur bureau action" type="InternalString" visible="false"/>
                 <calaos:link name="current_temp" io="bureau_temp"/>
@@ -58,6 +58,8 @@
                 <calaos:param name="min_on_time" value="120"/>
                 <calaos:param name="min_off_time" value="120"/>
                 <calaos:param name="sensor_timeout" value="9000"/>
+                <calaos:param name="valid_min" value="-30"/>
+                <calaos:param name="valid_max" value="60"/>
                 <calaos:param name="put_back_delay" value="1"/>
                 <calaos:param name="put_back_delay_max" value="60"/>
             </calaos:device>
@@ -65,7 +67,7 @@
         </calaos:room>
         <calaos:room name="Cuisine" type="cuisine" hits="0">
             <calaos:input host="127.0.0.1" id="cuisine_temp" name="Température cuisine" path="temperature" port="1883" topic_sub="maison/cuisine/temperature" type="MqttInputTemp" unit="°C"/>
-            <calaos:device id="pac_cuisine" impl="thermostat" name="PAC cuisine" type="climate">
+            <calaos:device id="pac_cuisine" impl="thermostat" name="PAC cuisine" type="climate" visible="true">
                 <calaos:internal id="pac_cuisine_target_temp" name="PAC cuisine consigne" save="true" step="0.5" type="InternalInt" unit="°C" value="20" value_max="30" value_min="7" visible="false"/>
                 <calaos:internal id="pac_cuisine_target_temp_low" name="PAC cuisine consigne basse" save="true" step="0.5" type="InternalInt" unit="°C" value="19" value_max="30" value_min="7" visible="false"/>
                 <calaos:internal id="pac_cuisine_target_temp_high" name="PAC cuisine consigne haute" save="true" step="0.5" type="InternalInt" unit="°C" value="25" value_max="30" value_min="7" visible="false"/>
@@ -83,6 +85,8 @@
                 <calaos:param name="min_off_time" value="300"/>
                 <calaos:param name="min_range" value="2"/>
                 <calaos:param name="sensor_timeout" value="9000"/>
+                <calaos:param name="valid_min" value="-30"/>
+                <calaos:param name="valid_max" value="60"/>
                 <calaos:param name="put_back_delay" value="1"/>
                 <calaos:param name="put_back_delay_max" value="60"/>
             </calaos:device>
@@ -92,7 +96,7 @@
         <calaos:room name="Séjour" type="sam" hits="0">
             <calaos:input host="127.0.0.1" id="sejour_temp" name="Température séjour" path="temperature" port="1883" topic_sub="maison/sejour/temperature" type="MqttInputTemp" unit="°C"/>
             <calaos:input host="127.0.0.1" id="sejour_hum" name="Humidité séjour" path="humidity" port="1883" topic_sub="maison/sejour/humidite" type="MqttInputAnalog" unit="%"/>
-            <calaos:device id="plancher_sejour" impl="thermostat" name="Plancher séjour" type="climate">
+            <calaos:device id="plancher_sejour" impl="thermostat" name="Plancher séjour" type="climate" visible="true">
                 <calaos:internal id="plancher_sejour_target_temp" name="Plancher séjour consigne" save="true" step="0.5" type="InternalInt" unit="°C" value="20" value_max="30" value_min="7" visible="false"/>
                 <calaos:internal id="plancher_sejour_target_temp_low" name="Plancher séjour consigne basse" save="true" step="0.5" type="InternalInt" unit="°C" value="19" value_max="30" value_min="7" visible="false"/>
                 <calaos:internal id="plancher_sejour_target_temp_high" name="Plancher séjour consigne haute" save="true" step="0.5" type="InternalInt" unit="°C" value="25" value_max="30" value_min="7" visible="false"/>
@@ -111,6 +115,8 @@
                 <calaos:param name="min_off_time" value="900"/>
                 <calaos:param name="min_range" value="2"/>
                 <calaos:param name="sensor_timeout" value="9000"/>
+                <calaos:param name="valid_min" value="-30"/>
+                <calaos:param name="valid_max" value="60"/>
                 <calaos:param name="put_back_delay" value="1"/>
                 <calaos:param name="put_back_delay_max" value="60"/>
                 <calaos:param name="humidity_max" value="60"/>

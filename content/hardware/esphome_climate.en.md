@@ -16,7 +16,7 @@ Indoor unit ──(serial)── ESP32 / ESPHome ──(MQTT)── Mosquitto br
 Calaos does not regulate: the unit keeps its own modulation. Calaos reads its state, sends the mode, setpoints, fan and swing, and can **relay the temperature of a room sensor** to it, which is more accurate than the unit's own sensor mounted high on the wall.
 
 {{% notice info %}}
-Calaos has no ESPHome auto-discovery. The `esphome_climate` template of the wizard creates all the needed MQTT IOs in one go; it asks for the module's **topic prefix** and **entity id** (see below how to find them).
+The `esphome_climate` template of the wizard creates all the needed MQTT IOs in one go. It asks for the module's **topic prefix** and **entity id**: the wizard can [find them itself on the MQTT broker](#finding-it-on-the-mqtt-broker), or you read them by hand.
 {{% /notice %}}
 
 ## The ESPHome module: Mitsubishi CN105 example
@@ -164,7 +164,28 @@ climate:
 
 This component publishes a **single setpoint**: in the wizard, leave "Two setpoints" unchecked. Its `AUTO` mode is sent as `auto`: set the device's `auto_payload` parameter to `auto` (by default Calaos writes `heat_cool`). Remote temperature depends on what the component accepts (it has a `temperature_sensor_id` option to use an ESPHome sensor): check its documentation, then feed that sensor with an `mqtt_subscribe` as above.
 
-## Finding the prefix and the entity id
+## Finding it on the MQTT broker
+
+For both ESPHome templates, the Calaos Installer wizard shows above the form a panel **"Le trouver sur le broker MQTT"** (find it on the MQTT broker): it queries the broker and offers the climates it sees, instead of making you guess the prefix and the id.
+
+![Broker search panel](/en/calaos_installer/devices/images/inst-discovery-found.png?width=36pc&classes=shadow)
+*Three climates found: two online, one greyed-out old node.*
+
+1. Check the **broker address**, as **your computer** reaches it (not `127.0.0.1`, which designates the computer itself). The wizard proposes the one most MQTT IOs of the project use, otherwise the box's. The project's MQTT credentials are only sent to that broker.
+2. Click **Rechercher** (Search), or press Enter. The installer listens to the broker for three seconds.
+3. The list gives, for each climate, its name, its **topic prefix**, its **entity id**, what it publishes (one or two setpoints, fan, swing, action) and its state.
+4. Click a row: the form is filled in.
+
+![Form filled in by the search](/en/calaos_installer/devices/images/inst-discovery-filled.png?width=36pc&classes=shadow)
+*The "clim_salon" climate chosen: prefix, id, two setpoints, action, fan and swing are filled in.*
+
+What choosing fills in: the prefix, the id, the name (if empty), "Two setpoints" or not, fan, swing, action reporting and the sensor, from the published topics. If the module publishes its Home Assistant discovery configuration (`discovery: true` in its `mqtt:` block), the modes and the setpoint range are read too: `heat_cool` becomes `auto`, ESPHome's own `auto` mode (a schedule of the unit) and custom modes are dropped and reported under the list. The form stays editable.
+
+The rows **greyed out as "ancien / hors ligne"** (old / offline) are at the bottom of the list: they are states the broker retained for a former id or a vanished node. Do not choose them: a device created on them would stay silent.
+
+Errors are said on screen: host not found, connection refused, credentials refused, timeout. The panel only exists in an installer built with Qt MQTT; without it, the manual entry below remains valid.
+
+## Finding the prefix and the entity id by hand
 
 The wizard asks for two values, which can be read in the module's MQTT topics:
 
@@ -209,7 +230,7 @@ It depends on the **module**, not on the air conditioner, and can be read in the
 | `.../target_temperature/state` | "Two setpoints" **unchecked** |
 | `.../target_temperature_low/state` and `.../target_temperature_high/state` | "Two setpoints" **checked** |
 
-With `dual_setpoint: true` in the YAML, the module publishes the low and the high setpoint and **not** the single one. Checking the wrong box shows no error: the device never receives the setpoint it expects and stays "Unknown". A single-setpoint unit can still offer a range in Calaos: see the emulated dual setpoint below.
+With `dual_setpoint: true` in the YAML, the module publishes the low and the high setpoint and **not** the single one. Checking the wrong box shows no error: the device never receives the setpoint it expects and stays "Unknown". The search on the broker picks the right box from what the module publishes. A single-setpoint unit can still offer a range in Calaos: see the emulated dual setpoint below.
 
 ## Fan speeds and swing
 
@@ -282,11 +303,9 @@ The interfaces then show two handles in `auto` mode, at least `min_range` apart.
 
 ## Emulated dual setpoint
 
-{{% notice warning %}}
-This feature (ticket CLIM-8) is **under development**. The description below follows the design decision; exact names may change before release.
-{{% /notice %}}
+Many air conditioners have **one** setpoint and no `auto` mode between two setpoints. The **"Emulated dual setpoint"** option of the wizard (`emulate_range` parameter, off by default) gives Calaos the missing role: the device **owns** a low and a high setpoint, stored by Calaos (internal variables created at load, at 19 and 25 °C to start with, kept across restarts), and the interfaces show the range and the `auto` mode as for a two-setpoint unit.
 
-Many air conditioners have **one** setpoint and no `auto` mode between two setpoints. The device's `emulate_range` parameter (off by default) gives Calaos the missing role: the device **owns** a low and a high setpoint, stored by Calaos, and the interfaces show the range as for a two-setpoint unit (the template option is called "emulated dual setpoint").
+The option is meant for a **single-setpoint** unit: do not tick it with "Two setpoints". The device also needs a writable setpoint and the `heat` and `cool` modes; otherwise it is refused at load, with a message in the log, and `auto` drives nothing.
 
 In `auto` mode, Calaos drives the unit in **simple mode**:
 
@@ -294,11 +313,32 @@ In `auto` mode, Calaos drives the unit in **simple mode**:
 |---|---|
 | below `low - hysteresis` | switches to `heat`, with the low setpoint |
 | above `high + hysteresis` | switches to `cool`, with the high setpoint |
-| back inside the band | switches to `off`: **nothing runs between the two setpoints** |
+| low setpoint reached in `heat`, high setpoint reached in `cool` | switches to `off`: **nothing runs between the two setpoints** |
 
-To spare the compressor, Calaos applies a hysteresis, minimum on and off times, and a delay between a switch to heat and a switch to cool. The reference is the room sensor (the one relayed to the unit if you chose one); a silent sensor causes no change. Calaos never sends `auto` to the unit.
+The unit's setpoint is written **before** the mode, so that it does not start on the old setpoint. A changeover from heat to cool always goes through `off`. During `auto` the single setpoint cannot be set: it is driven by the other two. Calaos never sends `auto` to the unit.
 
-If someone changes the mode **on the remote control**, the emulation is suspended (a message is logged): Calaos does not take back a choice made on site.
+### Protecting the compressor
+
+The template writes these values, which can be changed in the device editor:
+
+| Parameter | Value | Role |
+|---|---|---|
+| `hysteresis` | 0.5 °C | gap beyond the range before the unit starts |
+| `min_on_time` | 300 s | minimum run time before `auto` stops the unit |
+| `min_off_time` | 300 s | minimum stop time before `auto` restarts it |
+| `changeover_delay` | 600 s | delay between the end of heat and the start of cool (or the reverse), at least `min_off_time` |
+| `min_range` | 2 °C | minimum gap between the low and the high setpoint |
+
+A mode chosen by the user (`heat`, `cool`, `off`) applies at once, without waiting for these times. A postponed start is announced as "Starts in N min" in the interfaces.
+
+After a **server restart**, Calaos picks up where it was: a stop waits `min_on_time`, a start waits `min_off_time`, and the changeover delay only applies towards the mode opposite to the last heat or cool of the unit. The `auto` mode itself is kept.
+
+### When `auto` changes nothing
+
+- **The sensor does not answer**: the reference is the room sensor relayed to the unit if you chose one, otherwise the temperature the unit measures. While it has not read anything, has been silent for `sensor_timeout`, is disconnected, or does not give a number, Calaos leaves the unit as it is and the interface shows the fault ("Waiting for the sensor", "Sensor silent"...). The unit is not stopped for that.
+- **The unit is unreachable** (offline): nothing is sent.
+- **Someone changes the mode on the remote control**: `auto` is suspended (a message is logged) and Calaos does not take back a choice made on site; it resumes when you select `auto` again. The previous mode, which ESPHome sometimes republishes during the 10 seconds (`readback_hold`) after a command, is not mistaken for a manual change.
+- **The unit rounds or imposes a minimum**: if the setpoint it reads back differs by more than half a step from the one sent, Calaos writes it again, at most once every 10 seconds. If it still differs afterwards (rounding, a minimum specific to its mode), Calaos leaves it as it is, logs it once, and does not write again until the next setpoint it decides itself.
 
 ## And if it does not work
 
