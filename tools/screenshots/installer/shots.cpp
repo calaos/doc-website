@@ -709,7 +709,7 @@ void shootDiscovery()
     FakeMqttBroker broker;
     //A module publishing under clim_salon, a second one, and the retained states of a node that is gone.
     broker.retained = {
-        { "esphome/discover/clim-salon", R"({"name":"clim-salon","friendly_name":"Clim salon","ip":"192.168.1.42"})" },
+        { "esphome/discover/clim_salon", R"({"name":"clim_salon","friendly_name":"Clim salon","ip":"192.168.1.42"})" },
         { "clim_salon/status", "online" },
         { "clim_salon/climate/clim_salon/mode/state", "heat_cool" },
         { "clim_salon/climate/clim_salon/target_temperature_low/state", "19.5" },
