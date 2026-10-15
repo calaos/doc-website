@@ -175,14 +175,14 @@ Quelqu'un met une zone en `cool` pendant la saison de chauffe : sa vanne s'ouvri
 | Plancher *zone* : retour en chaud (six zones) | *zone* == `cool` **et** « Mode plancher » == 1 | *zone* reçoit `heat` |
 | Plancher *zone* : retour en froid (neuf zones) | *zone* == `heat` **et** « Mode plancher » == 2 | *zone* reçoit `cool` (`off` pour une zone sans refroidissement) |
 
-La condition sur *zone* est une **Condition sur évènement de sortie** sur le device lui-même (sélectionnez le device dans l'arborescence, pas un de ses IO) : la valeur comparée est son mode. L'arrêt à la main (`off`) n'est pas contrarié.
+Les deux conditions sont des **Conditions normales** ; celle sur *zone* porte sur le device lui-même (pas sur un de ses IO) : la valeur comparée est son mode. L'arrêt à la main (`off`) n'est pas contrarié.
 
 ![Règle de retour en mode chaud](/en/calaos_installer/devices/images/inst-rule-floor-putback.png?width=40pc&classes=shadow)
 *Une zone du séjour passée en froid pendant la saison de chauffe revient en chaud.*
 
 ### Le point de rosée
 
-Cette installation n'a pas de sonde d'humidité dans chaque zone : la pompe à chaleur garde l'eau froide au-dessus du point de rosée. Le thermostat de zone ne coupe donc pas le froid de lui-même ; le serveur l'indique par un avertissement au chargement. Une zone **avec** sonde d'humidité (le séjour, ci-dessus) coupe son refroidissement dès que l'humidité atteint `humidity_max` : sa vanne se ferme et les contacts de la pompe suivent la vanne, sans règle de plus. Voir [Thermostat interne]({{% relref "calaos_installer/devices/thermostat" %}}).
+Cette installation n'a pas de sonde d'humidité dans chaque zone : la pompe à chaleur garde l'eau froide au-dessus du point de rosée. Le thermostat de zone ne coupe donc pas le froid de lui-même ; le serveur l'indique, pour chaque zone sans sonde, par un avertissement au chargement (« cooling has no dew-point cut ») : c'est attendu quand la pompe à chaleur gère la condensation. Une zone **avec** sonde d'humidité (le séjour, ci-dessus) coupe son refroidissement dès que l'humidité atteint `humidity_max` : sa vanne se ferme et les contacts de la pompe suivent la vanne, sans règle de plus. Voir [Thermostat interne]({{% relref "calaos_installer/devices/thermostat" %}}).
 
 ## 7. Eau chaude sanitaire sur la même pompe à chaleur
 

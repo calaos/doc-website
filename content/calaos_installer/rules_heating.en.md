@@ -175,14 +175,14 @@ Someone puts a zone in `cool` during the heating season: its valve would open, t
 | Plancher *zone* : retour en chaud (six zones) | *zone* == `cool` **and** "Mode plancher" == 1 | *zone* receives `heat` |
 | Plancher *zone* : retour en froid (nine zones) | *zone* == `heat` **and** "Mode plancher" == 2 | *zone* receives `cool` (`off` for a zone without cooling) |
 
-The condition on *zone* is a **Condition on output event** on the device itself (select the device in the tree, not one of its IOs): the compared value is its mode. Switching a zone off by hand (`off`) is not opposed.
+Both conditions are **Normal conditions**; the one on *zone* is on the device itself (not one of its IOs): the compared value is its mode. Switching a zone off by hand (`off`) is not opposed.
 
 ![Put-back to heat mode rule](/en/calaos_installer/devices/images/inst-rule-floor-putback.png?width=40pc&classes=shadow)
 *A living room zone set to cool during the heating season goes back to heat.*
 
 ### The dew point
 
-This installation has no humidity sensor in every zone: the heat pump keeps the cold water above the dew point. The zone thermostat therefore does not cut cooling by itself; the server notes it with a warning at load. A zone **with** a humidity sensor (the living room, above) cuts its cooling as soon as humidity reaches `humidity_max`: its valve closes and the pump contacts follow the valve, with no extra rule. See [Internal thermostat]({{% relref "calaos_installer/devices/thermostat" %}}).
+This installation has no humidity sensor in every zone: the heat pump keeps the cold water above the dew point. The zone thermostat therefore does not cut cooling by itself; the server notes it, for each zone without a sensor, with a warning at load ("cooling has no dew-point cut"): this is expected when the heat pump handles condensation. A zone **with** a humidity sensor (the living room, above) cuts its cooling as soon as humidity reaches `humidity_max`: its valve closes and the pump contacts follow the valve, with no extra rule. See [Internal thermostat]({{% relref "calaos_installer/devices/thermostat" %}}).
 
 ## 7. Domestic hot water on the same heat pump
 
