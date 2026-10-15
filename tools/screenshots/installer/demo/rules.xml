@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calaos:rules xmlns:calaos="http://www.calaos.fr">
+    <calaos:rule name="Bureau : confort en journée" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="bureau_occupe" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="{&quot;mode&quot;:&quot;heat&quot;,&quot;target_temp&quot;:21}"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Bureau : réduit hors journée" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="bureau_occupe" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="{&quot;target_temp&quot;:17}"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Absence : abaisser le chauffage" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="absence" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="{&quot;mode&quot;:&quot;heat&quot;,&quot;target_temp&quot;:16}"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_cuisine" val="{&quot;mode&quot;:&quot;auto&quot;,&quot;target_temp_low&quot;:16,&quot;target_temp_high&quot;:28}"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_sejour" val="{&quot;mode&quot;:&quot;heat&quot;,&quot;target_temp&quot;:16}"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Retour : rétablir" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="absence" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="{&quot;target_temp&quot;:21}"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_cuisine" val="{&quot;target_temp_low&quot;:20,&quot;target_temp_high&quot;:25}"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_sejour" val="{&quot;target_temp&quot;:21}"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Fenêtre bureau ouverte" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="bureau_fenetre" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="off"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Fenêtre bureau fermée" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="bureau_fenetre" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="heat"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Hors-gel : nuit d'hiver" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="nuit" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="salon_temp" oper="&lt;" val="10"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="clim_salon" val="{&quot;mode&quot;:&quot;heat&quot;,&quot;target_temp&quot;:17}"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Circulateur : Radiateur bureau chauffe" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="radiateur_bureau_action" oper="==" val="heating"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Circulateur : PAC cuisine chauffe" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="pac_cuisine_action" oper="==" val="heating"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Circulateur : Plancher séjour chauffe" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="plancher_sejour_action" oper="==" val="heating"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Circulateur : plus aucun thermostat ne chauffe" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="radiateur_bureau_action" oper="!=" val="heating"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="pac_cuisine_action" oper="!=" val="heating"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="plancher_sejour_action" oper="!=" val="heating"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="false"/>
+        </calaos:action>
+    </calaos:rule>
+</calaos:rules>
