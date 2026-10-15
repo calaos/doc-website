@@ -1,6 +1,6 @@
 # Climate documentation screenshots
 
-Images of `content/climate/images/` are produced from one invented house (`DEMO_HOUSE.md`), in French,
+Images of `content/calaos_installer/devices/images/` are produced from one invented house (`DEMO_HOUSE.md`), in French,
 by the existing capture tools of each client. Nothing here comes from a real installation.
 
 | Client | Directory | Re-run |
@@ -10,5 +10,5 @@ by the existing capture tools of each client. Nothing here comes from a real ins
 | calaos_remote_ui (SDL simulator in `calaos-remote-ui-dev:local`) | `remote_ui/` | `remote_ui/run.sh <remote_ui checkout> [out-dir]` |
 | calaos_installer (Qt offscreen) | `installer/` | see `installer/README.md` |
 
-`out-dir` defaults to `content/climate/images`. Each README lists the images its script produces and the
+`out-dir` defaults to `content/calaos_installer/devices/images`. Each README lists the images its script produces and the
 commit it was last run against.

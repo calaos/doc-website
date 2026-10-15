@@ -5,13 +5,13 @@ weight = 50
 summary = "Schedule the setpoint, handle absence, open window, frost protection, and switch a common circulator, step by step."
 +++
 
-A thermostat or air conditioner contains no policy: no schedule, no away mode. That is the job of [rules]({{% relref "calaos_installer/rules" %}}), which **write the device's setpoint or mode**, as they would write any IO. This page gives complete recipes, using the demo house. Screenshots show the interface in French.
+A thermostat or air conditioner contains no policy: no schedule, no away mode. That is the job of [rules]({{% relref "calaos_installer/rules" %}}), which **write the device's setpoint or mode**, as they would write any IO. This page gives complete recipes.
 
 ## The command in a rule action
 
 In a rule, drag the device (not its owned IOs) into the actions area. Calaos Installer shows a **form** instead of free text: one field per command the device accepts (mode, setpoint, low and high setpoint, fan, swing). Only the fields whose link exists on this device are offered; bounds and value lists come from the device.
 
-![Device command form in an action](/en/climate/images/inst-action-form.png?width=36pc&classes=shadow)
+![Device command form in an action](/en/calaos_installer/devices/images/inst-action-form.png?width=36pc&classes=shadow)
 *An action on "Radiateur bureau": Heat mode, 21 °C setpoint.*
 
 The stored value is text:
@@ -39,7 +39,7 @@ Never command a thermostat's **relay** in a rule: write its mode (`off`, `heat`)
 2. Rule "Bureau : confort en journée": condition, the "Bureau occupé" range is **true**; action, "Radiateur bureau" receives `{"mode":"heat","target_temp":21}`.
 3. Rule "Bureau : réduit hors journée": condition, the range is **false**; action, `{"target_temp":17}`.
 
-![A complete rule](/en/climate/images/inst-rule-complete.png?width=40pc&classes=shadow)
+![A complete rule](/en/calaos_installer/devices/images/inst-rule-complete.png?width=40pc&classes=shadow)
 *The rule "Bureau : confort en journée": one condition, one action.*
 
 Consider a **startup rule** (start condition) if you want the setpoint to be right after a server restart.
@@ -76,15 +76,23 @@ For permanent frost protection (house closed for the winter), set the setpoint t
 
 ## 5. A common circulator or boiler
 
-Each thermostat has **its own output** (an output can belong to one thermostat only). For the circulator to run whenever a thermostat heats, a rule switches the common output.
+*The circulator runs as soon as a zone asks for heat (or cold), and stops when no zone asks for anything.*
 
-- One rule **per thermostat** "Circulateur : le bureau chauffe": condition, the thermostat's **action** IO == `heating`; action, "Circulateur chauffage" on. Do the same for the heat pump and the floor.
-- One rule "Circulateur : plus aucun thermostat ne chauffe": three conditions (the three action IOs different from `heating`); action, "Circulateur chauffage" off.
+Each thermostat has **its own output** (a valve or relay per zone; an output can belong to one thermostat only). Rather than guessing what the thermostat is doing, the rules read **those outputs themselves**: they are exactly the relays the regulation drives.
 
-![Circulator rule](/en/climate/images/inst-rule-circulator.png?width=40pc&classes=shadow)
-*The circulator stops when no thermostat is heating any more.*
+- One rule **per zone output**, for example "Circulateur : Relais radiateur bureau allumé": condition, the output "Relais radiateur bureau" == `true`; action, "Circulateur chauffage" on. Do the same for every heating **and** cooling output of the other zones ("PAC cuisine chaud", "PAC cuisine froid", "Plancher chaud", "Plancher froid").
+- One rule "Circulateur : toutes les zones éteintes": one condition per zone output, all == `false`; action, "Circulateur chauffage" off.
 
-The "action" IOs (`Radiateur bureau action`...) are owned IOs of the devices: you find them under the device in the tree and drag them in as conditions.
+The conditions are of the **Condition on output event** kind (the **+** menu of the conditions, after selecting the output in the tree): it is the kind that can read the state of a relay. The "Normal Condition" kind only applies to inputs.
+
+![Circulator rule](/en/calaos_installer/devices/images/inst-rule-circulator.png?width=40pc&classes=shadow)
+*The "all zones off" rule: one condition per output (the fifth, "Plancher froid", is below the visible list) and the circulator switched off.*
+
+### Why it works in every mode
+
+An output is on **if and only if** the thermostat is asking for heat or cold at that moment. The mode (`heat`, `cool`, `auto`), the setpoint, the minimum on and off times, the safeties (silent sensor, out-of-range sensor, dew point) and the thermostat's lockouts all decide the state of the output, and the rule only sees the result. It does not need to know the mode: a thermostat in `cool` or `auto`, or cut by a safety, behaves correctly with no extra rule. By contrast, a rule written on the thermostat's "action" IO (`heating`) ignores cooling and runs ahead of the relay whenever a minimum time delays the switching.
+
+These rules never write the outputs, they only read them: the circulator is the only output they drive.
 
 ## Pitfalls
 

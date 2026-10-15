@@ -93,6 +93,8 @@ Rules come into their own when they build on the other objects of this chapter.
 
 **Alert** — condition: the freezer sensor goes above a threshold. Actions: notification and email.
 
+For thermostats and air conditioners, see [Heating rules]({{% relref "calaos_installer/rules_heating" %}}): scheduled setpoint, away, open window, frost protection, common circulator.
+
 ## Common pitfalls
 
 **The rule that loops.** If a rule changes an IO that appears in its own conditions, it can call itself indefinitely. Use an internal variable to remember that the action has already happened.

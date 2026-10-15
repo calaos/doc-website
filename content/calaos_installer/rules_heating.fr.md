@@ -5,13 +5,13 @@ weight = 50
 summary = "Programmer la consigne, gérer l'absence, la fenêtre ouverte, le hors-gel, et allumer un circulateur commun, pas à pas."
 +++
 
-Un thermostat ou une clim ne contient aucune politique : pas de programme horaire, pas de mode absence. C'est le rôle des [règles]({{% relref "calaos_installer/rules" %}}), qui **écrivent la consigne ou le mode du device**, comme elles écriraient n'importe quel IO. Cette page donne des recettes complètes, avec la maison de démonstration.
+Un thermostat ou une clim ne contient aucune politique : pas de programme horaire, pas de mode absence. C'est le rôle des [règles]({{% relref "calaos_installer/rules" %}}), qui **écrivent la consigne ou le mode du device**, comme elles écriraient n'importe quel IO. Cette page donne des recettes complètes.
 
 ## La commande dans une action de règle
 
 Dans une règle, glissez le device (pas ses IO possédés) dans la zone des actions. Calaos Installer affiche un **formulaire** à la place du texte libre : un champ par commande que le device accepte (mode, consigne, consigne basse et haute, ventilation, oscillation). Seuls les champs dont le lien existe sur ce device sont proposés ; les bornes et les listes de valeurs viennent du device.
 
-![Formulaire de commande d'un device dans une action](/en/climate/images/inst-action-form.png?width=36pc&classes=shadow)
+![Formulaire de commande d'un device dans une action](/en/calaos_installer/devices/images/inst-action-form.png?width=36pc&classes=shadow)
 *Une action sur « Radiateur bureau » : mode Chauffage, consigne 21 °C.*
 
 La valeur enregistrée est un texte :
@@ -39,7 +39,7 @@ Ne commandez jamais le **relais** d'un thermostat dans une règle : écrivez son
 2. Règle « Bureau : confort en journée » : condition, la plage « Bureau occupé » est **vraie** ; action, « Radiateur bureau » reçoit `{"mode":"heat","target_temp":21}`.
 3. Règle « Bureau : réduit hors journée » : condition, la plage est **fausse** ; action, `{"target_temp":17}`.
 
-![Une règle complète](/en/climate/images/inst-rule-complete.png?width=40pc&classes=shadow)
+![Une règle complète](/en/calaos_installer/devices/images/inst-rule-complete.png?width=40pc&classes=shadow)
 *La règle « Bureau : confort en journée » : une condition, une action.*
 
 Pensez à une règle de **remise en état au démarrage** (condition de démarrage) si vous voulez que la consigne soit juste après un redémarrage du serveur.
@@ -76,15 +76,23 @@ Pour un hors-gel permanent (maison fermée pour l'hiver), mettez la consigne à 
 
 ## 5. Un circulateur ou une chaudière commun
 
-Chaque thermostat a **sa propre sortie** (une sortie ne peut appartenir qu'à un thermostat). Pour que le circulateur tourne dès qu'un thermostat chauffe, une règle allume la sortie commune.
+*Le circulateur tourne dès qu'une zone demande de la chaleur (ou du froid), et s'arrête quand plus aucune zone ne demande rien.*
 
-- Une règle **par thermostat** « Circulateur : le bureau chauffe » : condition, l'IO **action** du thermostat == `heating` ; action, « Circulateur chauffage » allumé. Faites de même pour la PAC et le plancher.
-- Une règle « Circulateur : plus aucun thermostat ne chauffe » : trois conditions (les trois IO action différents de `heating`) ; action, « Circulateur chauffage » éteint.
+Chaque thermostat a **sa propre sortie** (une vanne ou un relais par zone ; une sortie ne peut appartenir qu'à un thermostat). Plutôt que de deviner ce que fait le thermostat, les règles lisent **ces sorties elles-mêmes** : ce sont exactement les relais que la régulation commande.
 
-![Règle du circulateur](/en/climate/images/inst-rule-circulator.png?width=40pc&classes=shadow)
-*Le circulateur s'arrête quand plus aucun thermostat ne chauffe.*
+- Une règle **par sortie de zone**, par exemple « Circulateur : Relais radiateur bureau allumé » : condition, la sortie « Relais radiateur bureau » == `true` ; action, « Circulateur chauffage » allumé. Faites de même pour chaque sortie de chauffage **et** de refroidissement des autres zones (« PAC cuisine chaud », « PAC cuisine froid », « Plancher chaud », « Plancher froid »).
+- Une règle « Circulateur : toutes les zones éteintes » : une condition par sortie de zone, toutes à == `false` ; action, « Circulateur chauffage » éteint.
 
-Les IO « action » (`Radiateur bureau action`...) sont des IO possédés des devices : on les trouve sous le device dans l'arborescence et on les glisse en condition.
+Les conditions sont du type **Condition sur évènement de sortie** (menu **+** des conditions, après avoir sélectionné la sortie dans l'arborescence) : c'est le type qui sait lire l'état d'un relais. Le type « Condition normale » ne s'applique qu'aux entrées.
+
+![Règle du circulateur](/en/calaos_installer/devices/images/inst-rule-circulator.png?width=40pc&classes=shadow)
+*La règle « toutes les zones éteintes » : une condition par sortie (la cinquième, « Plancher froid », est sous la liste visible) et l'extinction du circulateur.*
+
+### Pourquoi ça marche dans tous les modes
+
+Une sortie est allumée **si et seulement si** le thermostat demande de chauffer ou de refroidir à cet instant. Le mode (`heat`, `cool`, `auto`), la consigne, les durées minimales de marche et d'arrêt, les sûretés (sonde muette, sonde hors limites, point de rosée) et les verrouillages du thermostat décident tous de l'état de la sortie, et la règle ne voit que le résultat. Elle n'a donc pas à connaître le mode : un thermostat en `cool` ou en `auto`, ou coupé par une sûreté, se comporte correctement sans règle supplémentaire. À l'inverse, une règle écrite sur l'IO « action » du thermostat (`heating`) ignore le refroidissement et décale la demande dès qu'une durée minimale retarde la commutation du relais.
+
+Les sorties ne sont jamais écrites par ces règles, seulement lues : le circulateur est la seule sortie qu'elles commandent.
 
 ## Pièges
 

@@ -4,13 +4,13 @@
 #
 #   run.sh <calaos_installer tree> [images dir] [build dir]
 #
-# Images default to content/climate/images of this doc tree, the build to
+# Images default to content/calaos_installer/devices/images of this doc tree, the build to
 # $TMPDIR/calaos-installer-doc-shots. The demo project goes to demo/ next to this script.
 set -eu
 
 here=$(cd "$(dirname "$0")" && pwd)
 src=$(cd "${1:?usage: run.sh <calaos_installer tree> [images dir] [build dir]}" && pwd)
-out=${2:-$here/../../../content/climate/images}
+out=${2:-$here/../../../content/calaos_installer/devices/images}
 build=${3:-${TMPDIR:-/tmp}/calaos-installer-doc-shots}
 qmake=${QMAKE:-qmake6}
 

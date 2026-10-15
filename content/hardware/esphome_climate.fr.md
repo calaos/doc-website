@@ -5,7 +5,7 @@ weight = 20
 summary = "Brancher un split Mitsubishi ou Fujitsu piloté par ESPHome : YAML, topics MQTT, température de pièce relayée, une ou deux consignes."
 +++
 
-Ce guide décrit une clim qui **régule seule** et que Calaos pilote par MQTT : un module ESP32 relié à la prise de service de l'unité intérieure, qui tourne sous [ESPHome](https://esphome.io). Il est tiré d'une installation réelle (split Mitsubishi relié par son connecteur CN105), et s'applique de la même façon à un Fujitsu.
+Ce guide décrit une clim qui **régule seule** et que Calaos pilote par MQTT : un module ESP32 relié à la prise de service de l'unité intérieure, qui tourne sous [ESPHome](https://esphome.io). L'exemple utilise un split Mitsubishi relié par son connecteur CN105 ; la démarche est la même pour un Fujitsu.
 
 ```text
 Unité intérieure ──(série)── ESP32 / ESPHome ──(MQTT)── broker Mosquitto ── Calaos
@@ -115,7 +115,7 @@ Le capteur `mqtt_subscribe` lit le topic `<préfixe>/calaos/remote_temp`. Dans C
 Calaos cesse de relayer une sonde qui ne dit plus rien depuis `sensor_timeout` secondes (9000 s par défaut) ou qui se déclare déconnectée : la clim retombe alors d'elle-même sur sa sonde, sans régler sur une valeur périmée.
 
 {{% notice note %}}
-Seuls les modules qui acceptent une température distante (ici le CN105 à liaison série) en profitent. Une clim **infrarouge** (`climate_ir`) ne peut pas en recevoir : voir le modèle `esphome_climate_ir` dans [Créer un device]({{% relref "climate/templates" %}}).
+Seuls les modules qui acceptent une température distante (ici le CN105 à liaison série) en profitent. Une clim **infrarouge** (`climate_ir`) ne peut pas en recevoir : voir le modèle `esphome_climate_ir` dans [Créer un device]({{% relref "calaos_installer/devices/templates" %}}).
 {{% /notice %}}
 
 ## Exemple Fujitsu
@@ -302,4 +302,4 @@ Si quelqu'un change le mode **à la télécommande**, l'émulation est suspendue
 
 ## Et si ça ne marche pas
 
-La page [Dépannage]({{% relref "climate/troubleshooting" %}}) explique les symptômes classiques : état « Inconnu », « Hors ligne », device invisible.
+La page [Dépannage]({{% relref "calaos_installer/devices/troubleshooting" %}}) explique les symptômes classiques : état « Inconnu », « Hors ligne », device invisible.

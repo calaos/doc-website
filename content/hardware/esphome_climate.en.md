@@ -5,7 +5,7 @@ weight = 20
 summary = "Connect a Mitsubishi or Fujitsu split driven by ESPHome: YAML, MQTT topics, relayed room temperature, one or two setpoints."
 +++
 
-This guide describes an air conditioner that **regulates by itself** and that Calaos drives over MQTT: an ESP32 module wired to the service port of the indoor unit, running [ESPHome](https://esphome.io). It comes from a real installation (a Mitsubishi split connected through its CN105 connector) and applies the same way to a Fujitsu.
+This guide describes an air conditioner that **regulates by itself** and that Calaos drives over MQTT: an ESP32 module wired to the service port of the indoor unit, running [ESPHome](https://esphome.io). The example uses a Mitsubishi split connected through its CN105 connector; the approach is the same for a Fujitsu.
 
 ```text
 Indoor unit ──(serial)── ESP32 / ESPHome ──(MQTT)── Mosquitto broker ── Calaos
@@ -115,7 +115,7 @@ The `mqtt_subscribe` sensor reads the `<prefix>/calaos/remote_temp` topic. In Ca
 Calaos stops relaying a sensor that has been silent for `sensor_timeout` seconds (9000 s by default) or that reports itself disconnected: the unit then falls back to its own sensor by itself, instead of regulating on a stale value.
 
 {{% notice note %}}
-Only modules that accept a remote temperature (here the serial CN105) benefit from it. An **infrared** air conditioner (`climate_ir`) cannot receive one: see the `esphome_climate_ir` template in [Create a device]({{% relref "climate/templates" %}}).
+Only modules that accept a remote temperature (here the serial CN105) benefit from it. An **infrared** air conditioner (`climate_ir`) cannot receive one: see the `esphome_climate_ir` template in [Create a device]({{% relref "calaos_installer/devices/templates" %}}).
 {{% /notice %}}
 
 ## Fujitsu example
@@ -302,4 +302,4 @@ If someone changes the mode **on the remote control**, the emulation is suspende
 
 ## And if it does not work
 
-The [Troubleshooting]({{% relref "climate/troubleshooting" %}}) page explains the usual symptoms: "Unknown" state, "Offline", invisible device.
+The [Troubleshooting]({{% relref "calaos_installer/devices/troubleshooting" %}}) page explains the usual symptoms: "Unknown" state, "Offline", invisible device.

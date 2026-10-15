@@ -71,39 +71,61 @@
             <calaos:output id="clim_salon" val="{&quot;mode&quot;:&quot;heat&quot;,&quot;target_temp&quot;:17}"/>
         </calaos:action>
     </calaos:rule>
-    <calaos:rule name="Circulateur : Radiateur bureau chauffe" type="Chauffage">
-        <calaos:condition type="standard" trigger="true">
-            <calaos:input id="radiateur_bureau_action" oper="==" val="heating"/>
+    <calaos:rule name="Circulateur : Relais radiateur bureau allumé" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="bureau_radiateur" oper="==" val="true"/>
         </calaos:condition>
         <calaos:action type="standard">
             <calaos:output id="circulateur" val="true"/>
         </calaos:action>
     </calaos:rule>
-    <calaos:rule name="Circulateur : PAC cuisine chauffe" type="Chauffage">
-        <calaos:condition type="standard" trigger="true">
-            <calaos:input id="pac_cuisine_action" oper="==" val="heating"/>
+    <calaos:rule name="Circulateur : PAC cuisine chaud allumé" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="cuisine_pac_chaud" oper="==" val="true"/>
         </calaos:condition>
         <calaos:action type="standard">
             <calaos:output id="circulateur" val="true"/>
         </calaos:action>
     </calaos:rule>
-    <calaos:rule name="Circulateur : Plancher séjour chauffe" type="Chauffage">
-        <calaos:condition type="standard" trigger="true">
-            <calaos:input id="plancher_sejour_action" oper="==" val="heating"/>
+    <calaos:rule name="Circulateur : PAC cuisine froid allumé" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="cuisine_pac_froid" oper="==" val="true"/>
         </calaos:condition>
         <calaos:action type="standard">
             <calaos:output id="circulateur" val="true"/>
         </calaos:action>
     </calaos:rule>
-    <calaos:rule name="Circulateur : plus aucun thermostat ne chauffe" type="Chauffage">
-        <calaos:condition type="standard" trigger="true">
-            <calaos:input id="radiateur_bureau_action" oper="!=" val="heating"/>
+    <calaos:rule name="Circulateur : Plancher chaud allumé" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_chaud" oper="==" val="true"/>
         </calaos:condition>
-        <calaos:condition type="standard" trigger="true">
-            <calaos:input id="pac_cuisine_action" oper="!=" val="heating"/>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Circulateur : Plancher froid allumé" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_froid" oper="==" val="true"/>
         </calaos:condition>
-        <calaos:condition type="standard" trigger="true">
-            <calaos:input id="plancher_sejour_action" oper="!=" val="heating"/>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Circulateur : toutes les zones éteintes" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="bureau_radiateur" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="cuisine_pac_chaud" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="cuisine_pac_froid" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_chaud" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_froid" oper="==" val="false"/>
         </calaos:condition>
         <calaos:action type="standard">
             <calaos:output id="circulateur" val="false"/>

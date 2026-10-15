@@ -37,7 +37,7 @@ Un device absent de cette sortie n'est pas chargé ou pas visible (voir plus bas
 Le device lit son mode sur le topic `<préfixe>/climate/<identifiant>/mode/state`. Rien n'arrive :
 
 1. Écoutez `mosquitto_sub -v -t '<préfixe>/#'`. Si le module ne publie rien, le problème est côté ESPHome (Wi-Fi, broker, `topic_prefix`).
-2. Si le module publie, comparez le **préfixe** et l'**identifiant** de l'entité avec ceux du device (éditeur de device, IO « mode », champ `topic_sub`). Une faute ou la confusion entre le nom du module et le nom de l'entité est la cause la plus fréquente : voir [Clim ESPHome]({{% relref "climate/esphome" %}}).
+2. Si le module publie, comparez le **préfixe** et l'**identifiant** de l'entité avec ceux du device (éditeur de device, IO « mode », champ `topic_sub`). Une faute ou la confusion entre le nom du module et le nom de l'entité est la cause la plus fréquente : voir [Clim ESPHome]({{% relref "hardware/esphome_climate" %}}).
 3. Vérifiez « Deux consignes » : si le module publie `target_temperature_low/state` et `target_temperature_high/state`, le device doit avoir deux consignes ; s'il publie `target_temperature/state`, une seule.
 4. Vérifiez que le broker, le port, l'utilisateur et le mot de passe du device sont ceux du module.
 5. Redémarrez le module pour qu'il republie son état.
@@ -48,7 +48,7 @@ Le device est « hors ligne » quand le topic `<préfixe>/status` ne vaut pas `o
 
 ## « Sonde muette », « Sonde déconnectée »... sur un thermostat
 
-Ce sont des sûretés, pas des pannes du thermostat : voir le tableau de [Thermostat interne]({{% relref "climate/thermostat" %}}). Vérifiez la sonde liée (valeur, connexion) ; dès qu'elle livre une lecture valide, la régulation reprend d'elle-même.
+Ce sont des sûretés, pas des pannes du thermostat : voir le tableau de [Thermostat interne]({{% relref "calaos_installer/devices/thermostat" %}}). Vérifiez la sonde liée (valeur, connexion) ; dès qu'elle livre une lecture valide, la régulation reprend d'elle-même.
 
 ## Le thermostat ne chauffe pas
 

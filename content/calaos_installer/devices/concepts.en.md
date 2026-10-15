@@ -9,7 +9,7 @@ summary = "Owned IOs, links, parameters, capabilities: how Calaos represents an 
 
 An ESPHome air conditioner publishes about twenty values over MQTT: mode, measured temperature, setpoint, fan, swing, connection state... With no other tool you have to create each of them as an MQTT IO, find them again in the tree, and not forget any when you delete the appliance.
 
-A **device** solves this: it is one object that groups all the IOs of one appliance. It is created in one go from a template (see [Create a device]({{% relref "climate/templates" %}})), it shows up as **one piece of equipment** in every interface, and it disappears **with all its IOs** when you delete it.
+A **device** solves this: it is one object that groups all the IOs of one appliance. It is created in one go from a template (see [Create a device]({{% relref "calaos_installer/devices/templates" %}})), it shows up as **one piece of equipment** in every interface, and it disappears **with all its IOs** when you delete it.
 
 For now Calaos knows one device family, **climate** (`climate`), with two behaviours:
 
@@ -36,13 +36,13 @@ A **link** gives a **role** to an IO: "this IO is the room temperature", "that o
 | `target_temp_low`, `target_temp_high` | low and high setpoint (the range of `auto` mode) |
 | `action` | what the appliance is doing: heating, cooling, idle... |
 | `fan_mode`, `swing_mode` | fan and swing |
-| `remote_temp`, `remote_temp_source` | room temperature relayed to the unit (see [ESPHome air conditioner]({{% relref "climate/esphome" %}})) |
+| `remote_temp`, `remote_temp_source` | room temperature relayed to the unit (see [ESPHome air conditioner]({{% relref "hardware/esphome_climate" %}})) |
 | `humidity` | room humidity |
 | `output_heat`, `output_cool` | heating and cooling relays of a thermostat |
 
 ### Parameters
 
-A **parameter** is a setting of the device: hysteresis, minimum on and off times, offered modes, delay before a sensor is declared silent... Default values come from the template; the [device editor]({{% relref "climate/templates" %}}) lets you change them afterwards.
+A **parameter** is a setting of the device: hysteresis, minimum on and off times, offered modes, delay before a sensor is declared silent... Default values come from the template; the [device editor]({{% relref "calaos_installer/devices/templates" %}}) lets you change them afterwards.
 
 ## Capabilities come from links
 
@@ -72,7 +72,7 @@ Whether it comes from a rule, a Lua script, an app or the MCP assistant, a comma
 
 Only the fields present are applied. Each field is checked against the capabilities of the instance: a field that does not exist or a value outside the list is **refused and logged**, and the other fields are applied anyway. Numbers are clamped to the bounds and rounded to the step.
 
-In Calaos Installer, a rule action that targets a device shows a **form** instead of free text (see [Heating rules]({{% relref "climate/rules" %}})).
+In Calaos Installer, a rule action that targets a device shows a **form** instead of free text (see [Heating rules]({{% relref "calaos_installer/rules_heating" %}})).
 
 ## What it looks like in io.xml
 

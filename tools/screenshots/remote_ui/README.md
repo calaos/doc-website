@@ -10,7 +10,7 @@ Re-run, one command:
 
     ./run.sh /path/to/calaos_remote_ui_tree [IMAGES_DIR]
 
-`IMAGES_DIR` defaults to `content/climate/images`. Scratch (scenarios, build cache, raw output)
+`IMAGES_DIR` defaults to `content/calaos_installer/devices/images`. Scratch (scenarios, build cache, raw output)
 goes under `$SIM_WORK` (default `/tmp/doc5-rui-work`); the build cache is incremental.
 
 Images (720x720, grid 3x3 unless noted): `rui-small-widgets`, `rui-fullscreen`, `rui-mode-popup`,
