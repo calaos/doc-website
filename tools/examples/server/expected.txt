@@ -1,0 +1,2 @@
+# <example>\t<regex of a warning or error the server is expected to log while loading it>
+4-plancher-reversible-pac	Device\(plancher_(cuisine|bureau|chambre_parents|chambre_1|chambre_2)\): emitter=floor without a humidity link, cooling has no dew-point cut

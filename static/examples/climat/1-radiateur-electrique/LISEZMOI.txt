@@ -1,0 +1,36 @@
+Exemple Calaos : un radiateur électrique
+========================================
+
+Ce que montre l'exemple
+- Un thermostat interne (modèle « Thermostat de chauffage », émetteur radiateurs électriques) qui commute le relais d'un radiateur selon une sonde de la pièce.
+- Une programmation : 21 °C en semaine de 7 h 30 à 18 h (plage horaire « Bureau occupé »), 17 °C le reste du temps.
+- La fenêtre ouverte arrête le radiateur, la fenêtre fermée le relance.
+
+Les IO à remplacer
+Les IO dont le nom finit par « (à remplacer) » sont des variables internes :
+le projet s'ouvre et fonctionne sans matériel. Changez la température d'une
+sonde depuis une interface et regardez la sortie du thermostat suivre.
+Une sonde « à remplacer » ne se met à jour que quand vous la changez : au bout
+de 2 h 30 sans changement, le thermostat la juge muette et coupe sa sortie.
+- Température bureau : la sonde de la pièce (MQTT, Zigbee, 1-Wire, Wago...).
+- Fenêtre bureau : le contact de la fenêtre (entrée tout ou rien).
+- Relais radiateur bureau : le relais ou fil pilote du radiateur (sortie tout ou rien).
+
+Pour remplacer un IO :
+- dans Calaos Installer, créez le vrai IO, ouvrez le device (double-clic) et
+  choisissez-le pour le lien concerné, corrigez les règles qui utilisaient
+  l'ancien, puis supprimez l'IO « à remplacer » ;
+- ou, dans io.xml, remplacez la ligne de l'IO par celle de votre matériel en
+  gardant le même id : le device et les règles suivent sans autre changement.
+
+Ouvrir dans Calaos Installer
+1. Décompressez l'archive : vous obtenez un dossier avec io.xml et rules.xml.
+2. Menu Fichier, « Ouvrir un projet... », et choisissez ce dossier.
+
+Envoyer à une box Calaos
+Menu Calaos Server, « Envoyer le projet à Calaos Server... », puis l'adresse de
+la box et ses identifiants (user / pass par défaut). Le projet remplace la
+configuration de la box : récupérez d'abord la vôtre avec « Charger le projet
+depuis Calaos Server... » si vous voulez la garder.
+
+Documentation : https://doc.calaos.fr/fr/calaos_installer/devices/examples/

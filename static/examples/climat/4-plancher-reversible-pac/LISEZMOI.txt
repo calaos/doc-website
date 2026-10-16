@@ -1,0 +1,41 @@
+Exemple Calaos : un plancher réversible 9 zones, une pompe à chaleur et l'eau chaude
+====================================================================================
+
+Ce que montre l'exemple
+- Neuf zones de plancher réversible (modèle « Zone de plancher réversible », une vanne par zone) ; trois zones ne font que chauffer.
+- La variable « Mode plancher » (0 arrêt, 1 chaud, 2 froid) et les règles qui la donnent à toutes les zones.
+- Les deux contacts de la pompe à chaleur, « demande chaud » et « demande froid », commandés par règles et jamais allumés ensemble.
+- Les règles qui remettent dans le mode de la maison une zone réglée à la main dans l'autre sens.
+- Un thermostat d'eau chaude sanitaire indépendant, sur la même pompe à chaleur.
+
+Au chargement, le serveur écrit un avertissement « cooling has no dew-point cut » pour chaque zone qui rafraîchit sans sonde d'humidité : c'est attendu, la pompe à chaleur garde l'eau au-dessus du point de rosée.
+
+Les IO à remplacer
+Les IO dont le nom finit par « (à remplacer) » sont des variables internes :
+le projet s'ouvre et fonctionne sans matériel. Changez la température d'une
+sonde depuis une interface et regardez la sortie du thermostat suivre.
+Une sonde « à remplacer » ne se met à jour que quand vous la changez : au bout
+de 2 h 30 sans changement, le thermostat la juge muette et coupe sa sortie.
+- Température et humidité de chaque pièce : les sondes des zones (seul le séjour a une sonde d'humidité).
+- Vanne plancher de chaque zone : les électrovannes (sorties tout ou rien).
+- PAC demande chaud, PAC demande froid : les deux contacts secs de la pompe à chaleur.
+- Température ballon ECS, Relais ECS : la sonde du ballon et le contact de demande d'eau chaude.
+
+Pour remplacer un IO :
+- dans Calaos Installer, créez le vrai IO, ouvrez le device (double-clic) et
+  choisissez-le pour le lien concerné, corrigez les règles qui utilisaient
+  l'ancien, puis supprimez l'IO « à remplacer » ;
+- ou, dans io.xml, remplacez la ligne de l'IO par celle de votre matériel en
+  gardant le même id : le device et les règles suivent sans autre changement.
+
+Ouvrir dans Calaos Installer
+1. Décompressez l'archive : vous obtenez un dossier avec io.xml et rules.xml.
+2. Menu Fichier, « Ouvrir un projet... », et choisissez ce dossier.
+
+Envoyer à une box Calaos
+Menu Calaos Server, « Envoyer le projet à Calaos Server... », puis l'adresse de
+la box et ses identifiants (user / pass par défaut). Le projet remplace la
+configuration de la box : récupérez d'abord la vôtre avec « Charger le projet
+depuis Calaos Server... » si vous voulez la garder.
+
+Documentation : https://doc.calaos.fr/fr/calaos_installer/devices/examples/

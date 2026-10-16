@@ -21,6 +21,7 @@ Dans les deux cas, l'équipement est un **device** : un objet unique qui regroup
 | faire réguler Calaos avec des relais | [Thermostat interne]({{% relref "calaos_installer/devices/thermostat" %}}) |
 | créer ou modifier un device dans l'installer | [Créer un device avec l'assistant]({{% relref "calaos_installer/devices/templates" %}}) |
 | voir le résultat sur vos écrans | [Afficher et régler]({{% relref "calaos_installer/devices/clients" %}}) |
+| partir d'un projet complet | [Projets d'exemple]({{% relref "calaos_installer/devices/examples" %}}) |
 | programmer le chauffage | [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}) |
 | comprendre un problème | [Dépannage]({{% relref "calaos_installer/devices/troubleshooting" %}}) |
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calaos:ioconfig xmlns:calaos="http://www.calaos.fr">
+    <calaos:home format="2">
+        <calaos:room name="Séjour" type="sam" hits="0">
+            <calaos:internal id="temp_sejour" name="Température séjour (à remplacer)" type="InternalInt" unit="°C" value="20"/>
+            <calaos:device id="plancher_sejour" impl="thermostat" name="Plancher séjour" type="climate" visible="true">
+                <calaos:internal id="plancher_sejour_target_temp" name="Plancher séjour consigne" save="true" step="0.5" type="InternalInt" unit="°C" value="20" value_max="30" value_min="7" visible="false"/>
+                <calaos:internal id="plancher_sejour_action" name="Plancher séjour action" type="InternalString" visible="false"/>
+                <calaos:link name="current_temp" io="temp_sejour"/>
+                <calaos:link name="target_temp" io="plancher_sejour_target_temp"/>
+                <calaos:link name="action" io="plancher_sejour_action"/>
+                <calaos:link name="output_heat" io="vanne_sejour"/>
+                <calaos:param name="emitter" value="floor"/>
+                <calaos:param name="hysteresis" value="0.5"/>
+                <calaos:param name="min_on_time" value="900"/>
+                <calaos:param name="min_off_time" value="900"/>
+                <calaos:param name="sensor_timeout" value="9000"/>
+                <calaos:param name="valid_min" value="-30"/>
+                <calaos:param name="valid_max" value="60"/>
+                <calaos:param name="put_back_delay" value="1"/>
+                <calaos:param name="put_back_delay_max" value="60"/>
+            </calaos:device>
+            <calaos:internal id="vanne_sejour" io_style="light" name="Vanne plancher séjour (à remplacer)" type="InternalBool"/>
+        </calaos:room>
+        <calaos:room name="Cuisine" type="cuisine" hits="0">
+            <calaos:internal id="temp_cuisine" name="Température cuisine (à remplacer)" type="InternalInt" unit="°C" value="20"/>
+            <calaos:device id="plancher_cuisine" impl="thermostat" name="Plancher cuisine" type="climate" visible="true">
+                <calaos:internal id="plancher_cuisine_target_temp" name="Plancher cuisine consigne" save="true" step="0.5" type="InternalInt" unit="°C" value="20" value_max="30" value_min="7" visible="false"/>
+                <calaos:internal id="plancher_cuisine_action" name="Plancher cuisine action" type="InternalString" visible="false"/>
+                <calaos:link name="current_temp" io="temp_cuisine"/>
+                <calaos:link name="target_temp" io="plancher_cuisine_target_temp"/>
+                <calaos:link name="action" io="plancher_cuisine_action"/>
+                <calaos:link name="output_heat" io="vanne_cuisine"/>
+                <calaos:param name="emitter" value="floor"/>
+                <calaos:param name="hysteresis" value="0.5"/>
+                <calaos:param name="min_on_time" value="900"/>
+                <calaos:param name="min_off_time" value="900"/>
+                <calaos:param name="sensor_timeout" value="9000"/>
+                <calaos:param name="valid_min" value="-30"/>
+                <calaos:param name="valid_max" value="60"/>
+                <calaos:param name="put_back_delay" value="1"/>
+                <calaos:param name="put_back_delay_max" value="60"/>
+            </calaos:device>
+            <calaos:internal id="vanne_cuisine" io_style="light" name="Vanne plancher cuisine (à remplacer)" type="InternalBool"/>
+        </calaos:room>
+        <calaos:room name="Chambre" type="chambre" hits="0">
+            <calaos:internal id="temp_chambre" name="Température chambre (à remplacer)" type="InternalInt" unit="°C" value="20"/>
+            <calaos:device id="plancher_chambre" impl="thermostat" name="Plancher chambre" type="climate" visible="true">
+                <calaos:internal id="plancher_chambre_target_temp" name="Plancher chambre consigne" save="true" step="0.5" type="InternalInt" unit="°C" value="20" value_max="30" value_min="7" visible="false"/>
+                <calaos:internal id="plancher_chambre_action" name="Plancher chambre action" type="InternalString" visible="false"/>
+                <calaos:link name="current_temp" io="temp_chambre"/>
+                <calaos:link name="target_temp" io="plancher_chambre_target_temp"/>
+                <calaos:link name="action" io="plancher_chambre_action"/>
+                <calaos:link name="output_heat" io="vanne_chambre"/>
+                <calaos:param name="emitter" value="floor"/>
+                <calaos:param name="hysteresis" value="0.5"/>
+                <calaos:param name="min_on_time" value="900"/>
+                <calaos:param name="min_off_time" value="900"/>
+                <calaos:param name="sensor_timeout" value="9000"/>
+                <calaos:param name="valid_min" value="-30"/>
+                <calaos:param name="valid_max" value="60"/>
+                <calaos:param name="put_back_delay" value="1"/>
+                <calaos:param name="put_back_delay_max" value="60"/>
+            </calaos:device>
+            <calaos:internal id="vanne_chambre" io_style="light" name="Vanne plancher chambre (à remplacer)" type="InternalBool"/>
+        </calaos:room>
+        <calaos:room name="Technique" type="cave" hits="0">
+            <calaos:internal id="circulateur" io_style="light" name="Circulateur chauffage (à remplacer)" type="InternalBool"/>
+        </calaos:room>
+    </calaos:home>
+</calaos:ioconfig>

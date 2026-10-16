@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calaos:rules xmlns:calaos="http://www.calaos.fr">
+    <calaos:rule name="Bureau : confort en journée" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="bureau_occupe" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="{&quot;mode&quot;:&quot;heat&quot;,&quot;target_temp&quot;:21}"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Bureau : réduit hors journée" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="bureau_occupe" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="{&quot;target_temp&quot;:17}"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Fenêtre bureau ouverte" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="bureau_fenetre" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="off"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Fenêtre bureau fermée" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="bureau_fenetre" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="radiateur_bureau" val="heat"/>
+        </calaos:action>
+    </calaos:rule>
+</calaos:rules>

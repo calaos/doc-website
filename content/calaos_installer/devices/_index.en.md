@@ -21,6 +21,7 @@ Either way, the equipment is a **device**: one object that groups all the IOs of
 | let Calaos regulate with relays | [Internal thermostat]({{% relref "calaos_installer/devices/thermostat" %}}) |
 | create or edit a device in the installer | [Create a device with the wizard]({{% relref "calaos_installer/devices/templates" %}}) |
 | see the result on your screens | [Display and control]({{% relref "calaos_installer/devices/clients" %}}) |
+| start from a complete project | [Example projects]({{% relref "calaos_installer/devices/examples" %}}) |
 | schedule the heating | [Heating rules]({{% relref "calaos_installer/rules_heating" %}}) |
 | understand a problem | [Troubleshooting]({{% relref "calaos_installer/devices/troubleshooting" %}}) |
 

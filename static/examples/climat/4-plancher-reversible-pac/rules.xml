@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calaos:rules xmlns:calaos="http://www.calaos.fr">
+    <calaos:rule name="Plancher : arrêt général" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="0"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_sejour" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_cuisine" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_bureau" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_parents" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_1" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_2" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_salle_de_bain" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_entree" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_buanderie" val="off"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher : mode chaud" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_sejour" val="heat"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_cuisine" val="heat"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_bureau" val="heat"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_parents" val="heat"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_1" val="heat"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_2" val="heat"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_salle_de_bain" val="heat"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_entree" val="heat"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_buanderie" val="heat"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher : mode froid" type="Chauffage">
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_sejour" val="cool"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_cuisine" val="cool"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_bureau" val="cool"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_parents" val="cool"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_1" val="cool"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_2" val="cool"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_salle_de_bain" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_entree" val="off"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_buanderie" val="off"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC chaud : vanne séjour ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_sejour" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC froid : vanne séjour ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_sejour" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC chaud : vanne cuisine ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_cuisine" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC froid : vanne cuisine ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_cuisine" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC chaud : vanne bureau ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_bureau" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC froid : vanne bureau ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_bureau" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC chaud : vanne chambre parents ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_parents" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC froid : vanne chambre parents ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_parents" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC chaud : vanne chambre 1 ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_chambre1" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC froid : vanne chambre 1 ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_chambre1" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC chaud : vanne chambre 2 ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_chambre2" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC froid : vanne chambre 2 ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_chambre2" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC chaud : vanne salle de bain ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_sdb" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC chaud : vanne entrée ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_entree" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC chaud : vanne buanderie ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_buanderie" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="PAC : toutes les vannes fermées" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_sejour" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_cuisine" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_bureau" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_parents" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_chambre1" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_chambre2" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_sdb" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_entree" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_buanderie" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_chaud" val="false"/>
+        </calaos:action>
+        <calaos:action type="standard">
+            <calaos:output id="pac_demande_froid" val="false"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher séjour : retour en chaud" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_sejour" oper="==" val="cool"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_sejour" val="heat"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher séjour : retour en froid" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_sejour" oper="==" val="heat"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_sejour" val="cool"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher cuisine : retour en chaud" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_cuisine" oper="==" val="cool"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_cuisine" val="heat"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher cuisine : retour en froid" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_cuisine" oper="==" val="heat"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_cuisine" val="cool"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher bureau : retour en chaud" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_bureau" oper="==" val="cool"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_bureau" val="heat"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher bureau : retour en froid" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_bureau" oper="==" val="heat"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_bureau" val="cool"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher chambre parents : retour en chaud" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_chambre_parents" oper="==" val="cool"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_parents" val="heat"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher chambre parents : retour en froid" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_chambre_parents" oper="==" val="heat"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_parents" val="cool"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher chambre 1 : retour en chaud" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_chambre_1" oper="==" val="cool"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_1" val="heat"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher chambre 1 : retour en froid" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_chambre_1" oper="==" val="heat"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_1" val="cool"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher chambre 2 : retour en chaud" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_chambre_2" oper="==" val="cool"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="1"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_2" val="heat"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher chambre 2 : retour en froid" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_chambre_2" oper="==" val="heat"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_chambre_2" val="cool"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher salle de bain : retour en froid" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_salle_de_bain" oper="==" val="heat"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_salle_de_bain" val="off"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher entrée : retour en froid" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_entree" oper="==" val="heat"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_entree" val="off"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Plancher buanderie : retour en froid" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="plancher_buanderie" oper="==" val="heat"/>
+        </calaos:condition>
+        <calaos:condition type="standard" trigger="true">
+            <calaos:input id="mode_plancher" oper="==" val="2"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="plancher_buanderie" val="off"/>
+        </calaos:action>
+    </calaos:rule>
+</calaos:rules>

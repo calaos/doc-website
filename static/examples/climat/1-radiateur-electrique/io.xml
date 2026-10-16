@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calaos:ioconfig xmlns:calaos="http://www.calaos.fr">
+    <calaos:home format="2">
+        <calaos:room name="Bureau" type="bureau" hits="0">
+            <calaos:internal id="bureau_temp" name="Température bureau (à remplacer)" type="InternalInt" unit="°C" value="20"/>
+            <calaos:internal id="bureau_fenetre" name="Fenêtre bureau (à remplacer)" type="InternalBool"/>
+            <calaos:device id="radiateur_bureau" impl="thermostat" name="Radiateur bureau" type="climate" visible="true">
+                <calaos:internal id="radiateur_bureau_target_temp" name="Radiateur bureau consigne" save="true" step="0.5" type="InternalInt" unit="°C" value="20" value_max="30" value_min="7" visible="false"/>
+                <calaos:internal id="radiateur_bureau_action" name="Radiateur bureau action" type="InternalString" visible="false"/>
+                <calaos:link name="current_temp" io="bureau_temp"/>
+                <calaos:link name="target_temp" io="radiateur_bureau_target_temp"/>
+                <calaos:link name="action" io="radiateur_bureau_action"/>
+                <calaos:link name="output_heat" io="bureau_radiateur"/>
+                <calaos:param name="emitter" value="electric"/>
+                <calaos:param name="hysteresis" value="0.3"/>
+                <calaos:param name="min_on_time" value="120"/>
+                <calaos:param name="min_off_time" value="120"/>
+                <calaos:param name="sensor_timeout" value="9000"/>
+                <calaos:param name="valid_min" value="-30"/>
+                <calaos:param name="valid_max" value="60"/>
+                <calaos:param name="put_back_delay" value="1"/>
+                <calaos:param name="put_back_delay_max" value="60"/>
+            </calaos:device>
+            <calaos:internal id="bureau_radiateur" io_style="light" name="Relais radiateur bureau (à remplacer)" type="InternalBool"/>
+        </calaos:room>
+        <calaos:room name="Maison" type="divers" hits="0">
+            <calaos:input months="111111111111" id="bureau_occupe" name="Bureau occupé" type="InPlageHoraire">
+                <calaos:lundi>
+                    <calaos:plage start_hour="07" start_min="30" start_sec="0" start_type="0" start_offset="1" end_hour="18" end_min="00" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:lundi>
+                <calaos:mardi>
+                    <calaos:plage start_hour="07" start_min="30" start_sec="0" start_type="0" start_offset="1" end_hour="18" end_min="00" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:mardi>
+                <calaos:mercredi>
+                    <calaos:plage start_hour="07" start_min="30" start_sec="0" start_type="0" start_offset="1" end_hour="18" end_min="00" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:mercredi>
+                <calaos:jeudi>
+                    <calaos:plage start_hour="07" start_min="30" start_sec="0" start_type="0" start_offset="1" end_hour="18" end_min="00" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:jeudi>
+                <calaos:vendredi>
+                    <calaos:plage start_hour="07" start_min="30" start_sec="0" start_type="0" start_offset="1" end_hour="18" end_min="00" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:vendredi>
+                <calaos:samedi/>
+                <calaos:dimanche/>
+            </calaos:input>
+        </calaos:room>
+    </calaos:home>
+</calaos:ioconfig>
