@@ -5,7 +5,7 @@ weight = 50
 summary = "Programmer la consigne, gérer l'absence, la fenêtre ouverte, le hors-gel, un circulateur commun, un plancher réversible sur pompe à chaleur et l'eau chaude sanitaire, pas à pas."
 +++
 
-Un thermostat ou une clim ne contient aucune politique : pas de programme horaire, pas de mode absence. C'est le rôle des [règles]({{% relref "calaos_installer/rules" %}}), qui **écrivent la consigne ou le mode du device**, comme elles écriraient n'importe quel IO. Cette page donne des recettes complètes.
+Un thermostat ou une clim ne contient aucune politique : pas de programme horaire, pas de mode absence. C'est le rôle des [règles]({{% relref "calaos_installer/rules" %}}), qui **écrivent la consigne ou le mode du device**, comme elles écriraient n'importe quel IO. Cette page donne des recettes complètes. Vous retrouverez la plupart dans des [projets d'exemple]({{% relref "calaos_installer/devices/examples" %}}) à télécharger et à ouvrir dans Calaos Installer.
 
 ## La commande dans une action de règle
 
@@ -96,18 +96,32 @@ Les sorties ne sont jamais écrites par ces règles, seulement lues : le circula
 
 ## 6. Plancher réversible : neuf zones et une pompe à chaleur
 
-*Une maison de neuf zones de plancher hydraulique. Une pompe à chaleur fait l'eau chaude ou l'eau froide selon deux contacts secs, « demande de chaud » et « demande de froid », qui ne doivent jamais être allumés ensemble. Chaque zone a une seule vanne, la même pour le chaud et le froid. Six zones peuvent rafraîchir ; la salle de bain, l'entrée et la buanderie ne font que chauffer.*
+*La maison a neuf zones de plancher hydraulique et une pompe à chaleur (PAC) réversible : l'hiver elle fait de l'eau chaude, l'été de l'eau froide. Elle se commande par deux contacts secs, « demande de chaud » et « demande de froid », qui ne doivent jamais être fermés ensemble. Chaque zone a une seule électrovanne, la même pour le chaud et le froid. Six zones peuvent rafraîchir ; la salle de bain, l'entrée et la buanderie ne font que chauffer.*
 
-Calaos n'a pas de device « pompe à chaleur » : les thermostats de zone commandent leurs vannes, et des règles en tirent la demande à la pompe. L'ensemble tient en quatre pièces :
+Ce projet complet est [téléchargeable]({{% relref "calaos_installer/devices/examples" %}}) : vous pouvez l'ouvrir dans Calaos Installer en lisant cette recette.
 
-1. un thermostat par zone, avec le modèle **Zone de plancher réversible** ;
-2. une variable **« Mode plancher »** (0 arrêt, 1 chaud, 2 froid) qui donne le mode à toutes les zones ;
-3. des règles qui allument le bon contact de la pompe selon les vannes ouvertes et le mode ;
-4. des règles qui remettent dans le mode de la maison une zone réglée à la main dans l'autre sens.
+### Le principe
+
+Une vanne ouverte laisse passer l'eau ; c'est la PAC qui décide si elle est chaude ou froide. Chaque zone a son thermostat, qui ouvre sa vanne quand la pièce a besoin d'eau : en mode chaud quand la pièce est trop froide, en mode froid quand elle est trop chaude. Le thermostat doit donc avoir le bon mode, et il ne connaît pas celui de la PAC (voir [La vanne de zone]({{% relref "calaos_installer/devices/thermostat" %}})).
+
+Un seul réglage décide du sens pour toute la maison : la variable **« Mode plancher »**. Des règles le recopient dans chaque zone, puis allument le bon contact de la PAC dès qu'une vanne est ouverte :
+
+{{< mermaid >}}
+graph TD
+    M["Mode plancher<br/>0 arrêt, 1 chaud, 2 froid"] -->|"règles « Plancher : mode... »"| Z["9 thermostats de zone<br/>heat, cool ou off"]
+    Z -->|"régulation"| V["9 vannes de zone<br/>ouvertes ou fermées"]
+    V -->|"règles « PAC chaud / froid »"| P["PAC<br/>contact chaud ou contact froid"]
+    M -->|"donne le sens"| P
+{{< /mermaid >}}
+
+L'été, on passe « Mode plancher » à 2 : un seul geste, et les règles mettent chaque zone en froid.
 
 ### Étape 1 : les neuf zones
 
-Pour chaque zone, ajoutez un device avec le modèle **Zone de plancher réversible** (voir [Créer un device]({{% relref "calaos_installer/devices/templates" %}})) : la sonde de la zone, **sa** vanne (un relais par zone : une sortie n'a qu'un thermostat) et les modes. Les six zones qui rafraîchissent gardent **Chauffage** et **Froid** ; les trois autres ne gardent que **Chauffage**, donc le paramètre `modes` vaut `off,heat`.
+Pour chaque zone, ajoutez un device avec le modèle **Zone de plancher réversible** (voir [Créer un device]({{% relref "calaos_installer/devices/templates" %}})) : la sonde de la zone, **sa** vanne (une vanne par zone : une sortie n'a qu'un thermostat) et les modes.
+
+- Les six zones qui rafraîchissent gardent **Chauffage** et **Froid** : leur paramètre `modes` vaut `off,heat,cool`.
+- Les trois autres ne gardent que **Chauffage** : `modes` vaut `off,heat`. Elles refusent le mode froid.
 
 ![Zone qui chauffe et rafraîchit](/en/calaos_installer/devices/images/inst-wizard-floor-zone.png?width=36pc&classes=shadow)
 *« Plancher séjour » : chaud et froid, avec une sonde d'humidité.*
@@ -115,14 +129,14 @@ Pour chaque zone, ajoutez un device avec le modèle **Zone de plancher réversib
 ![Zone en chauffage seul](/en/calaos_installer/devices/images/inst-wizard-floor-zone-heat.png?width=36pc&classes=shadow)
 *« Plancher salle de bain » : chaud seulement.*
 
-Créez aussi les deux relais de la pompe à chaleur, « PAC demande chaud » et « PAC demande froid » : ce sont de simples sorties, **qu'aucun thermostat ne possède**, et que seules les règles ci-dessous commandent.
+Créez aussi les deux relais de la PAC, « PAC demande chaud » et « PAC demande froid ». Ce sont de simples sorties : **aucun thermostat ne les possède**, seules les règles de l'étape 3 les commandent.
 
 ![Les zones dans l'arborescence](/en/calaos_installer/devices/images/inst-tree-floor.png?width=30pc&classes=shadow)
-*Neuf zones, leurs vannes, les deux contacts de la pompe et la variable « Mode plancher ».*
+*Neuf zones, leurs vannes, les deux contacts de la PAC et la variable « Mode plancher ».*
 
-### Étape 2 : le mode de la maison
+### Étape 2 : le mode de toute la maison
 
-Créez une [variable interne]({{% relref "calaos_installer/internal_var" %}}) de type **entier**, « Mode plancher », valeur initiale 0, avec **Sauvegarder** coché pour qu'elle survive à un redémarrage. Ses valeurs :
+Créez une [variable interne]({{% relref "calaos_installer/internal_var" %}}) de type **entier**, « Mode plancher », valeur initiale 0, avec **Sauvegarder** coché pour qu'elle survive à un redémarrage.
 
 | Valeur | Mode de la maison |
 |---|---|
@@ -130,22 +144,34 @@ Créez une [variable interne]({{% relref "calaos_installer/internal_var" %}}) de
 | 1 | chaud |
 | 2 | froid |
 
-Elle se change comme tout IO : depuis un scénario, une règle (selon la température extérieure ou le calendrier), ou à la main si vous la rendez visible dans les interfaces. Trois règles la répercutent sur les zones :
+Trois règles la recopient dans les zones. Voici celle de l'été, **« Plancher : mode froid »** :
+
+- **Condition** : « Mode plancher » == 2.
+- **Actions** :
+  - Plancher séjour, cuisine, bureau, chambre parents, chambre 1 et chambre 2 reçoivent `cool` ;
+  - Plancher salle de bain, entrée et buanderie reçoivent `off` : elles ne rafraîchissent pas, elles s'éteignent.
+
+Dès que « Mode plancher » passe à 2, cette règle s'exécute et met les neuf zones dans le bon mode : vous ne touchez à aucune pièce. Ses deux sœurs sont construites de la même façon :
 
 | Règle | Condition | Actions |
 |---|---|---|
 | Plancher : arrêt général | « Mode plancher » == 0 | chaque zone reçoit `off` |
 | Plancher : mode chaud | « Mode plancher » == 1 | chaque zone reçoit `heat` |
-| Plancher : mode froid | « Mode plancher » == 2 | les six zones qui rafraîchissent reçoivent `cool`, les trois autres `off` |
+| Plancher : mode froid | « Mode plancher » == 2 | six zones reçoivent `cool`, les trois autres `off` |
 
 ![Règle du mode chaud](/en/calaos_installer/devices/images/inst-rule-floor-mode.png?width=40pc&classes=shadow)
-*La règle « mode chaud » : une condition sur la variable, neuf actions.*
+*La règle « Plancher : mode chaud » : une condition sur la variable, neuf actions.*
 
-Une zone sans refroidissement refuse `cool` (elle n'a pas ce mode) : en mode froid, elle reçoit `off` et s'éteint.
+« Mode plancher » se change comme tout IO : rendez-la visible pour la régler depuis les interfaces, mettez-la dans un [scénario]({{% relref "calaos_installer/scenario" %}}) « Été » ou « Hiver », ou faites-la changer par une règle (calendrier, température extérieure).
 
-### Étape 3 : les contacts de la pompe à chaleur
+### Étape 3 : les contacts de la PAC
 
-Une vanne est allumée **si et seulement si** son thermostat demande de la chaleur ou du froid : comme pour le circulateur, les règles lisent les vannes. La vanne ne dit pas dans quel sens, c'est le mode de la maison qui le dit.
+La PAC ne doit produire que si une zone a besoin d'eau, et dans le bon sens :
+
+- une vanne ouverte veut dire qu'une zone a besoin d'eau (son thermostat ne l'ouvre que pour cela) ;
+- « Mode plancher » donne le sens.
+
+Les règles lisent donc les vannes, comme pour le circulateur de la recette 5 :
 
 | Règle | Conditions | Actions, dans cet ordre |
 |---|---|---|
@@ -153,7 +179,13 @@ Une vanne est allumée **si et seulement si** son thermostat demande de la chale
 | PAC froid : vanne *zone* ouverte (six règles, les zones qui rafraîchissent) | vanne *zone* == `true` **et** « Mode plancher » == 2 | « PAC demande chaud » éteint, puis « PAC demande froid » allumé |
 | PAC : toutes les vannes fermées | les neuf vannes == `false` | « PAC demande chaud » et « PAC demande froid » éteints |
 
-Chaque règle éteint d'abord le contact opposé, puis allume le sien : les deux contacts ne sont jamais allumés ensemble. Les conditions sur les vannes sont du type **Condition sur évènement de sortie** (comme pour le circulateur) et celle sur la variable une **Condition normale**.
+Les conditions sur les vannes sont du type **Condition sur évènement de sortie** (comme pour le circulateur), celle sur la variable une **Condition normale**.
+
+Les deux contacts ne peuvent jamais être allumés ensemble :
+
+- une règle « PAC chaud » demande « Mode plancher » == 1, une règle « PAC froid » == 2 : la variable n'a qu'une valeur à la fois ;
+- chaque règle éteint d'abord le contact opposé, puis allume le sien ;
+- aucun thermostat ne commande ces contacts, seulement ces règles.
 
 ![Règle du contact chaud](/en/calaos_installer/devices/images/inst-rule-floor-heat-contact.png?width=40pc&classes=shadow)
 *Une vanne s'ouvre en mode chaud : le contact « froid » est éteint, le contact « chaud » allumé.*
@@ -162,27 +194,46 @@ Chaque règle éteint d'abord le contact opposé, puis allume le sien : les deux
 *La même zone en mode froid.*
 
 ![Règle des vannes fermées](/en/calaos_installer/devices/images/inst-rule-floor-all-off.png?width=40pc&classes=shadow)
-*Les neuf vannes fermées : la pompe n'a plus de demande.*
+*Les neuf vannes fermées : la PAC n'a plus de demande.*
 
-Au changement de mode de la maison, les vannes ouvertes dans l'ancien sens se ferment après `min_on_time` (15 minutes), puis se rouvrent dans le nouveau sens après `min_off_time` : la règle « toutes les vannes fermées » éteint les contacts quand la dernière se ferme, et le contact du nouveau sens s'allume à la première réouverture.
+Au passage du chaud au froid, le contact suit tout de suite le nouveau mode si une vanne est encore ouverte. Les vannes ouvertes pour chauffer se ferment à la fin de leur durée minimale de marche (15 minutes), puis se rouvrent pour rafraîchir après leur durée minimale d'arrêt. Pour que tout s'arrête d'abord, passez par 0 : l'arrêt ferme les vannes tout de suite.
 
 ### Étape 4 : une zone réglée à la main dans l'autre sens
 
-Quelqu'un met une zone en `cool` pendant la saison de chauffe : sa vanne s'ouvrirait, la pompe fournirait de l'eau chaude, et la zone se réchaufferait en voulant se rafraîchir. Une règle par zone et par sens remet la zone dans le mode de la maison, dès que son mode change :
+En plein hiver, quelqu'un met le séjour en froid depuis son téléphone. Sans règle, le séjour ouvrirait sa vanne dès qu'il fait trop chaud, la PAC (en chaud) enverrait de l'eau chaude, et la pièce se réchaufferait en voulant se rafraîchir.
+
+Une règle par zone et par sens remet la zone dans le mode de la maison dès que son mode change :
 
 | Règle | Conditions | Action |
 |---|---|---|
 | Plancher *zone* : retour en chaud (six zones) | *zone* == `cool` **et** « Mode plancher » == 1 | *zone* reçoit `heat` |
-| Plancher *zone* : retour en froid (neuf zones) | *zone* == `heat` **et** « Mode plancher » == 2 | *zone* reçoit `cool` (`off` pour une zone sans refroidissement) |
+| Plancher *zone* : retour en froid (neuf zones) | *zone* == `heat` **et** « Mode plancher » == 2 | *zone* reçoit `cool` (`off` pour une zone qui ne rafraîchit pas) |
 
-La condition sur *zone* est une **Condition sur évènement de sortie** sur le device lui-même (sélectionnez le device dans l'arborescence, pas un de ses IO) : la valeur comparée est son mode. L'arrêt à la main (`off`) n'est pas contrarié.
+La condition sur *zone* est une **Condition sur évènement de sortie** sur le device lui-même (sélectionnez le device dans l'arborescence, pas un de ses IO) : la valeur comparée est son mode.
+
+Pendant cet aller-retour, rien ne bouge sur l'installation :
+
+- une vanne ouverte ne change pas de sens avant sa durée minimale de marche : elle reste ouverte et continue de chauffer ;
+- les contacts de la PAC suivent « Mode plancher », pas le mode de la zone : la PAC ne passe jamais en froid pour une seule zone.
+
+Une zone mise à `off` à la main n'est jamais touchée par ces règles.
 
 ![Règle de retour en mode chaud](/en/calaos_installer/devices/images/inst-rule-floor-putback.png?width=40pc&classes=shadow)
-*Une zone du séjour passée en froid pendant la saison de chauffe revient en chaud.*
+*Le séjour passé en froid pendant la saison de chauffe revient en chaud.*
 
-### Le point de rosée
+### Questions fréquentes
 
-Cette installation n'a pas de sonde d'humidité dans chaque zone : la pompe à chaleur garde l'eau froide au-dessus du point de rosée. Le thermostat de zone ne coupe donc pas le froid de lui-même ; le serveur l'indique, pour chaque zone sans sonde, par un avertissement au chargement (« cooling has no dew-point cut ») : c'est attendu quand la pompe à chaleur gère la condensation. Une zone **avec** sonde d'humidité (le séjour, ci-dessus) coupe son refroidissement dès que l'humidité atteint `humidity_max` : sa vanne se ferme et les contacts de la pompe suivent la vanne, sans règle de plus. Voir [Thermostat interne]({{% relref "calaos_installer/devices/thermostat" %}}).
+**Je passe une zone en froid alors que la PAC chauffe ?**
+La règle « retour en chaud » de la zone la remet aussitôt en `heat`. La pièce continue de chauffer normalement. Pour rafraîchir, c'est toute la maison qui passe en froid.
+
+**Comment passer en été ?**
+Mettez « Mode plancher » à 2, depuis les interfaces, un scénario ou une règle. La règle « Plancher : mode froid » met les six zones en froid et éteint les trois autres. Pour revenir en hiver, mettez-la à 1.
+
+**Comment éteindre une seule pièce ?**
+Mettez sa zone en `off`, depuis les interfaces ou une règle : les règles de retour ne la touchent pas. Elle reste éteinte jusqu'au prochain changement de « Mode plancher », qui remet chaque zone dans le mode de la maison.
+
+**Et sans sonde d'humidité ?**
+Le froid reste permis. Sans sonde, le thermostat ne peut pas éviter la condensation : c'est la PAC qui doit garder l'eau au-dessus du point de rosée. Le serveur le rappelle au chargement par un avertissement pour chaque zone sans sonde (« cooling has no dew-point cut ») : c'est attendu. Une zone **avec** sonde (le séjour, ici) coupe son froid dès que l'humidité atteint `humidity_max` ; sa vanne se ferme et les contacts de la PAC suivent, sans règle de plus. Voir [Thermostat interne]({{% relref "calaos_installer/devices/thermostat" %}}).
 
 ## 7. Eau chaude sanitaire sur la même pompe à chaleur
 

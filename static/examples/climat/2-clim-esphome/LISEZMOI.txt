@@ -1,0 +1,35 @@
+Exemple Calaos : une clim ESPHome
+=================================
+
+Ce que montre l'exemple
+- Une clim pilotée par un module ESPHome (device « proxy ») : la clim régule seule, Calaos affiche son état et envoie modes et consignes.
+- La température d'une sonde de la pièce est relayée à la clim (lien `remote_temp_source`).
+- Une variable « Absence » qui élargit la plage de consignes, et un hors-gel de nuit.
+
+Les IO à remplacer
+Les IO dont le nom finit par « (à remplacer) » sont des variables internes :
+le projet s'ouvre et fonctionne sans matériel. Changez la température d'une
+sonde depuis une interface et regardez la sortie du thermostat suivre.
+Une sonde « à remplacer » ne se met à jour que quand vous la changez : au bout
+de 2 h 30 sans changement, le thermostat la juge muette et coupe sa sortie.
+- Température salon : la sonde de la pièce.
+- Clim salon : les IO MQTT de la clim visent le broker 127.0.0.1 et le nœud ESPHome « clim_salon ». Le plus simple est de recréer le device avec le modèle « Clim ESPHome » de l'assistant et son bouton de recherche sur le broker, puis de reprendre les règles ; sinon, changez l'adresse du broker et le nom du nœud dans chaque IO de la clim.
+
+Pour remplacer un IO :
+- dans Calaos Installer, créez le vrai IO, ouvrez le device (double-clic) et
+  choisissez-le pour le lien concerné, corrigez les règles qui utilisaient
+  l'ancien, puis supprimez l'IO « à remplacer » ;
+- ou, dans io.xml, remplacez la ligne de l'IO par celle de votre matériel en
+  gardant le même id : le device et les règles suivent sans autre changement.
+
+Ouvrir dans Calaos Installer
+1. Décompressez l'archive : vous obtenez un dossier avec io.xml et rules.xml.
+2. Menu Fichier, « Ouvrir un projet... », et choisissez ce dossier.
+
+Envoyer à une box Calaos
+Menu Calaos Server, « Envoyer le projet à Calaos Server... », puis l'adresse de
+la box et ses identifiants (user / pass par défaut). Le projet remplace la
+configuration de la box : récupérez d'abord la vôtre avec « Charger le projet
+depuis Calaos Server... » si vous voulez la garder.
+
+Documentation : https://doc.calaos.fr/fr/calaos_installer/devices/examples/

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calaos:rules xmlns:calaos="http://www.calaos.fr">
+    <calaos:rule name="Circulateur : vanne séjour ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_sejour" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Circulateur : vanne cuisine ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_cuisine" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Circulateur : vanne chambre ouverte" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_chambre" oper="==" val="true"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="true"/>
+        </calaos:action>
+    </calaos:rule>
+    <calaos:rule name="Circulateur : toutes les vannes fermées" type="Chauffage">
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_sejour" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_cuisine" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:condition type="output" trigger="true">
+            <calaos:output id="vanne_chambre" oper="==" val="false"/>
+        </calaos:condition>
+        <calaos:action type="standard">
+            <calaos:output id="circulateur" val="false"/>
+        </calaos:action>
+    </calaos:rule>
+</calaos:rules>

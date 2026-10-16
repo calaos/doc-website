@@ -5,7 +5,7 @@ weight = 50
 summary = "Schedule the setpoint, handle absence, open window, frost protection, a common circulator, a reversible floor on a heat pump and domestic hot water, step by step."
 +++
 
-A thermostat or air conditioner contains no policy: no schedule, no away mode. That is the job of [rules]({{% relref "calaos_installer/rules" %}}), which **write the device's setpoint or mode**, as they would write any IO. This page gives complete recipes.
+A thermostat or air conditioner contains no policy: no schedule, no away mode. That is the job of [rules]({{% relref "calaos_installer/rules" %}}), which **write the device's setpoint or mode**, as they would write any IO. This page gives complete recipes. You will find most of them in [example projects]({{% relref "calaos_installer/devices/examples" %}}) to download and open in Calaos Installer.
 
 ## The command in a rule action
 
@@ -96,18 +96,32 @@ These rules never write the outputs, they only read them: the circulator is the 
 
 ## 6. Reversible floor: nine zones and a heat pump
 
-*A house with nine zones of hydronic floor. A heat pump makes hot or cold water according to two dry contacts, "heat demand" and "cool demand", which must never be on together. Each zone has a single valve, the same for heating and cooling. Six zones can cool; the bathroom, the entrance and the laundry room only heat.*
+*The house has nine zones of hydronic floor and a reversible heat pump: in winter it makes hot water, in summer cold water. It is driven by two dry contacts, "heat demand" and "cool demand", which must never be closed together. Each zone has a single electrovalve, the same for heating and cooling. Six zones can cool; the bathroom, the entrance and the laundry room only heat.*
 
-Calaos has no "heat pump" device: the zone thermostats drive their valves, and rules derive the demand to the pump from them. The whole thing is four pieces:
+This complete project can be [downloaded]({{% relref "calaos_installer/devices/examples" %}}): you can open it in Calaos Installer while reading this recipe. Its names are in French, as in the screenshots ("PAC" is the heat pump, "Plancher" the floor, "Mode plancher" the floor mode).
 
-1. one thermostat per zone, with the **Reversible floor zone** template;
-2. a **"Mode plancher"** variable (0 off, 1 heat, 2 cool) that gives the mode to every zone;
-3. rules that turn the right heat pump contact on according to the open valves and the mode;
-4. rules that put back into the house mode a zone set by hand to the other direction.
+### The idea
+
+An open valve lets water through; the heat pump decides whether it is hot or cold. Each zone has its thermostat, which opens its valve when the room needs water: in heat mode when the room is too cold, in cool mode when it is too warm. So the thermostat must have the right mode, and it does not know the mode of the heat pump (see [The zone valve]({{% relref "calaos_installer/devices/thermostat" %}})).
+
+A single setting decides the direction for the whole house: the **"Mode plancher"** variable. Rules copy it into every zone, then turn the right heat pump contact on as soon as a valve is open:
+
+{{< mermaid >}}
+graph TD
+    M["Mode plancher<br/>0 off, 1 heat, 2 cool"] -->|"rules 'Plancher : mode...'"| Z["9 zone thermostats<br/>heat, cool or off"]
+    Z -->|"regulation"| V["9 zone valves<br/>open or closed"]
+    V -->|"rules 'PAC chaud / froid'"| P["Heat pump<br/>heat contact or cool contact"]
+    M -->|"gives the direction"| P
+{{< /mermaid >}}
+
+In summer, set "Mode plancher" to 2: one gesture, and the rules put every zone in cool.
 
 ### Step 1: the nine zones
 
-For each zone, add a device with the **Reversible floor zone** template (see [Create a device]({{% relref "calaos_installer/devices/templates" %}})): the zone sensor, **its** valve (one relay per zone: an output has one thermostat only) and the modes. The six zones that cool keep **Heating** and **Cooling**; the other three only keep **Heating**, so the `modes` parameter is `off,heat`.
+For each zone, add a device with the **Reversible floor zone** template (see [Create a device]({{% relref "calaos_installer/devices/templates" %}})): the zone sensor, **its** valve (one valve per zone: an output has one thermostat only) and the modes.
+
+- The six zones that cool keep **Heating** and **Cooling**: their `modes` parameter is `off,heat,cool`.
+- The other three only keep **Heating**: `modes` is `off,heat`. They refuse cool mode.
 
 ![Zone that heats and cools](/en/calaos_installer/devices/images/inst-wizard-floor-zone.png?width=36pc&classes=shadow)
 *"Plancher séjour": heating and cooling, with a humidity sensor.*
@@ -115,14 +129,14 @@ For each zone, add a device with the **Reversible floor zone** template (see [Cr
 ![Heating-only zone](/en/calaos_installer/devices/images/inst-wizard-floor-zone-heat.png?width=36pc&classes=shadow)
 *"Plancher salle de bain": heating only.*
 
-Also create the two heat pump relays, "PAC demande chaud" and "PAC demande froid": they are plain outputs, **owned by no thermostat**, that only the rules below drive.
+Also create the two heat pump relays, "PAC demande chaud" and "PAC demande froid". They are plain outputs: **no thermostat owns them**, only the rules of step 3 drive them.
 
 ![The zones in the tree](/en/calaos_installer/devices/images/inst-tree-floor.png?width=30pc&classes=shadow)
-*Nine zones, their valves, the two pump contacts and the "Mode plancher" variable.*
+*Nine zones, their valves, the two heat pump contacts and the "Mode plancher" variable.*
 
-### Step 2: the house mode
+### Step 2: the mode of the whole house
 
-Create an [internal variable]({{% relref "calaos_installer/internal_var" %}}) of **integer** type, "Mode plancher", initial value 0, with **Save** ticked so that it survives a restart. Its values:
+Create an [internal variable]({{% relref "calaos_installer/internal_var" %}}) of **integer** type, "Mode plancher", initial value 0, with **Save** ticked so that it survives a restart.
 
 | Value | House mode |
 |---|---|
@@ -130,30 +144,48 @@ Create an [internal variable]({{% relref "calaos_installer/internal_var" %}}) of
 | 1 | heat |
 | 2 | cool |
 
-It is changed like any IO: from a scenario, from a rule (according to the outdoor temperature or the calendar), or by hand if you make it visible in the interfaces. Three rules pass it on to the zones:
+Three rules copy it into the zones. Here is the summer one, **"Plancher : mode froid"** (floor: cool mode):
+
+- **Condition**: "Mode plancher" == 2.
+- **Actions**:
+  - the living room, kitchen, office, parents' bedroom, bedroom 1 and bedroom 2 zones receive `cool`;
+  - the bathroom, entrance and laundry zones receive `off`: they do not cool, they switch off.
+
+As soon as "Mode plancher" becomes 2, this rule runs and puts the nine zones in the right mode: you do not touch any room. Its two siblings are built the same way:
 
 | Rule | Condition | Actions |
 |---|---|---|
-| Plancher : arrêt général | "Mode plancher" == 0 | every zone receives `off` |
-| Plancher : mode chaud | "Mode plancher" == 1 | every zone receives `heat` |
-| Plancher : mode froid | "Mode plancher" == 2 | the six zones that cool receive `cool`, the other three `off` |
+| Plancher : arrêt général (all off) | "Mode plancher" == 0 | every zone receives `off` |
+| Plancher : mode chaud (heat) | "Mode plancher" == 1 | every zone receives `heat` |
+| Plancher : mode froid (cool) | "Mode plancher" == 2 | six zones receive `cool`, the other three `off` |
 
 ![Heat mode rule](/en/calaos_installer/devices/images/inst-rule-floor-mode.png?width=40pc&classes=shadow)
-*The "heat mode" rule: one condition on the variable, nine actions.*
+*The "Plancher : mode chaud" rule: one condition on the variable, nine actions.*
 
-A zone without cooling refuses `cool` (it does not have that mode): in cool mode it receives `off` and switches off.
+"Mode plancher" is changed like any IO: make it visible to set it from the interfaces, put it in a "Summer" or "Winter" [scenario]({{% relref "calaos_installer/scenario" %}}), or have a rule change it (calendar, outdoor temperature).
 
 ### Step 3: the heat pump contacts
 
-A valve is on **if and only if** its thermostat asks for heat or cold: as for the circulator, the rules read the valves. The valve does not say in which direction, the house mode does.
+The heat pump must only run when a zone needs water, and in the right direction:
+
+- an open valve means a zone needs water (its thermostat only opens it for that);
+- "Mode plancher" gives the direction.
+
+So the rules read the valves, as for the circulator of recipe 5:
 
 | Rule | Conditions | Actions, in this order |
 |---|---|---|
 | PAC chaud : vanne *zone* ouverte (nine rules) | valve *zone* == `true` **and** "Mode plancher" == 1 | "PAC demande froid" off, then "PAC demande chaud" on |
 | PAC froid : vanne *zone* ouverte (six rules, the zones that cool) | valve *zone* == `true` **and** "Mode plancher" == 2 | "PAC demande chaud" off, then "PAC demande froid" on |
-| PAC : toutes les vannes fermées | the nine valves == `false` | "PAC demande chaud" and "PAC demande froid" off |
+| PAC : toutes les vannes fermées (all valves closed) | the nine valves == `false` | "PAC demande chaud" and "PAC demande froid" off |
 
-Each rule first switches the opposite contact off, then its own on: the two contacts are never on together. The conditions on the valves are of the **Condition on output event** kind (as for the circulator) and the one on the variable a **Normal condition**.
+The conditions on the valves are of the **Condition on output event** kind (as for the circulator), the one on the variable a **Normal condition**.
+
+The two contacts can never be on together:
+
+- a "PAC chaud" rule needs "Mode plancher" == 1, a "PAC froid" rule == 2: the variable has one value at a time;
+- each rule first switches the opposite contact off, then its own on;
+- no thermostat drives these contacts, only these rules.
 
 ![Heat contact rule](/en/calaos_installer/devices/images/inst-rule-floor-heat-contact.png?width=40pc&classes=shadow)
 *A valve opens in heat mode: the "cool" contact is switched off, the "heat" contact on.*
@@ -162,27 +194,46 @@ Each rule first switches the opposite contact off, then its own on: the two cont
 *The same zone in cool mode.*
 
 ![All valves closed rule](/en/calaos_installer/devices/images/inst-rule-floor-all-off.png?width=40pc&classes=shadow)
-*The nine valves closed: the pump has no demand any more.*
+*The nine valves closed: the heat pump has no demand left.*
 
-When the house mode changes, the valves open in the old direction close after `min_on_time` (15 minutes), then reopen in the new direction after `min_off_time`: the "all valves closed" rule switches the contacts off when the last one closes, and the contact of the new direction comes on at the first reopening.
+When going from heat to cool, the contact follows the new mode at once if a valve is still open. The valves opened for heating close at the end of their minimum on time (15 minutes), then reopen for cooling after their minimum off time. To have everything stop first, go through 0: off closes the valves at once.
 
 ### Step 4: a zone set by hand to the other direction
 
-Someone puts a zone in `cool` during the heating season: its valve would open, the pump would supply hot water, and the zone would warm up while asking to cool. One rule per zone and per direction puts the zone back into the house mode as soon as its mode changes:
+In midwinter, someone sets the living room to cool from their phone. Without a rule, the living room would open its valve as soon as it is too warm, the heat pump (in heat) would send hot water, and the room would warm up while trying to cool.
+
+One rule per zone and per direction puts the zone back into the house mode as soon as its mode changes:
 
 | Rule | Conditions | Action |
 |---|---|---|
-| Plancher *zone* : retour en chaud (six zones) | *zone* == `cool` **and** "Mode plancher" == 1 | *zone* receives `heat` |
-| Plancher *zone* : retour en froid (nine zones) | *zone* == `heat` **and** "Mode plancher" == 2 | *zone* receives `cool` (`off` for a zone without cooling) |
+| Plancher *zone* : retour en chaud (back to heat, six zones) | *zone* == `cool` **and** "Mode plancher" == 1 | *zone* receives `heat` |
+| Plancher *zone* : retour en froid (back to cool, nine zones) | *zone* == `heat` **and** "Mode plancher" == 2 | *zone* receives `cool` (`off` for a zone that does not cool) |
 
-The condition on *zone* is a **Condition on output event** on the device itself (select the device in the tree, not one of its IOs): the compared value is its mode. Switching a zone off by hand (`off`) is not opposed.
+The condition on *zone* is a **Condition on output event** on the device itself (select the device in the tree, not one of its IOs): the compared value is its mode.
 
-![Put-back to heat mode rule](/en/calaos_installer/devices/images/inst-rule-floor-putback.png?width=40pc&classes=shadow)
-*A living room zone set to cool during the heating season goes back to heat.*
+During this round trip, nothing moves on the installation:
 
-### The dew point
+- an open valve does not change direction before its minimum on time: it stays open and keeps heating;
+- the heat pump contacts follow "Mode plancher", not the zone mode: the heat pump never switches to cool for a single zone.
 
-This installation has no humidity sensor in every zone: the heat pump keeps the cold water above the dew point. The zone thermostat therefore does not cut cooling by itself; the server notes it, for each zone without a sensor, with a warning at load ("cooling has no dew-point cut"): this is expected when the heat pump handles condensation. A zone **with** a humidity sensor (the living room, above) cuts its cooling as soon as humidity reaches `humidity_max`: its valve closes and the pump contacts follow the valve, with no extra rule. See [Internal thermostat]({{% relref "calaos_installer/devices/thermostat" %}}).
+A zone set to `off` by hand is never touched by these rules.
+
+![Back to heat rule](/en/calaos_installer/devices/images/inst-rule-floor-putback.png?width=40pc&classes=shadow)
+*The living room set to cool during the heating season goes back to heat.*
+
+### Frequently asked questions
+
+**I set a zone to cool while the heat pump heats?**
+The zone's "retour en chaud" rule puts it back to `heat` at once. The room keeps heating normally. To cool, the whole house goes to cool.
+
+**How do I switch to summer?**
+Set "Mode plancher" to 2, from the interfaces, a scenario or a rule. The "Plancher : mode froid" rule puts the six zones in cool and switches the other three off. To go back to winter, set it to 1.
+
+**How do I switch off a single room?**
+Set its zone to `off`, from the interfaces or a rule: the put-back rules do not touch it. It stays off until the next change of "Mode plancher", which puts every zone back into the house mode.
+
+**And without a humidity sensor?**
+Cooling stays allowed. Without a sensor, the thermostat cannot prevent condensation: the heat pump must keep the water above the dew point. The server reminds you at load with a warning for each zone without a sensor ("cooling has no dew-point cut"): this is expected. A zone **with** a sensor (the living room here) cuts its cooling as soon as humidity reaches `humidity_max`; its valve closes and the heat pump contacts follow, with no extra rule. See [Internal thermostat]({{% relref "calaos_installer/devices/thermostat" %}}).
 
 ## 7. Domestic hot water on the same heat pump
 

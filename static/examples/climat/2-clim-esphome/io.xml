@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calaos:ioconfig xmlns:calaos="http://www.calaos.fr">
+    <calaos:home format="2">
+        <calaos:room name="Salon" type="salon" hits="0">
+            <calaos:internal id="salon_temp" name="Température salon (à remplacer)" type="InternalInt" unit="°C" value="20"/>
+            <calaos:device id="clim_salon" impl="proxy" name="Clim salon" type="climate" visible="true">
+                <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" data="__##VALUE##__" host="127.0.0.1" id="clim_salon_mode" name="Clim salon mode" port="1883" topic_pub="clim_salon/climate/clim_salon/mode/command" topic_sub="clim_salon/climate/clim_salon/mode/state" type="MqttOutputString" visible="false"/>
+                <calaos:input connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" host="127.0.0.1" id="clim_salon_current_temp" name="Clim salon température" port="1883" topic_sub="clim_salon/climate/clim_salon/current_temperature/state" type="MqttInputTemp" visible="false"/>
+                <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" data="__##VALUE##__" host="127.0.0.1" id="clim_salon_target_temp_low" name="Clim salon consigne basse" port="1883" step="0.5" topic_pub="clim_salon/climate/clim_salon/target_temperature_low/command" topic_sub="clim_salon/climate/clim_salon/target_temperature_low/state" type="MqttOutputAnalog" unit="°C" value_max="28" value_min="17" visible="false"/>
+                <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" data="__##VALUE##__" host="127.0.0.1" id="clim_salon_target_temp_high" name="Clim salon consigne haute" port="1883" step="0.5" topic_pub="clim_salon/climate/clim_salon/target_temperature_high/command" topic_sub="clim_salon/climate/clim_salon/target_temperature_high/state" type="MqttOutputAnalog" unit="°C" value_max="28" value_min="17" visible="false"/>
+                <calaos:input connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" host="127.0.0.1" id="clim_salon_action" name="Clim salon action" port="1883" topic_sub="clim_salon/climate/clim_salon/action/state" type="MqttInputString" visible="false"/>
+                <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" data="__##VALUE##__" host="127.0.0.1" id="clim_salon_fan_mode" name="Clim salon ventilation" port="1883" topic_pub="clim_salon/climate/clim_salon/fan_mode/command" topic_sub="clim_salon/climate/clim_salon/fan_mode/state" type="MqttOutputString" visible="false"/>
+                <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" data="__##VALUE##__" host="127.0.0.1" id="clim_salon_swing_mode" name="Clim salon oscillation" port="1883" topic_pub="clim_salon/climate/clim_salon/swing_mode/command" topic_sub="clim_salon/climate/clim_salon/swing_mode/state" type="MqttOutputString" visible="false"/>
+                <calaos:output connected_status_expr="value == 'online'" connected_status_topic="clim_salon/status" data="__##VALUE##__" host="127.0.0.1" id="clim_salon_remote_temp" name="Clim salon température distante" port="1883" topic_pub="clim_salon/calaos/remote_temp" topic_sub="clim_salon/calaos/remote_temp" type="MqttOutputAnalog" visible="false"/>
+                <calaos:link name="mode" io="clim_salon_mode"/>
+                <calaos:link name="current_temp" io="clim_salon_current_temp"/>
+                <calaos:link name="target_temp_low" io="clim_salon_target_temp_low"/>
+                <calaos:link name="target_temp_high" io="clim_salon_target_temp_high"/>
+                <calaos:link name="action" io="clim_salon_action"/>
+                <calaos:link name="fan_mode" io="clim_salon_fan_mode"/>
+                <calaos:link name="swing_mode" io="clim_salon_swing_mode"/>
+                <calaos:link name="remote_temp" io="clim_salon_remote_temp"/>
+                <calaos:link name="remote_temp_source" io="salon_temp"/>
+                <calaos:param name="modes" value="off,heat,cool,auto,dry,fan_only"/>
+                <calaos:param name="auto_payload" value="heat_cool"/>
+                <calaos:param name="fan_modes" value="auto,low,medium,high,quiet"/>
+                <calaos:param name="swing_modes" value="off,both,vertical,horizontal"/>
+                <calaos:param name="remote_temp_keepalive" value="120"/>
+                <calaos:param name="sensor_timeout" value="9000"/>
+            </calaos:device>
+        </calaos:room>
+        <calaos:room name="Maison" type="divers" hits="0">
+            <calaos:internal id="absence" name="Absence" save="true" type="InternalBool"/>
+            <calaos:input months="111111111111" id="nuit" name="Nuit" type="InPlageHoraire">
+                <calaos:lundi>
+                    <calaos:plage start_hour="22" start_min="00" start_sec="0" start_type="0" start_offset="1" end_hour="06" end_min="30" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:lundi>
+                <calaos:mardi>
+                    <calaos:plage start_hour="22" start_min="00" start_sec="0" start_type="0" start_offset="1" end_hour="06" end_min="30" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:mardi>
+                <calaos:mercredi>
+                    <calaos:plage start_hour="22" start_min="00" start_sec="0" start_type="0" start_offset="1" end_hour="06" end_min="30" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:mercredi>
+                <calaos:jeudi>
+                    <calaos:plage start_hour="22" start_min="00" start_sec="0" start_type="0" start_offset="1" end_hour="06" end_min="30" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:jeudi>
+                <calaos:vendredi>
+                    <calaos:plage start_hour="22" start_min="00" start_sec="0" start_type="0" start_offset="1" end_hour="06" end_min="30" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:vendredi>
+                <calaos:samedi>
+                    <calaos:plage start_hour="22" start_min="00" start_sec="0" start_type="0" start_offset="1" end_hour="06" end_min="30" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:samedi>
+                <calaos:dimanche>
+                    <calaos:plage start_hour="22" start_min="00" start_sec="0" start_type="0" start_offset="1" end_hour="06" end_min="30" end_sec="0" end_type="0" end_offset="1"/>
+                </calaos:dimanche>
+            </calaos:input>
+        </calaos:room>
+    </calaos:home>
+</calaos:ioconfig>

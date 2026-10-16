@@ -96,17 +96,47 @@ Les modèles de thermostat écrivent `valid_min` = -30 et `valid_max` = 60 : cel
 
 ## La vanne de zone (sortie unique)
 
-Un plancher réversible n'a souvent **qu'une vanne par zone** : la même vanne s'ouvre pour chauffer et pour refroidir, et c'est la pompe à chaleur qui change le sens de l'eau. Le lien `output` (« Vanne de zone ») sert à cela, à la place de `output_heat` et `output_cool` :
+### La situation
 
-- la vanne est **allumée pour toute demande**, de chaud comme de froid ; le mode du thermostat donne le sens. L'action affichée est `heating` ou `cooling` ;
-- `output` est **exclusif** : un thermostat qui lie `output` et `output_heat` ou `output_cool` est refusé au chargement (message dans le journal) et `output` est ignoré ;
-- la vanne a un seul propriétaire, comme tout relais de thermostat ;
-- le paramètre `modes` liste les modes proposés parmi `heat`, `cool` et `auto` (`off` l'est toujours) ; sans lui, une vanne ne propose que `heat`, par prudence, et le journal le signale. Une zone sans refroidissement porte `modes` = `off,heat`. `auto` demande `heat` et `cool`, et n'existe alors qu'avec une plage de consignes basse et haute ;
-- un mode qui n'est pas dans la liste est refusé et journalisé (écrire `cool` dans une zone `off,heat` ne fait rien) ; un nom inconnu dans `modes` est ignoré ;
-- quand le mode change de sens, la vanne se ferme après `min_on_time`, puis se rouvre après `min_off_time` : l'état affiche « Démarre dans N min » et le sens à venir ;
-- si le nouveau mode refroidit et que l'humidité dépasse `humidity_max`, une vanne qui attend son changement de sens est fermée tout de suite.
+Un plancher réversible chauffe l'hiver et rafraîchit l'été. Chaque zone (une pièce ou un groupe de pièces) a **une électrovanne** sur son circuit :
 
-Les règles lisent les sorties de zone pour commander la pompe à chaleur : voir [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}).
+- vanne ouverte, l'eau circule dans le plancher de la zone ;
+- vanne fermée, elle ne circule pas.
+
+La vanne ne sait pas si l'eau est chaude ou froide. C'est la **pompe à chaleur** qui le décide, pour toute la maison.
+
+Le thermostat de la zone n'a donc pas deux sorties, « chauffage » et « refroidissement », mais **une seule** : la **Vanne de zone** (lien `output`). Le modèle **Zone de plancher réversible** de l'assistant crée le thermostat ainsi.
+
+### Ce que fait le thermostat de zone
+
+| Mode de la zone | La vanne s'ouvre quand... |
+|---|---|
+| `heat` (chaud) | la pièce est **sous** la consigne |
+| `cool` (froid) | la pièce est **au-dessus** de la consigne |
+| `off` (arrêt) | jamais : la vanne reste fermée |
+
+La vanne se referme quand la consigne est atteinte.
+
+Le thermostat a donc besoin de **son propre mode** pour savoir dans quel cas ouvrir. Il ne connaît pas le mode de la pompe à chaleur : rien ne lui dit si elle fait de l'eau chaude ou de l'eau froide. Si la pompe chauffe et qu'une zone est en froid, la zone ouvre sa vanne quand la pièce est trop chaude... et reçoit de l'eau chaude.
+
+C'est pourquoi une installation réversible a **un mode pour toute la maison**, et des règles qui le donnent à chaque zone et à la pompe à chaleur. La recette complète est dans [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}), recette 6, et un [exemple prêt à ouvrir]({{% relref "calaos_installer/devices/examples" %}}) la contient toute faite.
+
+### Les zones qui ne rafraîchissent pas
+
+Le paramètre `modes` liste les modes que la zone accepte, en plus de `off` :
+
+- une zone qui chauffe et rafraîchit porte `modes` = `off,heat,cool` ;
+- une salle de bain qu'on ne rafraîchit jamais porte `modes` = `off,heat`. Elle refuse `cool` : la demande est ignorée et notée dans le journal ;
+- sans ce paramètre, la zone ne propose que le chauffage, par prudence (le journal le signale) ;
+- `auto` (chaud ou froid selon une plage de consignes basse et haute) n'est possible que si `heat` et `cool` sont dans la liste.
+
+### Les détails
+
+- Une vanne de zone remplace `output_heat` et `output_cool` : un thermostat qui lie les deux est refusé au chargement (message dans le journal), et la vanne est ignorée.
+- Comme tout relais de thermostat, une vanne n'appartient qu'à une zone.
+- Quand le mode de la zone change de sens (du chaud au froid, ou l'inverse), une vanne ouverte ne se ferme qu'à la fin de sa durée minimale de marche (`min_on_time`, 15 minutes dans le modèle). Elle ne se rouvre dans le nouveau sens qu'après sa durée minimale d'arrêt (`min_off_time`). Les interfaces affichent « Démarre dans N min ». Le mode `off` ferme la vanne tout de suite.
+- L'action affichée suit le mode : « chauffe » ou « refroidit ».
+- Avec une sonde d'humidité liée, le froid est coupé dès que l'humidité dépasse `humidity_max`, y compris pour une vanne qui attend son changement de sens (voir [Le point de rosée](#le-point-de-rosée-plancher-rafraîchissant)).
 
 ## Une sortie, un thermostat
 

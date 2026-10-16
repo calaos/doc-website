@@ -96,17 +96,47 @@ The thermostat templates write `valid_min` = -30 and `valid_max` = 60: this cove
 
 ## The zone valve (single output)
 
-A reversible floor often has **a single valve per zone**: the same valve opens to heat and to cool, and the heat pump reverses the water. The `output` link ("Zone valve") serves that, in place of `output_heat` and `output_cool`:
+### The situation
 
-- the valve is **on for any demand**, heating or cooling; the thermostat mode gives the direction. The displayed action is `heating` or `cooling`;
-- `output` is **exclusive**: a thermostat linking `output` and `output_heat` or `output_cool` is refused at load (a message in the log) and `output` is ignored;
-- the valve has a single owner, like any thermostat relay;
-- the `modes` parameter lists the offered modes among `heat`, `cool` and `auto` (`off` always is); without it, a valve only offers `heat`, for safety, and the log says so. A zone without cooling carries `modes` = `off,heat`. `auto` needs `heat` and `cool`, and then only exists with a low and a high setpoint range;
-- a mode that is not in the list is refused and logged (writing `cool` to an `off,heat` zone does nothing); an unknown name in `modes` is ignored;
-- when the mode changes direction, the valve closes after `min_on_time`, then reopens after `min_off_time`: the status shows "Starts in N min";
-- if the new mode cools and humidity is above `humidity_max`, a valve waiting for its change of direction is closed at once.
+A reversible floor heats in winter and cools in summer. Each zone (a room or a group of rooms) has **one electrovalve** on its circuit:
 
-Rules read the zone outputs to drive the heat pump: see [Heating rules]({{% relref "calaos_installer/rules_heating" %}}).
+- valve open, water flows through the floor of the zone;
+- valve closed, it does not.
+
+The valve does not know whether the water is hot or cold. The **heat pump** decides that, for the whole house.
+
+So the zone thermostat does not have two outputs, "heating" and "cooling", but **a single one**: the **Zone valve** (`output` link). The **Reversible floor zone** template of the wizard creates the thermostat that way.
+
+### What the zone thermostat does
+
+| Zone mode | The valve opens when... |
+|---|---|
+| `heat` | the room is **below** the setpoint |
+| `cool` | the room is **above** the setpoint |
+| `off` | never: the valve stays closed |
+
+The valve closes again once the setpoint is reached.
+
+So the thermostat needs **its own mode** to know when to open. It does not know the mode of the heat pump: nothing tells it whether the pump makes hot or cold water. If the pump heats and a zone is in cool, that zone opens its valve when the room is too warm... and gets hot water.
+
+That is why a reversible installation has **one mode for the whole house**, and rules that give it to every zone and to the heat pump. The full recipe is in [Heating rules]({{% relref "calaos_installer/rules_heating" %}}), recipe 6, and a [ready-to-open example]({{% relref "calaos_installer/devices/examples" %}}) contains it already built.
+
+### Zones that do not cool
+
+The `modes` parameter lists the modes the zone accepts, besides `off`:
+
+- a zone that heats and cools carries `modes` = `off,heat,cool`;
+- a bathroom that is never cooled carries `modes` = `off,heat`. It refuses `cool`: the request is ignored and noted in the log;
+- without this parameter, the zone only offers heating, for safety (the log says so);
+- `auto` (heat or cool according to a low and a high setpoint) is only possible when `heat` and `cool` are both in the list.
+
+### Details
+
+- A zone valve replaces `output_heat` and `output_cool`: a thermostat linking both is refused at load (a message in the log), and the valve is ignored.
+- Like any thermostat relay, a valve belongs to a single zone.
+- When the zone mode changes direction (heat to cool, or back), an open valve only closes at the end of its minimum on time (`min_on_time`, 15 minutes in the template). It only reopens in the new direction after its minimum off time (`min_off_time`). The interfaces show "Starts in N min". Mode `off` closes the valve at once.
+- The displayed action follows the mode: "heating" or "cooling".
+- With a linked humidity sensor, cooling is cut as soon as humidity exceeds `humidity_max`, a valve waiting for its change of direction included (see [Dew point](#dew-point-cooled-floor)).
 
 ## One output, one thermostat
 
