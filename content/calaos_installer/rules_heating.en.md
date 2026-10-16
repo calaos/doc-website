@@ -175,7 +175,7 @@ Someone puts a zone in `cool` during the heating season: its valve would open, t
 | Plancher *zone* : retour en chaud (six zones) | *zone* == `cool` **and** "Mode plancher" == 1 | *zone* receives `heat` |
 | Plancher *zone* : retour en froid (nine zones) | *zone* == `heat` **and** "Mode plancher" == 2 | *zone* receives `cool` (`off` for a zone without cooling) |
 
-Both conditions are **Normal conditions**; the one on *zone* is on the device itself (not one of its IOs): the compared value is its mode. Switching a zone off by hand (`off`) is not opposed.
+The condition on *zone* is a **Condition on output event** on the device itself (select the device in the tree, not one of its IOs): the compared value is its mode. Switching a zone off by hand (`off`) is not opposed.
 
 ![Put-back to heat mode rule](/en/calaos_installer/devices/images/inst-rule-floor-putback.png?width=40pc&classes=shadow)
 *A living room zone set to cool during the heating season goes back to heat.*

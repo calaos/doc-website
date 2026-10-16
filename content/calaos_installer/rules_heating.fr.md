@@ -175,7 +175,7 @@ Quelqu'un met une zone en `cool` pendant la saison de chauffe : sa vanne s'ouvri
 | Plancher *zone* : retour en chaud (six zones) | *zone* == `cool` **et** « Mode plancher » == 1 | *zone* reçoit `heat` |
 | Plancher *zone* : retour en froid (neuf zones) | *zone* == `heat` **et** « Mode plancher » == 2 | *zone* reçoit `cool` (`off` pour une zone sans refroidissement) |
 
-Les deux conditions sont des **Conditions normales** ; celle sur *zone* porte sur le device lui-même (pas sur un de ses IO) : la valeur comparée est son mode. L'arrêt à la main (`off`) n'est pas contrarié.
+La condition sur *zone* est une **Condition sur évènement de sortie** sur le device lui-même (sélectionnez le device dans l'arborescence, pas un de ses IO) : la valeur comparée est son mode. L'arrêt à la main (`off`) n'est pas contrarié.
 
 ![Règle de retour en mode chaud](/en/calaos_installer/devices/images/inst-rule-floor-putback.png?width=40pc&classes=shadow)
 *Une zone du séjour passée en froid pendant la saison de chauffe revient en chaud.*

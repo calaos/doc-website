@@ -929,12 +929,12 @@ bool buildFloorHouse(const QString &demoDir)
         if (z.cool)
         {
             r = rule("Plancher " + z.name + " : retour en chaud");
-            when(r, devs[z.key], "==", "cool");
+            whenOutput(r, devs[z.key], "==", "cool");
             when(r, mode, "==", "1");
             then(r, devs[z.key], "heat");
         }
         r = rule("Plancher " + z.name + " : retour en froid");
-        when(r, devs[z.key], "==", "heat");
+        whenOutput(r, devs[z.key], "==", "heat");
         when(r, mode, "==", "2");
         then(r, devs[z.key], z.cool ? "cool" : "off");
     }

@@ -32,11 +32,10 @@ script in the installer CI image (`archlinux` with `qt6-base qt6-5compat qt6-dec
 qt6-shadertools qt6-tools qt6-mqtt karchive libglvnd gtk3 git`), with the tree writable (the build
 writes `lang/*.qm` there) and `-u $(id -u):$(id -g)`.
 
-`--zones` needs a tree whose `data/doc` (regenerate it with `generate_iodoc.sh`) ships the
-`thermostat_floor_zone` template, and a `device_templates.json` newer than the server's CLIM-10.
+`--zones` needs a tree whose `data/doc` ships the `thermostat_floor_zone` template (calaos_installer
+master since #78).
 
-Last run: calaos_installer `master` 1185576 (INST-9, INST-10 merged) with the CLIM-10 editor changes
-of calaos_installer#78 merged in and `data/doc` regenerated from the calaos_base CI artifact of CLIM-10.
+Last run: calaos_installer `master` 53d8b84.
 
 ## Images
 
