@@ -16,7 +16,7 @@ Unité intérieure ──(série)── ESP32 / ESPHome ──(MQTT)── broke
 Calaos ne régule pas : la clim garde sa propre modulation. Calaos lit son état, envoie le mode, les consignes, la ventilation et l'oscillation, et peut lui **relayer la température d'une sonde de la pièce**, plus juste que celle de l'unité installée haut sur le mur.
 
 {{% notice info %}}
-Calaos n'a pas de découverte automatique ESPHome. Le modèle `esphome_climate` de l'assistant crée en une fois tous les IO MQTT nécessaires ; il demande le **préfixe de topic** et l'**identifiant de l'entité** du module (voir plus bas pour les trouver).
+Le modèle `esphome_climate` de l'assistant crée en une fois tous les IO MQTT nécessaires. Il demande le **préfixe de topic** et l'**identifiant de l'entité** du module : l'assistant peut les [trouver lui-même sur le broker MQTT](#le-trouver-sur-le-broker-mqtt), ou vous les lisez à la main.
 {{% /notice %}}
 
 ## Le module ESPHome : exemple Mitsubishi CN105
@@ -164,7 +164,28 @@ climate:
 
 Ce composant publie une **consigne unique** : dans l'assistant, laissez « Deux consignes » décoché. Son mode `AUTO` est envoyé en `auto` : réglez le paramètre `auto_payload` du device sur `auto` (par défaut, Calaos écrit `heat_cool`). La température distante dépend de ce que le composant accepte (il possède une option `temperature_sensor_id` pour utiliser un capteur ESPHome) : consultez sa documentation, puis alimentez ce capteur avec un `mqtt_subscribe` comme ci-dessus.
 
-## Trouver le préfixe et l'identifiant de l'entité
+## Le trouver sur le broker MQTT
+
+Pour les deux modèles ESPHome, l'assistant de Calaos Installer affiche au-dessus du formulaire un panneau **« Le trouver sur le broker MQTT »** : il interroge le broker et propose les climats qu'il y voit, au lieu de vous faire deviner le préfixe et l'identifiant.
+
+![Panneau de recherche sur le broker](/en/calaos_installer/devices/images/inst-discovery-found.png?width=36pc&classes=shadow)
+*Trois climats trouvés : deux en ligne, un ancien nœud grisé.*
+
+1. Vérifiez l'**adresse du broker**, telle que **votre ordinateur** l'atteint (et non `127.0.0.1`, qui désigne l'ordinateur lui-même). L'assistant propose celle que la plupart des IO MQTT du projet utilisent, sinon celle de la box. Les identifiants MQTT du projet ne sont envoyés qu'à ce broker.
+2. Cliquez sur **Rechercher** (ou appuyez sur Entrée). L'installer écoute le broker pendant trois secondes.
+3. La liste indique pour chaque climat son nom, son **préfixe de topic**, son **identifiant d'entité**, ce qu'il publie (une ou deux consignes, ventilation, oscillation, action) et son état.
+4. Cliquez sur une ligne : le formulaire se remplit.
+
+![Formulaire rempli par la recherche](/en/calaos_installer/devices/images/inst-discovery-filled.png?width=36pc&classes=shadow)
+*Le climat « clim_salon » choisi : préfixe, identifiant, deux consignes, action, ventilation et oscillation sont remplis.*
+
+Ce que le choix remplit : le préfixe, l'identifiant, le nom (s'il est vide), « Deux consignes » ou non, la ventilation, l'oscillation, la remontée de l'action et la sonde d'après les topics publiés. Si le module publie sa configuration de découverte Home Assistant (`discovery: true` dans son bloc `mqtt:`), les modes et la plage des consignes sont lus aussi : `heat_cool` devient `auto`, le mode `auto` d'ESPHome (un programme horaire de l'unité) et les modes personnalisés sont écartés et signalés sous la liste. Le formulaire reste modifiable.
+
+Les lignes **grisées « ancien / hors ligne »** sont en bas de liste : ce sont des états retenus par le broker d'un ancien identifiant ou d'un nœud disparu. Ne les choisissez pas : un device créé dessus resterait muet.
+
+Les erreurs sont dites à l'écran : hôte introuvable, connexion refusée, identifiants refusés, délai dépassé. Le panneau n'existe que dans un installer construit avec Qt MQTT ; sans lui, la saisie manuelle ci-dessous reste valable.
+
+## Trouver le préfixe et l'identifiant à la main
 
 L'assistant demande deux valeurs qui se lisent dans les topics MQTT du module :
 
@@ -209,7 +230,7 @@ Cela dépend du **module**, pas de la clim, et se lit dans les topics :
 | `.../target_temperature/state` | « Deux consignes » **décoché** |
 | `.../target_temperature_low/state` et `.../target_temperature_high/state` | « Deux consignes » **coché** |
 
-Avec `dual_setpoint: true` dans le YAML, le module publie la consigne basse et la consigne haute et **plus** la consigne unique. Cocher la mauvaise case n'affiche aucune erreur : le device ne reçoit jamais la consigne qu'il attend et reste « Inconnu ». Une clim à consigne unique peut tout de même offrir une plage dans Calaos : voir la double consigne émulée plus bas.
+Avec `dual_setpoint: true` dans le YAML, le module publie la consigne basse et la consigne haute et **plus** la consigne unique. Cocher la mauvaise case n'affiche aucune erreur : le device ne reçoit jamais la consigne qu'il attend et reste « Inconnu ». La recherche sur le broker choisit la bonne case d'après ce que le module publie. Une clim à consigne unique peut tout de même offrir une plage dans Calaos : voir la double consigne émulée plus bas.
 
 ## Les vitesses de ventilation et l'oscillation
 
@@ -282,11 +303,9 @@ Les interfaces affichent alors deux curseurs en mode `auto`, séparés au minimu
 
 ## Double consigne émulée
 
-{{% notice warning %}}
-Cette fonction (ticket CLIM-8) est **en cours de développement**. La description ci-dessous suit la décision de conception ; les noms exacts peuvent évoluer avant la publication.
-{{% /notice %}}
+Beaucoup de clims n'ont qu'**une** consigne et pas de mode `auto` entre deux consignes. L'option **« Double consigne émulée »** de l'assistant (paramètre `emulate_range`, désactivé par défaut) donne à Calaos le rôle manquant : le device **possède** une consigne basse et une consigne haute, mémorisées par Calaos (des variables internes créées au chargement, à 19 et 25 °C au départ, conservées après un redémarrage), et les interfaces affichent la plage et le mode `auto` comme pour une clim à deux consignes.
 
-Beaucoup de clims n'ont qu'**une** consigne et pas de mode `auto` entre deux consignes. Le paramètre `emulate_range` du device (désactivé par défaut) donne à Calaos le rôle manquant : le device **possède** une consigne basse et une consigne haute, mémorisées par Calaos, et les interfaces affichent la plage comme pour une clim à deux consignes (l'option du modèle s'appelle « double consigne émulée »).
+L'option s'adresse à une unité à **consigne unique** : ne la cochez pas avec « Deux consignes ». Le device exige aussi une consigne inscriptible et les modes `heat` et `cool` ; sinon il est refusé au chargement, avec un message dans le journal, et `auto` ne pilote rien.
 
 En mode `auto`, Calaos pilote l'unité en **mode simple** :
 
@@ -294,11 +313,32 @@ En mode `auto`, Calaos pilote l'unité en **mode simple** :
 |---|---|
 | sous `basse − hystérésis` | passe en `heat`, avec la consigne basse |
 | au-dessus de `haute + hystérésis` | passe en `cool`, avec la consigne haute |
-| revenue dans la bande | passe en `off` : **rien ne consomme entre les deux consignes** |
+| la consigne basse atteinte en `heat`, la haute atteinte en `cool` | passe en `off` : **rien ne consomme entre les deux consignes** |
 
-Pour ménager le compresseur, Calaos applique une hystérésis, des durées minimales de marche et d'arrêt, et un délai entre un passage en chaud et un passage en froid. La référence est la sonde de la pièce (celle relayée à l'unité si vous en avez choisi une) ; une sonde muette ne provoque aucun changement. Calaos n'envoie jamais `auto` à l'unité.
+La consigne de l'unité est écrite **avant** le mode, pour qu'elle ne démarre pas sur l'ancienne consigne. Un passage du chaud au froid passe toujours par `off`. Pendant `auto`, la consigne simple n'est pas réglable : elle est pilotée par les deux autres. Calaos n'envoie jamais `auto` à l'unité.
 
-Si quelqu'un change le mode **à la télécommande**, l'émulation est suspendue (un message est journalisé) : Calaos ne reprend pas la main sur un choix fait sur place.
+### Protéger le compresseur
+
+Le modèle écrit ces valeurs, modifiables dans l'éditeur de device :
+
+| Paramètre | Valeur | Rôle |
+|---|---|---|
+| `hysteresis` | 0,5 °C | écart au-delà de la plage avant que l'unité démarre |
+| `min_on_time` | 300 s | marche minimale avant que `auto` arrête l'unité |
+| `min_off_time` | 300 s | arrêt minimal avant que `auto` la redémarre |
+| `changeover_delay` | 600 s | délai entre la fin du chaud et le début du froid (ou l'inverse), au moins `min_off_time` |
+| `min_range` | 2 °C | écart minimal entre la consigne basse et la consigne haute |
+
+Un mode choisi par l'utilisateur (`heat`, `cool`, `off`) s'applique tout de suite, sans attendre ces durées. Un démarrage reporté est annoncé « Démarre dans N min » dans les interfaces.
+
+Après un **redémarrage du serveur**, Calaos reprend là où il en était : un arrêt attend `min_on_time`, un démarrage attend `min_off_time`, et le délai de bascule ne s'applique que vers le mode opposé au dernier chaud ou froid de l'unité. Le mode `auto` lui-même est conservé.
+
+### Les cas où `auto` ne change rien
+
+- **La sonde ne répond pas** : la référence est la sonde de la pièce relayée à l'unité si vous en avez choisi une, sinon la température mesurée par l'unité. Tant qu'elle n'a rien lu, est muette depuis `sensor_timeout`, est déconnectée ou ne donne pas un nombre, Calaos laisse l'unité telle quelle et l'interface affiche le défaut (« En attente de la sonde », « Sonde muette »...). L'unité n'est pas arrêtée pour autant.
+- **L'unité est injoignable** (hors ligne) : rien n'est envoyé.
+- **Quelqu'un change le mode à la télécommande** : `auto` est suspendu (un message est journalisé) et Calaos ne reprend pas la main sur un choix fait sur place ; il reprend quand vous sélectionnez de nouveau `auto`. Le mode d'avant, que ESPHome republie parfois pendant les 10 secondes (`readback_hold`) qui suivent une commande, n'est pas pris pour un changement manuel.
+- **L'unité arrondit ou impose un minimum** : si la consigne qu'elle relit diffère de plus d'un demi-pas de celle envoyée, Calaos la réécrit, au plus une fois toutes les 10 secondes. Si elle diffère toujours ensuite (arrondi, minimum propre à son mode), Calaos la laisse telle quelle, le note une fois dans le journal, et ne réécrit plus jusqu'à la prochaine consigne qu'il décide lui-même.
 
 ## Et si ça ne marche pas
 

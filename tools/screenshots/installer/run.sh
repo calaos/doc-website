@@ -2,7 +2,10 @@
 # Builds the capture harness against a calaos_installer tree and writes the installer
 # screenshots of the climate pages, plus the demo project they show.
 #
-#   run.sh <calaos_installer tree> [images dir] [build dir]
+#   [SHOTS_ARGS=--zones] run.sh <calaos_installer tree> [images dir] [build dir]
+#
+# The discovery panel needs Qt MQTT (qt6-mqtt); --zones needs a tree whose data/doc ships the
+# "Reversible floor zone" template.
 #
 # Images default to content/calaos_installer/devices/images of this doc tree, the build to
 # $TMPDIR/calaos-installer-doc-shots. The demo project goes to demo/ next to this script.
@@ -26,5 +29,5 @@ mkdir -p "$XDG_CONFIG_HOME" "$HOME"
 export QT_QPA_PLATFORM=offscreen
 export LANG=fr_FR.UTF-8 LC_ALL=fr_FR.UTF-8
 
-"$build/installer_shots" --out "$(cd "$out" && pwd)" --demo "$here/demo"
+"$build/installer_shots" --out "$(cd "$out" && pwd)" --demo "$here/demo" ${SHOTS_ARGS:-}
 echo "source: $(git -C "$src" rev-parse HEAD 2>/dev/null || echo unknown)"

@@ -7,7 +7,7 @@ summary = "Calaos régule : hystérésis, durées minimales, sûretés (sonde mu
 
 ## Quand l'utiliser
 
-Le thermostat interne (`thermostat`) est fait pour les installations où **rien ne régule à votre place** : des radiateurs électriques derrière un relais, une vanne de plancher chauffant, une chaudière avec un contact, une pompe à chaleur pilotée sur contacts secs. Calaos lit une sonde de température, compare à la consigne, et commute un ou deux relais.
+Le thermostat interne (`thermostat`) est fait pour les installations où **rien ne régule à votre place** : des radiateurs électriques derrière un relais, une vanne de plancher chauffant ou rafraîchissant, une chaudière avec un contact, une pompe à chaleur pilotée sur contacts secs. Calaos lit une sonde de température, compare à la consigne, et commute un ou deux relais.
 
 Si l'appareil possède sa propre régulation (clim split, pompe à chaleur ESPHome), préférez le mode relayé : voir [Clim ESPHome]({{% relref "hardware/esphome_climate" %}}).
 
@@ -19,7 +19,7 @@ La **politique** reste à vos règles : abaissement de nuit, absence, fenêtre o
 
 ## La régulation
 
-Le thermostat a un mode (`off`, `heat`, et `cool` et `auto` s'il possède une sortie de refroidissement) et une ou deux consignes :
+Le thermostat a un mode (`off`, `heat`, et `cool` et `auto` s'il peut refroidir) et une ou deux consignes. Les modes proposés dépendent des sorties liées, ou du paramètre `modes` pour une [vanne de zone](#la-vanne-de-zone-sortie-unique) :
 
 | Mode | Comportement |
 |---|---|
@@ -47,9 +47,10 @@ Le modèle propose des valeurs adaptées à ce que commandent les sorties (le ch
 | Thermostat chauffage, plancher chauffant | 0,5 °C | 900 s | 900 s | - |
 | Chaud / froid, pompe à chaleur réversible sur contacts | 0,5 °C | 600 s | 300 s | 2 °C |
 | Chaud / froid, ventilo-convecteurs | 0,5 °C | 120 s | 120 s | 1 °C |
-| Plancher chaud / froid | 0,5 °C | 900 s | 900 s | 2 °C |
+| Thermostat de plancher réversible (deux sorties) | 0,5 °C | 900 s | 900 s | 2 °C |
+| Zone de plancher réversible (une vanne) | 0,5 °C | 900 s | 900 s | - |
 
-Un plancher a une grande inertie : une hystérésis large et de longues durées évitent les à-coups. Pour tous les modèles, `sensor_timeout` vaut 9000 s et `put_back_delay` 1 s (maximum 60 s). Toutes ces valeurs se changent ensuite dans l'éditeur de device.
+Un plancher a une grande inertie : une hystérésis large et de longues durées évitent les à-coups. Pour tous les modèles de thermostat, `sensor_timeout` vaut 9000 s, `put_back_delay` 1 s (maximum 60 s), et les lectures acceptées vont de -30 à 60 °C (voir [Sonde hors limites](#sonde-hors-limites)). Toutes ces valeurs se changent ensuite dans l'éditeur de device.
 
 ## Les sûretés
 
@@ -61,24 +62,51 @@ Un thermostat qui commande des relais ne doit jamais rester allumé sur une info
 | La sonde n'a rien envoyé depuis `sensor_timeout` secondes | « Sonde muette » | Même une valeur identique répétée compte comme une lecture. 9000 s par défaut, au-dessus d'un rapport horaire Zigbee manqué. |
 | La sonde se déclare déconnectée | « Sonde déconnectée » | Lien de connexion de la sonde (MQTT, Wago...). |
 | Le lien `current_temp` n'existe pas | « Sonde absente » | Device mal configuré. |
-| Plancher : humidité trop haute, muette ou jamais lue | « Humidité trop haute » ou « Sonde d'humidité muette » | Voir le point de rosée ci-dessous. |
-| La lecture sort des bornes de vraisemblance | « Sonde hors limites » | Voir plus bas (fonction en cours de développement). |
+| Plancher avec sonde d'humidité : humidité trop haute, muette ou jamais lue | « Humidité trop haute » ou « Sonde d'humidité muette » | Voir le point de rosée ci-dessous. |
+| La lecture sort des bornes de vraisemblance, ou n'est pas un nombre | « Sonde hors limites » | Voir [Sonde hors limites](#sonde-hors-limites). |
+
+Quand plusieurs situations se cumulent, l'interface n'en affiche qu'une, par ordre de priorité : sonde absente, en attente, muette, déconnectée, hors limites, puis les défauts d'humidité.
 
 ### Le point de rosée (plancher rafraîchissant)
 
-Refroidir un plancher sous le point de rosée fait **condenser** l'humidité de l'air sur le sol. Avec l'émetteur « Plancher » et une sortie de refroidissement, Calaos exige donc un lien `humidity` et coupe le refroidissement tant que l'humidité atteint `humidity_max` (60 % par défaut dans le modèle « Plancher chaud / froid », 65 % si le paramètre est absent), ou tant que la sonde d'humidité est muette ou n'a jamais lu.
+Refroidir un plancher sous le point de rosée fait **condenser** l'humidité de l'air sur le sol. Avec l'émetteur « Plancher » (`emitter` = `floor`) et un mode de refroidissement, le thermostat peut donc surveiller une **sonde d'humidité** (lien `humidity`) : il coupe le refroidissement tant que l'humidité atteint `humidity_max` (60 % dans les modèles, 65 % si le paramètre est absent), ou tant que la sonde est muette, déconnectée ou n'a jamais lu.
 
-**Sans sonde d'humidité, un plancher n'a ni mode `cool` ni mode `auto`** : ils sont refusés au chargement (le refus est journalisé) et ne sont pas proposés dans les interfaces.
+La sonde d'humidité est **facultative** :
+
+- **avec** une sonde liée, la coupure s'applique, en mode `cool` comme en mode `auto` ;
+- **sans** sonde, le refroidissement est permis et le thermostat n'a aucune protection contre la condensation : c'est à l'installation de garder l'eau au-dessus du point de rosée (la pompe à chaleur, par exemple). Le serveur le signale par un avertissement dans le journal au chargement ;
+- un lien `humidity` vers un IO introuvable compte comme une sonde liée : le refroidissement reste coupé plutôt que d'être autorisé par une faute de frappe.
+
+Seul l'émetteur « Plancher » est concerné : avec un autre émetteur, l'humidité n'est pas lue. Le modèle « Thermostat de plancher réversible » (deux sorties) demande toujours une sonde d'humidité ; le modèle « Zone de plancher réversible » (une vanne) la laisse facultative.
 
 ### Sonde hors limites
 
-{{% notice warning %}}
-Cette fonction (ticket CLIM-9) est **en cours de développement** : les noms ci-dessous peuvent encore évoluer avant la publication.
-{{% /notice %}}
+Une sonde peut mentir sans se taire : une DS18B20 lit 85 °C à la mise sous tension et -127 °C débranchée, une sonde Wago dont le câble est coupé ou en court-circuit lit une valeur absurde au lieu de se déclarer déconnectée. Deux paramètres du thermostat, `valid_min` et `valid_max`, bornent les lectures acceptées (bornes incluses) ; une borne absente n'est pas contrôlée.
 
-Une sonde peut mentir sans se taire : une sonde Wago dont le câble est coupé lit parfois une valeur absurde (-50 °C, 0 °C) au lieu de se déclarer déconnectée. Deux paramètres du thermostat, `valid_min` et `valid_max`, bornent les lectures acceptées. Sans ces paramètres, aucun contrôle n'est fait.
+Une lecture hors bornes compte comme **une absence de lecture valide** :
 
-Une lecture hors bornes compte comme **une absence de lecture valide** : les sorties sont coupées, le thermostat affiche **« Sonde hors limites »**, le mode et la consigne restent réglables, et tout redevient normal dès la première lecture dans les bornes. Les bornes d'une pièce, d'un plancher ou d'une eau chaude ne sont pas les mêmes ; les modèles en proposent. Exemple pour une pièce : `valid_min` = 5 et `valid_max` = 40.
+- les sorties sont coupées **aussitôt**, sans attendre `min_on_time` ; `min_off_time` retarde en revanche le redémarrage ;
+- le thermostat affiche **« Sonde hors limites »**, et son mode et ses consignes restent réglables ;
+- la régulation reprend dès la première lecture dans les bornes ;
+- une lecture qui n'est pas un nombre (NaN, infini) est toujours hors limites, même sans bornes ;
+- il n'y a **pas d'hystérésis** sur les bornes : une sonde qui oscille de part et d'autre d'une borne fait cycler les sorties au rythme de `min_off_time` ;
+- si `valid_max` est inférieur à `valid_min`, les deux bornes sont ignorées (message dans le journal).
+
+Les modèles de thermostat écrivent `valid_min` = -30 et `valid_max` = 60 : cela couvre les valeurs absurdes ci-dessus sans gêner un garage hors gel. Les modèles de clim ESPHome n'ont pas de bornes. Modifiez-les dans l'éditeur de device selon ce que mesure la sonde : `valid_min` = 5 et `valid_max` = 40 pour une pièce de vie, mais une sonde de ballon d'eau chaude sanitaire doit monter plus haut que 60 °C (voir [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}})).
+
+## La vanne de zone (sortie unique)
+
+Un plancher réversible n'a souvent **qu'une vanne par zone** : la même vanne s'ouvre pour chauffer et pour refroidir, et c'est la pompe à chaleur qui change le sens de l'eau. Le lien `output` (« Vanne de zone ») sert à cela, à la place de `output_heat` et `output_cool` :
+
+- la vanne est **allumée pour toute demande**, de chaud comme de froid ; le mode du thermostat donne le sens. L'action affichée est `heating` ou `cooling` ;
+- `output` est **exclusif** : un thermostat qui lie `output` et `output_heat` ou `output_cool` est refusé au chargement (message dans le journal) et `output` est ignoré ;
+- la vanne a un seul propriétaire, comme tout relais de thermostat ;
+- le paramètre `modes` liste les modes proposés parmi `heat`, `cool` et `auto` (`off` l'est toujours) ; sans lui, une vanne ne propose que `heat`, par prudence, et le journal le signale. Une zone sans refroidissement porte `modes` = `off,heat`. `auto` demande `heat` et `cool`, et n'existe alors qu'avec une plage de consignes basse et haute ;
+- un mode qui n'est pas dans la liste est refusé et journalisé (écrire `cool` dans une zone `off,heat` ne fait rien) ; un nom inconnu dans `modes` est ignoré ;
+- quand le mode change de sens, la vanne se ferme après `min_on_time`, puis se rouvre après `min_off_time` : l'état affiche « Démarre dans N min » et le sens à venir ;
+- si le nouveau mode refroidit et que l'humidité dépasse `humidity_max`, une vanne qui attend son changement de sens est fermée tout de suite.
+
+Les règles lisent les sorties de zone pour commander la pompe à chaleur : voir [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}).
 
 ## Une sortie, un thermostat
 
@@ -87,7 +115,7 @@ Un relais lié comme sortie de chauffage ou de refroidissement appartient à **u
 ![Sortie déjà prise, refusée par l'éditeur](/en/calaos_installer/devices/images/inst-output-refused.png?width=30pc&classes=shadow)
 *Un relais déjà utilisé par un autre thermostat est refusé.*
 
-Pour un chauffage à plusieurs zones qui partagent une chaudière ou un circulateur, on crée **une sortie par zone** (une vanne ou un relais par thermostat), et **une règle** qui allume la sortie commune dès qu'une sortie de zone est allumée. Voir l'exemple dans [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}).
+Pour un chauffage à plusieurs zones qui partagent une chaudière, un circulateur ou une pompe à chaleur, on crée **une sortie par zone** (une vanne ou un relais par thermostat), et des **règles** qui allument la sortie commune dès qu'une sortie de zone est allumée. Voir les exemples dans [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}).
 
 ## Les sorties sont protégées
 

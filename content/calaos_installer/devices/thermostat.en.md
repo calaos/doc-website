@@ -7,7 +7,7 @@ summary = "Calaos regulates: hysteresis, minimum times, safeties (silent sensor,
 
 ## When to use it
 
-The internal thermostat (`thermostat`) is for installations where **nothing regulates for you**: electric radiators behind a relay, a floor heating valve, a boiler with a contact, a heat pump driven on dry contacts. Calaos reads a temperature sensor, compares it to the setpoint, and switches one or two relays.
+The internal thermostat (`thermostat`) is for installations where **nothing regulates for you**: electric radiators behind a relay, a floor heating or cooling valve, a boiler with a contact, a heat pump driven on dry contacts. Calaos reads a temperature sensor, compares it to the setpoint, and switches one or two relays.
 
 If the appliance has its own regulation (split air conditioner, ESPHome heat pump), prefer the relayed kind: see [ESPHome air conditioner]({{% relref "hardware/esphome_climate" %}}).
 
@@ -19,7 +19,7 @@ The **policy** stays in your rules: night setback, away mode, open window, sched
 
 ## Regulation
 
-The thermostat has a mode (`off`, `heat`, and `cool` and `auto` if it has a cooling output) and one or two setpoints:
+The thermostat has a mode (`off`, `heat`, and `cool` and `auto` if it can cool) and one or two setpoints. The offered modes depend on the linked outputs, or on the `modes` parameter for a [zone valve](#the-zone-valve-single-output):
 
 | Mode | Behaviour |
 |---|---|
@@ -47,9 +47,10 @@ The template proposes values suited to what the outputs drive (the **Emitter** c
 | Heating thermostat, floor heating | 0.5 °C | 900 s | 900 s | - |
 | Heat / cool, reversible heat pump on contacts | 0.5 °C | 600 s | 300 s | 2 °C |
 | Heat / cool, fan coils | 0.5 °C | 120 s | 120 s | 1 °C |
-| Heat / cool floor | 0.5 °C | 900 s | 900 s | 2 °C |
+| Reversible floor thermostat (two outputs) | 0.5 °C | 900 s | 900 s | 2 °C |
+| Reversible floor zone (one valve) | 0.5 °C | 900 s | 900 s | - |
 
-A floor has a lot of inertia: a wide hysteresis and long times avoid jerks. For all templates `sensor_timeout` is 9000 s and `put_back_delay` 1 s (maximum 60 s). All these values can be changed afterwards in the device editor.
+A floor has a lot of inertia: a wide hysteresis and long times avoid jerks. For all thermostat templates `sensor_timeout` is 9000 s, `put_back_delay` 1 s (maximum 60 s), and the accepted readings go from -30 to 60 °C (see [Sensor out of range](#sensor-out-of-range)). All these values can be changed afterwards in the device editor.
 
 ## Safeties
 
@@ -61,24 +62,51 @@ A thermostat that drives relays must never stay on because of wrong information.
 | The sensor has sent nothing for `sensor_timeout` seconds | "Sensor silent" | Even a repeated identical value counts as a reading. 9000 s by default, above a missed hourly Zigbee report. |
 | The sensor reports itself disconnected | "Sensor disconnected" | Connection link of the sensor (MQTT, Wago...). |
 | The `current_temp` link does not exist | "Sensor missing" | Misconfigured device. |
-| Floor: humidity too high, silent or never read | "Humidity too high" or "Humidity sensor silent" | See the dew point below. |
-| The reading is outside the plausibility bounds | "Sensor out of range" | See below (feature under development). |
+| Floor with a humidity sensor: humidity too high, silent or never read | "Humidity too high" or "Humidity sensor silent" | See the dew point below. |
+| The reading is outside the plausibility bounds, or is not a number | "Sensor out of range" | See [Sensor out of range](#sensor-out-of-range). |
+
+When several situations add up, the interface shows only one, in priority order: sensor missing, waiting, silent, disconnected, out of range, then the humidity faults.
 
 ### Dew point (cooled floor)
 
-Cooling a floor below the dew point makes the humidity of the air **condense** on the floor. With the "Floor" emitter and a cooling output, Calaos therefore requires a `humidity` link and cuts cooling while humidity reaches `humidity_max` (60 % by default in the "Heat / cool floor" template, 65 % if the parameter is missing), or while the humidity sensor is silent or has never read.
+Cooling a floor below the dew point makes the humidity of the air **condense** on the floor. With the "Floor" emitter (`emitter` = `floor`) and a cooling mode, the thermostat can therefore watch a **humidity sensor** (`humidity` link): it cuts cooling while humidity reaches `humidity_max` (60 % in the templates, 65 % if the parameter is missing), or while the sensor is silent, disconnected or has never read.
 
-**Without a humidity sensor, a floor has neither `cool` nor `auto` mode**: they are refused at load (the refusal is logged) and not offered in the interfaces.
+The humidity sensor is **optional**:
+
+- **with** a linked sensor the cut applies, in `cool` mode as in `auto` mode;
+- **without** a sensor, cooling is allowed and the thermostat has no protection against condensation: the installation must keep the water above the dew point (the heat pump, for example). The server flags it with a warning in the log at load;
+- a `humidity` link to an IO that cannot be found counts as a linked sensor: cooling stays cut rather than being allowed by a typo.
+
+Only the "Floor" emitter is concerned: with another emitter, humidity is not read. The "Reversible floor thermostat" template (two outputs) always asks for a humidity sensor; the "Reversible floor zone" template (one valve) leaves it optional.
 
 ### Sensor out of range
 
-{{% notice warning %}}
-This feature (ticket CLIM-9) is **under development**: the names below may still change before release.
-{{% /notice %}}
+A sensor can lie without going silent: a DS18B20 reads 85 °C at power-on and -127 °C when unplugged, and a Wago sensor with a cut or shorted cable reads an absurd value instead of reporting itself disconnected. Two thermostat parameters, `valid_min` and `valid_max`, bound the accepted readings (bounds included); a missing bound is not checked.
 
-A sensor can lie without going silent: a Wago sensor with a cut cable sometimes reads an absurd value (-50 °C, 0 °C) instead of reporting itself disconnected. Two thermostat parameters, `valid_min` and `valid_max`, bound the accepted readings. Without these parameters no check is made.
+A reading outside the bounds counts as **no valid reading**:
 
-A reading outside the bounds counts as **no valid reading**: the outputs are switched off, the thermostat shows **"Sensor out of range"**, mode and setpoint stay adjustable, and everything returns to normal at the first reading within the bounds. The bounds of a room, a floor and hot water are not the same; the templates propose some. Example for a room: `valid_min` = 5 and `valid_max` = 40.
+- the outputs are switched off **at once**, without waiting for `min_on_time`; `min_off_time`, however, still delays the restart;
+- the thermostat shows **"Sensor out of range"**, and its mode and setpoints stay adjustable;
+- regulation resumes at the first reading within the bounds;
+- a reading that is not a number (NaN, infinity) is always out of range, even without bounds;
+- there is **no hysteresis** on the bounds: a sensor oscillating around a bound makes the outputs cycle at the pace of `min_off_time`;
+- if `valid_max` is below `valid_min`, both bounds are ignored (a message in the log).
+
+The thermostat templates write `valid_min` = -30 and `valid_max` = 60: this covers the absurd values above without bothering a frost-free garage. The ESPHome climate templates have no bounds. Change them in the device editor according to what the sensor measures: `valid_min` = 5 and `valid_max` = 40 for a living room, but a domestic hot water tank sensor must go above 60 °C (see [Heating rules]({{% relref "calaos_installer/rules_heating" %}})).
+
+## The zone valve (single output)
+
+A reversible floor often has **a single valve per zone**: the same valve opens to heat and to cool, and the heat pump reverses the water. The `output` link ("Zone valve") serves that, in place of `output_heat` and `output_cool`:
+
+- the valve is **on for any demand**, heating or cooling; the thermostat mode gives the direction. The displayed action is `heating` or `cooling`;
+- `output` is **exclusive**: a thermostat linking `output` and `output_heat` or `output_cool` is refused at load (a message in the log) and `output` is ignored;
+- the valve has a single owner, like any thermostat relay;
+- the `modes` parameter lists the offered modes among `heat`, `cool` and `auto` (`off` always is); without it, a valve only offers `heat`, for safety, and the log says so. A zone without cooling carries `modes` = `off,heat`. `auto` needs `heat` and `cool`, and then only exists with a low and a high setpoint range;
+- a mode that is not in the list is refused and logged (writing `cool` to an `off,heat` zone does nothing); an unknown name in `modes` is ignored;
+- when the mode changes direction, the valve closes after `min_on_time`, then reopens after `min_off_time`: the status shows "Starts in N min";
+- if the new mode cools and humidity is above `humidity_max`, a valve waiting for its change of direction is closed at once.
+
+Rules read the zone outputs to drive the heat pump: see [Heating rules]({{% relref "calaos_installer/rules_heating" %}}).
 
 ## One output, one thermostat
 
@@ -87,7 +115,7 @@ A relay linked as heating or cooling output belongs to **one** thermostat only. 
 ![An output already taken, refused by the editor](/en/calaos_installer/devices/images/inst-output-refused.png?width=30pc&classes=shadow)
 *A relay already used by another thermostat is refused.*
 
-For multi-zone heating sharing a boiler or a circulator, create **one output per zone** (a valve or relay per thermostat), and **one rule** that turns the common output on as soon as a zone output is on. See the example in [Heating rules]({{% relref "calaos_installer/rules_heating" %}}).
+For multi-zone heating sharing a boiler, a circulator or a heat pump, create **one output per zone** (a valve or relay per thermostat), and **rules** that turn the common output on as soon as a zone output is on. See the examples in [Heating rules]({{% relref "calaos_installer/rules_heating" %}}).
 
 ## Outputs are protected
 
