@@ -43,7 +43,3 @@ Menu **Calaos Server**, **Envoyer le projet à Calaos Server...** : voir [Envoye
 {{% notice warning %}}
 Le projet **remplace** toute la configuration de la box. Si vous voulez garder la vôtre, récupérez-la d'abord avec **Charger le projet depuis Calaos Server...**, ou essayez l'exemple sur une box de test.
 {{% /notice %}}
-
-## Ce qui est vérifié
-
-Chaque exemple est chargé par `calaos_server` et ouvert par Calaos Installer avant d'être publié : le serveur charge toutes les règles, sans avertissement au chargement. Seule exception, attendue : dans l'exemple 4, une ligne « cooling has no dew-point cut » par zone qui rafraîchit sans sonde d'humidité (voir [le point de rosée]({{% relref "calaos_installer/devices/thermostat" %}})).

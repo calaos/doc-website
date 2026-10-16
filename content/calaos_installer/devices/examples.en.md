@@ -43,7 +43,3 @@ Example 2 is different: its IOs are the real MQTT IOs of an ESPHome unit, but th
 {{% notice warning %}}
 The project **replaces** the whole configuration of the box. If you want to keep yours, fetch it first with **Download project from Calaos Server...**, or try the example on a test box.
 {{% /notice %}}
-
-## What is checked
-
-Each example is loaded by `calaos_server` and opened by Calaos Installer before it is published: the server loads every rule, with no warning at load. Single, expected exception: in example 4, one "cooling has no dew-point cut" line per zone that cools without a humidity sensor (see [the dew point]({{% relref "calaos_installer/devices/thermostat" %}})).
