@@ -52,6 +52,8 @@ La seconde est aussi le moyen le plus simple de **sauvegarder** votre installati
 
 Ces opérations demandent l'adresse du serveur et les identifiants de connexion, dont les valeurs par défaut sont `user` / `pass` — à changer, voir [Changer les mots de passe]({{% relref "calaos_os/security" %}}).
 
+Si le serveur a un [mot de passe admin]({{% relref "calaos_os/admin" %}}), les deux fenêtres ont aussi un champ facultatif **Mot de passe admin**. Laissez-le vide sinon. Il n'est jamais enregistré : saisissez-le à chaque ouverture de la fenêtre.
+
 ## Au-delà de la configuration
 
 Calaos Installer sert aussi à quelques tâches qui débordent du projet lui-même :

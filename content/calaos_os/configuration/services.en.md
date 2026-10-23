@@ -103,6 +103,8 @@ reboot
 
 Allow a minute before your home automation responds again.
 
+The web app can also restart the box, from its Admin tab: see [Administering from the web app]({{% relref "calaos_os/admin" %}}).
+
 ## Going further
 
 Calaos OS enables several automatic maintenance tasks, which run on their own and normally need no attention from you:

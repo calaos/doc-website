@@ -103,6 +103,8 @@ reboot
 
 Comptez une minute avant que votre domotique reréponde.
 
+L'application web peut aussi redémarrer la box, depuis son onglet Admin : voir [Administrer depuis l'application web]({{% relref "calaos_os/admin" %}}).
+
 ## Pour aller plus loin
 
 Calaos OS active plusieurs tâches d'entretien automatiques, qui s'exécutent seules et n'ont normalement pas besoin de votre attention :

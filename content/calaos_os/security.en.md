@@ -85,6 +85,10 @@ After this change, **all your applications will refuse to connect** until you gi
 
 **The `root` password**, however, can only be recovered with physical access to the machine, by booting from the Calaos OS USB stick. Store it in your password manager rather than relying on memory.
 
+## The admin password
+
+Updates and restarts from the web app are protected by a third password, the **admin password**, which you choose in the web app itself. See [Administering from the web app]({{% relref "calaos_os/admin" %}}), including what to do if you lose it.
+
 ## Going further
 
 For a server exposed to the Internet, replace the `root` password with **SSH key authentication**, which is far safer, then disable password login. The procedure is described in [SSH access]({{% relref "calaos_os/advanced/shell" %}}).

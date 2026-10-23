@@ -17,6 +17,10 @@ Calaos OS updates are **incremental**: only the components that changed are down
 **Your configuration is not affected by an update.** Your inputs/outputs, rules, scenarios and measurement history are kept unchanged.
 {{% /notice %}}
 
+{{% notice tip %}}
+Prefer not to use a terminal? Once your box has the Admin tab, you can install updates from the web app: see [Administering from the web app]({{% relref "calaos_os/admin" %}}). The very first upgrade to that version is done with the tools below.
+{{% /notice %}}
+
 ## Before you start
 
 Back up your configuration: it is quick and will save you trouble one day. The procedure is on [Backing up your configuration]({{% relref "calaos_os/backup" %}}).

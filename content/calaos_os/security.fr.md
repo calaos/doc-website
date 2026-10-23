@@ -85,6 +85,10 @@ Après ce changement, **toutes vos applications vont refuser de se connecter** t
 
 **Le mot de passe `root`**, lui, n'est récupérable qu'avec un accès physique à la machine, en démarrant sur la clé USB de Calaos OS. Notez-le dans votre gestionnaire de mots de passe plutôt que de compter sur votre mémoire.
 
+## Le mot de passe admin
+
+Les mises à jour et redémarrages depuis l'application web sont protégés par un troisième mot de passe, le **mot de passe admin**, que vous choisissez dans l'application web elle-même. Voir [Administrer depuis l'application web]({{% relref "calaos_os/admin" %}}), y compris que faire si vous le perdez.
+
 ## Pour aller plus loin
 
 Pour un serveur exposé à Internet, remplacez le mot de passe `root` par une **authentification par clé SSH**, nettement plus sûre, puis désactivez la connexion par mot de passe. La marche à suivre est décrite dans [Accès SSH]({{% relref "calaos_os/advanced/shell" %}}).
