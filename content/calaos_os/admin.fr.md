@@ -91,7 +91,7 @@ Un [retour en arrière]({{% relref "calaos_os/rollback" %}}) restaure aussi le m
 
 ## Autoriser d'autres noms : `api_allowed_hosts`
 
-Une fois le mot de passe admin défini, l'application web est acceptée depuis les adresses IP de la box, et depuis tout nom atteint en https. Si vous ouvrez l'application web par un nom plutôt que par une adresse IP, **sans https**, par exemple `http://calaos.local:5454`, ajoutez ce nom à l'option `api_allowed_hosts` : une liste de noms séparés par des virgules.
+Tant que le mot de passe admin n'est pas défini, rien n'est vérifié. Une fois défini, l'application web n'est acceptée que si vous l'ouvrez avec l'une des adresses IP de la box (y compris sur le port 5454), ou avec le même nom que celui utilisé pour joindre la box en https. Tout autre nom, y compris `calaos.local` ou le nom d'hôte de la box, est refusé tant que vous ne l'ajoutez pas à l'option `api_allowed_hosts` : une liste de noms séparés par des virgules. Une entrée peut se terminer par un port, par exemple `calaos.example.net:8080` ; sans port, tous les ports sont acceptés.
 
 ```sh
 calaos_config set api_allowed_hosts "calaos.example.net,box.local"
