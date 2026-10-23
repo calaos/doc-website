@@ -91,7 +91,7 @@ A [rollback]({{% relref "calaos_os/rollback" %}}) also restores the admin passwo
 
 ## Allowing other host names: `api_allowed_hosts`
 
-Once the admin password is set, the web app is accepted from the box's own IP addresses, and from any name you reach through https. If you open the web app by a name instead of an IP address **without https**, for example `http://calaos.local:5454`, add that name to the `api_allowed_hosts` option: a list of host names separated by commas.
+Until the admin password is set, nothing is checked. Once it is set, the web app is only accepted when you open it with one of the box's own IP addresses (including on port 5454), or with any name in `https://`. Without https, for example `http://calaos.local:5454`, any other name, including `calaos.local` or the box's host name, is refused unless you add it to the `api_allowed_hosts` option: a list of host names separated by commas. An entry may end with a port, for example `calaos.example.net:8080`; without a port, any port is accepted.
 
 ```sh
 calaos_config set api_allowed_hosts "calaos.example.net,box.local"
