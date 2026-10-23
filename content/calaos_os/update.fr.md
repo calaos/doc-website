@@ -17,6 +17,10 @@ Les mises à jour de Calaos OS sont **incrémentales** : seuls les composants qu
 **Votre configuration n'est pas touchée par une mise à jour.** Vos entrées/sorties, vos règles, vos scénarios et l'historique de vos mesures sont conservés tels quels.
 {{% /notice %}}
 
+{{% notice tip %}}
+Vous préférez éviter le terminal ? Dès que votre box a l'onglet Admin, vous pouvez installer les mises à jour depuis l'application web : voir [Administrer depuis l'application web]({{% relref "calaos_os/admin" %}}). La toute première mise à jour vers cette version se fait avec les outils ci-dessous.
+{{% /notice %}}
+
 ## Avant de commencer
 
 Faites une sauvegarde de votre configuration : c'est rapide et cela vous évitera bien des ennuis un jour. La marche à suivre est sur [Sauvegarder sa configuration]({{% relref "calaos_os/backup" %}}).

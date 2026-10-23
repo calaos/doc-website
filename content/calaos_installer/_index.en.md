@@ -52,6 +52,8 @@ The second is also the simplest way to **back up** your installation: see [Uploa
 
 These operations ask for the server address and the login credentials, whose default values are `user` / `pass` — to be changed, see [Changing the passwords]({{% relref "calaos_os/security" %}}).
 
+If the server has an [admin password]({{% relref "calaos_os/admin" %}}), both windows also have an optional **Admin password** field. Leave it empty otherwise. It is never saved: type it each time you open the window.
+
 ## Beyond configuration
 
 Calaos Installer is also used for a few tasks that go beyond the project itself:

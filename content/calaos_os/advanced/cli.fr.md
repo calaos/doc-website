@@ -19,6 +19,8 @@ Il s'utilise depuis un terminal sur le serveur, ou à distance en SSH — voir [
 | `calaos-os check-update` | Vérifie si des mises à jour sont disponibles |
 | `calaos-os upgrade` | Met à jour tous les composants |
 | `calaos-os upgrade PAQUET` | Met à jour un seul composant |
+| `calaos-os admin set` | Définit ou remplace le mot de passe admin de l'application web (demandé au terminal) |
+| `calaos-os admin reset` | Supprime le mot de passe admin |
 | `calaos-os network list` | Liste les interfaces réseau |
 | `calaos-os network configure dhcp INTERFACE` | Configure une interface en adresse automatique |
 | `calaos-os network configure static INTERFACE IPV4 MASQUE [PASSERELLE] [DNS...]` | Configure une interface en adresse fixe |
