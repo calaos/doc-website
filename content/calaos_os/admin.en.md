@@ -19,15 +19,19 @@ This is available on **Calaos OS** only. See [Docker and other installations](#d
 
 The Admin tab only works on a secure connection. Open the web app with an address starting with **`https://`**, for example `https://192.168.1.50` (your box's IP address), not `http://`.
 
-Your browser will show a warning such as "Your connection is not private". This is expected: the box creates its own security certificate, which no public authority has signed. The traffic is encrypted all the same. Accept the warning once (usually under "Advanced", then "Continue to ...").
+Your browser will probably show a warning such as "Your connection is not private". This is expected: the box creates its own security certificate, which no public authority has signed. The traffic is encrypted all the same. Accept the warning once (usually under "Advanced", then "Continue to ...").
 
-If you open the Admin tab on an address that does not start with `https://`, the web app tells you to use `https://`.
+If you open the Admin tab on an address that does not start with `https://`, the web app tells you to use `https://` and offers an **Open in https://** button.
 
 ## First use: choose the admin password
 
 1. Open the **Admin** tab.
-2. If the web app asks you to **change your login password first**, do it. A box that still uses the default `user` / `pass` login cannot get an admin password: those values are known to everybody. See [Changing the passwords]({{% relref "calaos_os/security" %}}).
-3. Type an admin password of **at least 10 characters**, twice, and confirm.
+2. If the tab shows **Change your sign-in password first**, fill in the form right there (user name, new password twice) and click **Save and continue**. A box that still uses the default `user` / `pass` login cannot get an admin password: those values are known to everybody. This is your Calaos Server password, see [Change the Calaos Server credentials]({{% relref "calaos_os/security#2-change-the-calaos-server-credentials" %}}).
+3. Type an admin password of **at least 10 characters**, twice, and click **Set the admin password**.
+
+{{% notice warning %}}
+Once the sign-in password has changed, Calaos Installer, the mobile applications and the web app all need the new one.
+{{% /notice %}}
 
 The admin password is not stored anywhere readable, so **write it down** in your password manager. If you lose it, see [If you lose the admin password](#if-you-lose-the-admin-password).
 
@@ -37,7 +41,7 @@ Choose the admin password yourself, soon after installation. Until one is set, a
 
 ## Unlock the Admin tab
 
-Each time you open the Admin tab, type the admin password and press **Unlock**. The unlock lasts **15 minutes** and then the web app asks for the password again. After a wrong password, wait a minute before trying again.
+When the Admin tab asks for it (the first time, then every 15 minutes, or after reloading the page), type the admin password and press **Unlock**. After several wrong passwords, the web app makes you wait a little (up to a minute) and shows how long.
 
 ## Install updates
 
@@ -47,7 +51,7 @@ Each time you open the Admin tab, type the admin password and press **Unlock**. 
 
 The box stays usable during the update. The web app may lose its connection for a moment while the server restarts, and reconnects by itself.
 
-When it is done, the web app says **Update complete**. If it says **Restart the box**, part of what was installed only takes effect after a restart: click **Restart the box** at the bottom of the tab, and confirm. It takes about a minute and the web app reconnects when the box is back.
+When it is done, the web app says **Update finished**. If it says **Update finished — restart the box**, part of what was installed only takes effect after a restart: click **Restart the box** in the **Box** section of the tab, then **Restart** to confirm. It takes about a minute and the web app reconnects when the box is back.
 
 {{% notice tip %}}
 Updating is as safe as with the terminal: a restore point is created before each installation. See [Rolling back]({{% relref "calaos_os/rollback" %}}).
@@ -55,7 +59,11 @@ Updating is as safe as with the terminal: a restore point is created before each
 
 ### The very first upgrade
 
-A box that does not have the Admin tab yet is brought up to date with the usual tools: `calaos-os upgrade`, `apt upgrade` (see [Update]({{% relref "calaos_os/update" %}})), or the update button of the touchscreen. Nothing else to do: once that upgrade is done, the Admin tab works. For a short time the web app can show **Admin activation in progress** while the box finishes: it retries on its own. Only if it still shows **Restart the box** after a couple of minutes, restart the box.
+A box that does not have the Admin tab yet is brought up to date with the usual tools: `calaos-os upgrade`, `apt upgrade` (see [Update]({{% relref "calaos_os/update" %}})), or the update button of the touchscreen. Nothing else to do: once that upgrade is done, the Admin tab works. For a short time the web app can show **Administration is being activated** while the box finishes: it retries on its own. Only if it still shows **Restart the box** after a couple of minutes, restart the box yourself, since the Admin tab cannot do it in that state: unplug it and plug it back in, or type `reboot` over SSH (see [Services]({{% relref "calaos_os/configuration/services" %}})).
+
+## Change the admin password
+
+In the unlocked Admin tab, go to the **Box** section, **Admin password**, and click **Change**. You stay unlocked with the new password.
 
 ## If you lose the admin password
 
@@ -73,6 +81,8 @@ To remove the admin password altogether, so that the web app offers to choose a 
 calaos-os admin reset
 ```
 
+After `calaos-os admin reset`, anyone who knows your sign-in password could choose the new admin password first. Change the Calaos Server password first, then choose the new admin password in the web app.
+
 Both commands need `root` access to the box, which is why no web screen can do the same thing.
 
 {{% notice note %}}
@@ -81,7 +91,7 @@ A [rollback]({{% relref "calaos_os/rollback" %}}) also restores the admin passwo
 
 ## Allowing other host names: `api_allowed_hosts`
 
-Once the admin password is set, the web app is only accepted from the box's own IP addresses and from the name you use through its https front end. If you reach the web app under another name, for example a home DNS name or a `.local` name, add it to the `api_allowed_hosts` option: a list of host names separated by commas.
+Once the admin password is set, the web app is accepted from the box's own IP addresses, and from any name you reach through https. If you open the web app by a name instead of an IP address **without https**, for example `http://calaos.local:5454`, add that name to the `api_allowed_hosts` option: a list of host names separated by commas.
 
 ```sh
 calaos_config set api_allowed_hosts "calaos.example.net,box.local"
@@ -99,4 +109,4 @@ There is **no web administration** on Docker installations nor on systems other 
 
 ## Calaos Installer
 
-If your box has an admin password, **Load Project from Calaos Server** and **Send the project** in Calaos Installer also need it: an optional **Admin password** field appears in both windows. Leave it empty if the box has none. It is never saved, so you type it each time you open the window. See [Calaos Installer]({{% relref "calaos_installer" %}}).
+If your box has an admin password, **Load the project** and **Send the project** (**Calaos Server** menu) in Calaos Installer also need it: an optional **Admin password** field appears in both windows. Leave it empty if the box has none. It is never saved, so you type it each time you open the window. See [Calaos Installer]({{% relref "calaos_installer" %}}).

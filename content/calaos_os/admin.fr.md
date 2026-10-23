@@ -19,15 +19,19 @@ Cette fonction n'existe que sous **Calaos OS**. Voir [Docker et autres installat
 
 L'onglet Admin ne fonctionne que sur une connexion sécurisée. Ouvrez l'application web avec une adresse qui commence par **`https://`**, par exemple `https://192.168.1.50` (l'adresse IP de votre box), et non `http://`.
 
-Votre navigateur affichera un avertissement du type « Votre connexion n'est pas privée ». C'est normal : la box crée elle-même son certificat de sécurité, qu'aucune autorité publique n'a signé. Les échanges sont chiffrés malgré tout. Acceptez l'avertissement une fois (en général sous « Avancé », puis « Continuer vers ... »).
+Votre navigateur affichera probablement un avertissement du type « Votre connexion n'est pas privée ». C'est normal : la box crée elle-même son certificat de sécurité, qu'aucune autorité publique n'a signé. Les échanges sont chiffrés malgré tout. Acceptez l'avertissement une fois (en général sous « Avancé », puis « Continuer vers ... »).
 
-Si vous ouvrez l'onglet Admin sur une adresse qui ne commence pas par `https://`, l'application web vous demande d'utiliser `https://`.
+Si vous ouvrez l'onglet Admin sur une adresse qui ne commence pas par `https://`, l'application web vous demande d'utiliser `https://` et propose un bouton **Ouvrir en https://**.
 
 ## Première utilisation : choisir le mot de passe admin
 
 1. Ouvrez l'onglet **Admin**.
-2. Si l'application web vous demande de **changer d'abord votre mot de passe de connexion**, faites-le. Une box qui utilise encore l'identifiant par défaut `user` / `pass` ne peut pas recevoir de mot de passe admin : ces valeurs sont connues de tous. Voir [Changer les mots de passe]({{% relref "calaos_os/security" %}}).
-3. Saisissez un mot de passe admin d'**au moins 10 caractères**, deux fois, puis validez.
+2. Si l'onglet affiche **Changez d'abord votre mot de passe de connexion**, remplissez le formulaire qui s'y trouve (nom d'utilisateur, nouveau mot de passe deux fois) et cliquez sur **Enregistrer et continuer**. Une box qui utilise encore l'identifiant par défaut `user` / `pass` ne peut pas recevoir de mot de passe admin : ces valeurs sont connues de tous. C'est le mot de passe de Calaos Server, voir [Changer les identifiants de Calaos Server]({{% relref "calaos_os/security#2-changer-les-identifiants-de-calaos-server" %}}).
+3. Saisissez un mot de passe admin d'**au moins 10 caractères**, deux fois, puis cliquez sur **Définir le mot de passe admin**.
+
+{{% notice warning %}}
+Une fois le mot de passe de connexion changé, Calaos Installer, les applications mobiles et l'application web ont toutes besoin du nouveau.
+{{% /notice %}}
 
 Le mot de passe admin n'est stocké nulle part en clair : **notez-le** dans votre gestionnaire de mots de passe. Si vous le perdez, voir [Si vous perdez le mot de passe admin](#si-vous-perdez-le-mot-de-passe-admin).
 
@@ -37,7 +41,7 @@ Choisissez vous-même le mot de passe admin, peu après l'installation. Tant qu'
 
 ## Déverrouiller l'onglet Admin
 
-À chaque ouverture de l'onglet Admin, saisissez le mot de passe admin et appuyez sur **Déverrouiller**. Le déverrouillage dure **15 minutes**, puis l'application web redemande le mot de passe. Après un mot de passe erroné, attendez une minute avant de réessayer.
+Quand l'onglet Admin le demande (la première fois, puis toutes les 15 minutes, ou après un rechargement de la page), saisissez le mot de passe admin et appuyez sur **Déverrouiller**. Après plusieurs mots de passe erronés, l'application web vous fait attendre un peu (jusqu'à une minute) et indique combien de temps.
 
 ## Installer les mises à jour
 
@@ -47,7 +51,7 @@ Choisissez vous-même le mot de passe admin, peu après l'installation. Tant qu'
 
 La box reste utilisable pendant la mise à jour. L'application web peut perdre la connexion un instant pendant le redémarrage du serveur, et se reconnecte d'elle-même.
 
-Quand c'est fini, l'application web affiche **Mise à jour terminée**. Si elle affiche **Redémarrez la box**, une partie de ce qui a été installé ne prend effet qu'après un redémarrage : cliquez sur **Redémarrer la box** en bas de l'onglet, et confirmez. Comptez environ une minute ; l'application web se reconnecte quand la box est revenue.
+Quand c'est fini, l'application web affiche **Mise à jour terminée**. Si elle affiche **Mise à jour terminée — redémarrez la box**, une partie de ce qui a été installé ne prend effet qu'après un redémarrage : cliquez sur **Redémarrer la box** dans la section **Box** de l'onglet, puis sur **Redémarrer** pour confirmer. Comptez environ une minute ; l'application web se reconnecte quand la box est revenue.
 
 {{% notice tip %}}
 Mettre à jour est aussi sûr qu'avec le terminal : un point de restauration est créé avant chaque installation. Voir [Revenir en arrière]({{% relref "calaos_os/rollback" %}}).
@@ -55,7 +59,11 @@ Mettre à jour est aussi sûr qu'avec le terminal : un point de restauration est
 
 ### La toute première mise à jour
 
-Une box qui n'a pas encore l'onglet Admin se met à jour avec les outils habituels : `calaos-os upgrade`, `apt upgrade` (voir [Mise à jour]({{% relref "calaos_os/update" %}})), ou le bouton de mise à jour de l'écran tactile. Il n'y a rien d'autre à faire : une fois cette mise à jour terminée, l'onglet Admin fonctionne. Pendant un court moment, l'application web peut afficher **Activation de l'administration en cours** le temps que la box termine : elle réessaie toute seule. Si elle affiche encore **Redémarrez la box** au bout de quelques minutes, redémarrez la box.
+Une box qui n'a pas encore l'onglet Admin se met à jour avec les outils habituels : `calaos-os upgrade`, `apt upgrade` (voir [Mise à jour]({{% relref "calaos_os/update" %}})), ou le bouton de mise à jour de l'écran tactile. Il n'y a rien d'autre à faire : une fois cette mise à jour terminée, l'onglet Admin fonctionne. Pendant un court moment, l'application web peut afficher **Activation de l'administration en cours** le temps que la box termine : elle réessaie toute seule. Si elle affiche encore **Redémarrez la box** au bout de quelques minutes, redémarrez la box vous-même, car l'onglet Admin ne peut pas le faire dans cet état : débranchez-la puis rebranchez-la, ou tapez `reboot` en SSH (voir [Services]({{% relref "calaos_os/configuration/services" %}})).
+
+## Changer le mot de passe admin
+
+Dans l'onglet Admin déverrouillé, section **Box**, **Mot de passe admin**, cliquez sur **Changer**. Vous restez déverrouillé avec le nouveau mot de passe.
 
 ## Si vous perdez le mot de passe admin
 
@@ -73,6 +81,8 @@ Pour supprimer complètement le mot de passe admin, afin que l'application web p
 calaos-os admin reset
 ```
 
+Après `calaos-os admin reset`, quiconque connaît votre mot de passe de connexion pourrait choisir le nouveau mot de passe admin avant vous. Changez d'abord le mot de passe de Calaos Server, puis choisissez le nouveau mot de passe admin dans l'application web.
+
 Ces deux commandes exigent l'accès `root` à la box, c'est pourquoi aucun écran web ne peut faire la même chose.
 
 {{% notice note %}}
@@ -81,7 +91,7 @@ Un [retour en arrière]({{% relref "calaos_os/rollback" %}}) restaure aussi le m
 
 ## Autoriser d'autres noms : `api_allowed_hosts`
 
-Une fois le mot de passe admin défini, l'application web n'est acceptée que depuis les adresses IP de la box et depuis le nom que vous utilisez via son accès https. Si vous atteignez l'application web sous un autre nom, par exemple un nom DNS maison ou un nom en `.local`, ajoutez-le à l'option `api_allowed_hosts` : une liste de noms séparés par des virgules.
+Une fois le mot de passe admin défini, l'application web est acceptée depuis les adresses IP de la box, et depuis tout nom atteint en https. Si vous ouvrez l'application web par un nom plutôt que par une adresse IP, **sans https**, par exemple `http://calaos.local:5454`, ajoutez ce nom à l'option `api_allowed_hosts` : une liste de noms séparés par des virgules.
 
 ```sh
 calaos_config set api_allowed_hosts "calaos.example.net,box.local"
@@ -99,4 +109,4 @@ Il n'y a **pas d'administration web** sur les installations Docker ni sur les sy
 
 ## Calaos Installer
 
-Si votre box a un mot de passe admin, **Charger le projet depuis le serveur Calaos** et **Envoyer le projet** dans Calaos Installer le demandent aussi : un champ facultatif **Mot de passe admin** apparaît dans les deux fenêtres. Laissez-le vide si la box n'en a pas. Il n'est jamais enregistré : saisissez-le à chaque ouverture de la fenêtre. Voir [Calaos Installer]({{% relref "calaos_installer" %}}).
+Si votre box a un mot de passe admin, **Charger le projet** et **Envoyer le projet** (menu **Calaos Server**) dans Calaos Installer le demandent aussi : un champ facultatif **Mot de passe admin** apparaît dans les deux fenêtres. Laissez-le vide si la box n'en a pas. Il n'est jamais enregistré : saisissez-le à chaque ouverture de la fenêtre. Voir [Calaos Installer]({{% relref "calaos_installer" %}}).
