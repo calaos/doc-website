@@ -65,6 +65,8 @@ A box that does not have the Admin tab yet is brought up to date with the usual 
 
 In the unlocked Admin tab, go to the **Box** section, **Admin password**, and click **Change**. You stay unlocked with the new password.
 
+This change also needs a code sent to your approver phone, so enrol one first: see [Approver phone and web console]({{% relref "calaos_os/approver" %}}). That page also covers the web console. Without an approver phone, use `calaos-os admin set` over SSH (below).
+
 ## If you lose the admin password
 
 Connect to the box over SSH (see [SSH access]({{% relref "calaos_os/advanced/shell" %}})) as `root`, and type:
@@ -75,7 +77,7 @@ calaos-os admin set
 
 The command asks for the new admin password, twice. It replaces the old one, whether or not you remember it. Anyone logged in to the Admin tab has to unlock again.
 
-To remove the admin password altogether, so that the web app offers to choose a new one:
+`calaos-os admin set` keeps the approver phones. To remove the admin password altogether, **and the approver phones**, so that the web app offers to choose a new one:
 
 ```sh
 calaos-os admin reset

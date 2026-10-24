@@ -87,7 +87,7 @@ After this change, **all your applications will refuse to connect** until you gi
 
 ## The admin password
 
-Updates and restarts from the web app are protected by a third password, the **admin password**, which you choose in the web app itself. See [Administering from the web app]({{% relref "calaos_os/admin" %}}), including what to do if you lose it.
+Updates and restarts from the web app are protected by a third password, the **admin password**, which you choose in the web app itself. See [Administering from the web app]({{% relref "calaos_os/admin" %}}), including what to do if you lose it. Sensitive actions (web console, changing this password) also need a code sent to an [approver phone]({{% relref "calaos_os/approver" %}}).
 
 ## Going further
 
