@@ -65,6 +65,8 @@ Une box qui n'a pas encore l'onglet Admin se met à jour avec les outils habitue
 
 Dans l'onglet Admin déverrouillé, section **Box**, **Mot de passe admin**, cliquez sur **Changer**. Vous restez déverrouillé avec le nouveau mot de passe.
 
+Ce changement demande aussi un code envoyé à votre téléphone approbateur : enrôlez-en un d'abord, voir [Téléphone approbateur et console web]({{% relref "calaos_os/approver" %}}). Cette page couvre aussi la console web. Sans téléphone approbateur, utilisez `calaos-os admin set` en SSH (ci-dessous).
+
 ## Si vous perdez le mot de passe admin
 
 Connectez-vous à la box en SSH (voir [Accès SSH]({{% relref "calaos_os/advanced/shell" %}})) en `root`, et tapez :
@@ -75,7 +77,7 @@ calaos-os admin set
 
 La commande demande le nouveau mot de passe admin, deux fois. Il remplace l'ancien, que vous vous en souveniez ou non. Toute personne connectée à l'onglet Admin doit se déverrouiller à nouveau.
 
-Pour supprimer complètement le mot de passe admin, afin que l'application web propose d'en choisir un nouveau :
+`calaos-os admin set` garde les téléphones approbateurs. Pour supprimer complètement le mot de passe admin, **et les téléphones approbateurs**, afin que l'application web propose d'en choisir un nouveau :
 
 ```sh
 calaos-os admin reset
