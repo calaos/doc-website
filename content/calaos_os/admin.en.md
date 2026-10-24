@@ -105,7 +105,7 @@ If you edited the `haproxy.cfg` file by hand, keep the `http-request set-header 
 
 ## Behind an external reverse proxy
 
-*For advanced users.* If another machine of your network sits in front of the box (HAProxy, nginx...), it must forward to the box's HAProxy on port **443 over TLS**, not to port 5454 over plain http: with 5454 the web app shows "Use https://", because the admin password would otherwise travel in clear on your network. Your browser only sees the certificate of the external proxy; the box's certificate is only checked by that proxy. The original `Host` header must be passed through, so `api_allowed_hosts` is not needed.
+*For advanced users.* If another machine of your network sits in front of the box (HAProxy, nginx...), it must forward to the box's HAProxy on port **443 over TLS**, not to port 5454 over plain http: with 5454 the web app shows "Use https://", because the admin password would otherwise travel in clear on your network. Your browser only sees the certificate of the external proxy; the box's certificate is only checked by that proxy. The reason: calaos_server only accepts admin actions from a loopback connection carrying `X-Forwarded-Proto: https`, which only the box's own HAProxy sets; `X-Forwarded-*` headers from your external proxy are therefore optional. The original `Host` header must be passed through: it keeps the Origin check working, so `api_allowed_hosts` is not needed.
 
 If the box has a valid Let's Encrypt certificate through [calaos_ddns]({{% relref "calaos_os/configuration/calaos_ddns" %}}) (for example `mabox.calaos.fr`), check it with the system certificates and the box's DDNS name. HAProxy example:
 
@@ -116,19 +116,26 @@ backend calaos
 
 Here `ca-file ca-certificates.crt` assumes `ca-base /etc/ssl/certs` in the `global` section; `@system-ca` does not work in that case. Without DDNS, the box has a self-signed certificate: replace the `ssl ...` options with `ssl verify none` (or give the box certificate to `ca-file` to pin it).
 
-The nginx equivalent:
+The nginx equivalent (the `map` goes in the `http` block):
 
 ```
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
 location / {
     proxy_pass https://<box-ip>:443;
     proxy_ssl_server_name on;
     proxy_ssl_name mabox.calaos.fr;
     proxy_ssl_verify on;
+    proxy_ssl_verify_depth 2;
     proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
     proxy_set_header Host $host;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
+    proxy_set_header Connection $connection_upgrade;
+    proxy_read_timeout 1h;
 }
 ```
 

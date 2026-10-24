@@ -105,7 +105,7 @@ Si vous avez modifié le fichier `haproxy.cfg` à la main, conservez la ligne `h
 
 ## Derrière un reverse proxy externe
 
-*Pour utilisateurs avancés.* Si une autre machine de votre réseau se place devant la box (HAProxy, nginx...), elle doit rediriger vers le HAProxy de la box sur le port **443 en TLS**, et non vers le port 5454 en http simple : avec 5454, l'application web affiche « Use https:// », car le mot de passe admin circulerait sinon en clair sur votre réseau. Votre navigateur ne voit que le certificat du proxy externe ; le certificat de la box n'est vérifié que par ce proxy. L'en-tête `Host` d'origine doit être transmis tel quel, donc `api_allowed_hosts` n'est pas nécessaire.
+*Pour utilisateurs avancés.* Si une autre machine de votre réseau se place devant la box (HAProxy, nginx...), elle doit rediriger vers le HAProxy de la box sur le port **443 en TLS**, et non vers le port 5454 en http simple : avec 5454, l'application web affiche « Use https:// », car le mot de passe admin circulerait sinon en clair sur votre réseau. Votre navigateur ne voit que le certificat du proxy externe ; le certificat de la box n'est vérifié que par ce proxy. La raison : calaos_server n'accepte les actions d'administration que depuis une connexion loopback portant `X-Forwarded-Proto: https`, que seul le HAProxy de la box positionne ; les en-têtes `X-Forwarded-*` de votre proxy externe sont donc facultatifs. L'en-tête `Host` d'origine doit être transmis tel quel : il permet à la vérification de l'Origin de fonctionner, donc `api_allowed_hosts` n'est pas nécessaire.
 
 Si la box a un certificat Let's Encrypt valide via [calaos_ddns]({{% relref "calaos_os/configuration/calaos_ddns" %}}) (par exemple `mabox.calaos.fr`), vérifiez-le avec les certificats du système et le nom DDNS de la box. Exemple HAProxy :
 
@@ -116,19 +116,26 @@ backend calaos
 
 Ici `ca-file ca-certificates.crt` suppose `ca-base /etc/ssl/certs` dans la section `global` ; `@system-ca` ne fonctionne pas dans ce cas. Sans DDNS, la box a un certificat auto-signé : remplacez les options `ssl ...` par `ssl verify none` (ou donnez le certificat de la box à `ca-file` pour l'épingler).
 
-L'équivalent nginx :
+L'équivalent nginx (le `map` va dans le bloc `http`) :
 
 ```
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
 location / {
     proxy_pass https://<ip-box>:443;
     proxy_ssl_server_name on;
     proxy_ssl_name mabox.calaos.fr;
     proxy_ssl_verify on;
+    proxy_ssl_verify_depth 2;
     proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
     proxy_set_header Host $host;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
+    proxy_set_header Connection $connection_upgrade;
+    proxy_read_timeout 1h;
 }
 ```
 
