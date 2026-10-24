@@ -103,6 +103,41 @@ calaos_config set api_allowed_hosts "calaos.example.net,box.local"
 If you edited the `haproxy.cfg` file by hand, keep the `http-request set-header X-Forwarded-Proto` line in each frontend. Without it the box cannot tell that the connection is secure.
 {{% /notice %}}
 
+## Behind an external reverse proxy
+
+*For advanced users.* If another machine of your network sits in front of the box (HAProxy, nginx...), it must forward to the box's HAProxy on port **443 over TLS**, not to port 5454 over plain http: with 5454 the web app shows "Use https://", because the admin password would otherwise travel in clear on your network. Your browser only sees the certificate of the external proxy; the box's certificate is only checked by that proxy. The original `Host` header must be passed through, so `api_allowed_hosts` is not needed.
+
+If the box has a valid Let's Encrypt certificate through [calaos_ddns]({{% relref "calaos_os/configuration/calaos_ddns" %}}) (for example `mabox.calaos.fr`), check it with the system certificates and the box's DDNS name. HAProxy example:
+
+```
+backend calaos
+    server calaos-server <box-ip>:443 ssl sni str(mabox.calaos.fr) verify required ca-file ca-certificates.crt verifyhost mabox.calaos.fr check check-sni mabox.calaos.fr
+```
+
+Here `ca-file ca-certificates.crt` assumes `ca-base /etc/ssl/certs` in the `global` section; `@system-ca` does not work in that case. Without DDNS, the box has a self-signed certificate: replace the `ssl ...` options with `ssl verify none` (or give the box certificate to `ca-file` to pin it).
+
+The nginx equivalent:
+
+```
+location / {
+    proxy_pass https://<box-ip>:443;
+    proxy_ssl_server_name on;
+    proxy_ssl_name mabox.calaos.fr;
+    proxy_ssl_verify on;
+    proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
+    proxy_set_header Host $host;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+}
+```
+
+(with a self-signed certificate, use `proxy_ssl_verify off;` and drop the two other `proxy_ssl_` lines for the name and the CA.)
+
+{{% notice note %}}
+If the box fails to renew its Let's Encrypt certificate, it falls back to a self-signed one and the proxy refuses the connection. This is on purpose: no silent downgrade of the check.
+{{% /notice %}}
+
 ## Docker and other installations
 
 There is **no web administration** on Docker installations nor on systems other than Calaos OS. The Admin tab says **Administration unavailable**, and nothing else changes: everything else works as before. Update those installations with their usual tools (for Docker, pull the new images).
