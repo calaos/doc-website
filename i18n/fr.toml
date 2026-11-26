@@ -1,0 +1,3 @@
+# The chapter pages keep their menu weights, which are not chapter numbers.
+[Chapter]
+other = ""

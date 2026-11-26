@@ -1,6 +1,6 @@
 # Documentation repo
 
-This repo holds the doc for calaos. It is based on [Hugo](https://gohugo.io/) with the theme [Learn](https://learn.netlify.app)
+This repo holds the doc for calaos. It is based on [Hugo](https://gohugo.io/) with the theme [Relearn](https://mcshelby.github.io/hugo-theme-relearn/)
 
 ## Usage
 
@@ -32,7 +32,7 @@ hugo new <subfolder>/some-content.en.md
 
 - Locally: the devcontainer (`.devcontainer/devcontainer.json`) installs Hugo extended through the `hugo` devcontainer feature; nothing is installed on the host. Preview with `hugo server`.
 - CI (`.github/workflows/build.yml`) uses `peaceiris/actions-hugo` with Hugo `latest`, extended, and runs `hugo --minify`. The site must therefore build with the newest Hugo, not a pinned one.
-- The `Learn` theme is vendored in `themes/hugo-theme-learn/`, not a submodule: patch it in place and expect no upstream update. Mermaid is loaded from a pinned CDN URL, version 8.8.0 (`hugo.toml:23`); newer Mermaid syntax does not render.
+- The `Relearn` theme 9.5.2 is vendored in `themes/hugo-theme-relearn/`, not a submodule: to update it, replace the folder with a release archive from [GitHub](https://github.com/McShelby/hugo-theme-relearn/releases) and drop its `go.mod`. It needs Hugo 0.166.0 or newer. Site tweaks live outside the theme: the `calaos` variant (`assets/css/theme-calaos.css`), `layouts/partials/` and `i18n/`. Mermaid is the version shipped with the theme.
 
 ## Tools
 
