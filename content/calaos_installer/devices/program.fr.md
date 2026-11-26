@@ -20,7 +20,7 @@ Quand deux plages se recouvrent, le **niveau le plus bas l'emporte** : le niveau
 
 ### Consigne par défaut
 
-Chaque programme a une **consigne par défaut**, appliquée quand aucune plage n'est active. Pour la clim, vous pouvez choisir **« Clim arrêtée hors créneau »** : hors des plages, la consigne est poussée au maximum (30 °C) et le mode reste `cool`.
+Chaque programme a une **consigne par défaut**, appliquée quand aucune plage n'est active. Pour la clim, vous pouvez choisir **« Clim arrêtée en dehors des plages »** : hors des plages, la consigne est poussée au maximum (30 °C) et le mode reste `cool`.
 
 ## Ce que fait le programme
 
@@ -42,7 +42,7 @@ Une consigne réglée à la main **tient jusqu'au prochain de ces événements**
 
 ## Mise en pause
 
-Un interrupteur **Programme activé** existe par climat. En pause, la dernière consigne reste en place, et les écrans indiquent « Programme en pause : niveau n (xx °C) ». À la réactivation, la plage en cours est réappliquée. Cet interrupteur peut aussi être lu et commandé par une [règle]({{% relref "calaos_installer/rules" %}}).
+Un interrupteur **Programme activé** existe par climat. En pause, la dernière consigne reste en place, et les écrans indiquent « Programme en pause : plage (xx°) ». À la réactivation, la plage en cours est réappliquée. Cet interrupteur peut aussi être lu et commandé par une [règle]({{% relref "calaos_installer/rules" %}}).
 
 ## Modifier le programme
 
@@ -50,10 +50,10 @@ Un interrupteur **Programme activé** existe par climat. En pause, la dernière 
 
 Ouvrez le climat, puis le bouton d'édition du programme (**Modifier le programme** sur le web, **Programme et réglages** sur téléphone). Choisissez l'onglet **Chauffage** ou **Clim**, puis le jour (Lun à Dim). Une frise de 24 h montre les plages du jour.
 
-- **+ Créneau** (ou **Ajouter une plage**) ajoute une plage : heure de début, de fin, température. Le champ d'heure avance par pas de 15 minutes ; la saisie à la minute reste possible.
+- **Ajouter une plage** ajoute une plage : heure de début, de fin, température. Le champ d'heure avance par pas de 15 minutes ; la saisie à la minute reste possible.
 - Sur ordinateur et sur écran mural, on peut aussi **tirer sur la frise** pour créer une sélection, par pas de 15 minutes. L'application web n'a pas ce glisser.
 - Une 11e température différente est refusée : « Cette semaine utilise déjà 10 températures différentes. Choisissez l'une d'elles : », avec les températures existantes à toucher.
-- **Copier ce jour…** recopie le jour affiché vers d'autres jours, pour l'onglet actif seulement. La copie **remplace** les plages des jours cibles ; une confirmation est demandée si l'un d'eux en contient déjà. Un jour source vide est refusé.
+- **Copier vers…** recopie le jour affiché vers d'autres jours, pour l'onglet actif seulement. La copie **remplace** les plages des jours cibles ; une confirmation est demandée si l'un d'eux en contient déjà. Un jour source vide est refusé.
 - En mode `auto`, l'aide « i » explique les deux programmes ; la zone hachurée entre les deux consignes est l'écart minimal.
 
 Une session en lecture seule (service ou hors ligne) ne peut rien modifier.

@@ -20,7 +20,7 @@ When two slots overlap, the **lowest level wins**: level 1 beats level 2. The le
 
 ### Default setpoint
 
-Each program has a **default setpoint**, applied when no slot is active. For cooling you can choose **"Cooling off outside slots"**: outside the slots, the setpoint is pushed to the maximum (30 °C) and the mode stays `cool`.
+Each program has a **default setpoint**, applied when no slot is active. For cooling you can choose **"Cooling off outside periods"**: outside the slots, the setpoint is pushed to the maximum (30 °C) and the mode stays `cool`.
 
 ## What the program does
 
@@ -42,18 +42,18 @@ A setpoint set by hand **holds until the next of these events**.
 
 ## Pausing
 
-A **Program enabled** switch exists for each climate. While paused, the last setpoint stays in place and screens show "Program paused: level n (xx °C)". On resume, the current slot is applied again. The switch can also be read and driven by a [rule]({{% relref "calaos_installer/rules" %}}).
+A **Program enabled** switch exists for each climate. While paused, the last setpoint stays in place and screens show "Program paused: period (xx°)". On resume, the current slot is applied again. The switch can also be read and driven by a [rule]({{% relref "calaos_installer/rules" %}}).
 
 ## Editing the program
 
 ### Web app, mobile app and wall display
 
-Open the climate, then the program edit button (**Modifier le programme** on the web, **Programme et réglages** on phones). Choose the **Heating** or **Cooling** tab, then the day (Mon to Sun). A 24 h strip shows the day's slots.
+Open the climate, then the program edit button (**Edit program** on the web, **Program and settings** on phones). Choose the **Heating** or **Cooling** tab, then the day (Mon to Sun). A 24 h strip shows the day's slots.
 
-- **+ Slot** (or **Add a slot**) adds a slot: start time, end time, temperature. The time field moves in 15-minute steps; typing to the minute is still possible.
+- **Add a period** adds a slot: start time, end time, temperature. The time field moves in 15-minute steps; typing to the minute is still possible.
 - On desktop and on the wall display you can also **drag on the strip** to create a selection, in 15-minute steps. The web app has no drag.
 - An 11th different temperature is refused: "This week already uses 10 different temperatures. Choose one of them:", with the existing temperatures to tap.
-- **Copy this day…** copies the displayed day to other days, for the active tab only. The copy **replaces** the target days' slots; a confirmation is asked if one of them already has slots. An empty source day is refused.
+- **Copy to…** copies the displayed day to other days, for the active tab only. The copy **replaces** the target days' slots; a confirmation is asked if one of them already has slots. An empty source day is refused.
 - In `auto` mode, the "i" help explains the two programs; the hatched zone between the two setpoints is the minimum gap.
 
 A read-only session (service or offline) cannot change anything.
@@ -64,7 +64,7 @@ The climate row shows a badge for the next change, for example "▶ 17:30".
 
 ## In Calaos Installer
 
-Open the thermostat, then **Programme horaire de…** (the weekly-program dialog). The **Program** checkbox (in Heating and/or the Cooling group; tick the modes your heat pump offers) enables the weekly program. Unchecking it **deletes** the program's setpoints, slots and levels. The number of levels is no longer a setting: it is 10 as soon as the program is enabled.
+Open the thermostat, then **Time program of…** (the weekly-program dialog). The **Program** checkbox (in Heating and/or the Cooling group; tick the modes your heat pump offers) enables the weekly program. Unchecking it **deletes** the program's setpoints, slots and levels. The number of levels is no longer a setting: it is 10 as soon as the program is enabled.
 
 - The program's IOs belong to the device and sit in the **Program** sub-node.
 - After adding a program to an existing device, **restart the server**: it creates the IOs.
