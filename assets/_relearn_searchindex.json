@@ -1,0 +1,21 @@
+{{- /* Copy of the theme index, minus the Mermaid sources, which are not prose and showed as raw text in the search results. */ -}}
+{{- $pages := slice }}
+{{- range site.Pages }}
+  {{- if hasPrefix .Path "/_relearn" }}
+  {{- else if and .Title .RelPermalink (or (ne site.Params.disableSearchHiddenPages true) (not (partialCached "_relearn/pageIsHiddenSelfOrAncestor.gotmpl" (dict "page" . "to" site.Home) .Path site.Home.Path) ) ) }}
+    {{- $tags := slice }}
+    {{- range .GetTerms "tags" }}
+      {{- $tags = $tags | append (partialCached "title.gotmpl" (dict "page" .Page "linkTitle" true) .Page.Path "linkTitle" | plainify) }}
+    {{- end }}
+    {{- $parentPath := "" }}{{ with .Parent }}{{ $parentPath = .Path }}{{ end }}
+    {{- $pages = $pages | append (dict
+      "uri" (partial "permalink.gotmpl" (dict "to" .))
+      "title" (partial "title.gotmpl" (dict "page" .) | plainify)
+      "tags" $tags
+      "breadcrumb" (partialCached "_relearn/pageBreadcrumb.gotmpl" . $parentPath)
+      "description" (trim (or .Description .Summary | plainify | htmlUnescape | replaceRE `\r` " ") "\n\r\t " )
+      "content" (trim (.Content | replaceRE `(?s)<pre class="mermaid.*?</pre>` "" | plainify | htmlUnescape | replaceRE `\r` " ") "\n\r\t ")
+    ) }}
+  {{- end }}
+{{- end -}}
+{{ $pages | jsonify (dict "indent" "  ") }}
