@@ -5,7 +5,7 @@ weight = 50
 summary = "Programmer la consigne, gérer l'absence, la fenêtre ouverte, le hors-gel, un circulateur commun, un plancher réversible sur pompe à chaleur et l'eau chaude sanitaire, pas à pas."
 +++
 
-Un thermostat ou une clim ne contient aucune politique : pas de programme horaire, pas de mode absence. C'est le rôle des [règles]({{% relref "calaos_installer/rules" %}}), qui **écrivent la consigne ou le mode du device**, comme elles écriraient n'importe quel IO. Cette page donne des recettes complètes. Vous retrouverez la plupart dans des [projets d'exemple]({{% relref "calaos_installer/devices/examples" %}}) à télécharger et à ouvrir dans Calaos Installer.
+Un thermostat ou une clim peut porter son propre [programme horaire]({{% relref "calaos_installer/devices/program" %}}), mais ne contient pas d'autre politique : pas de mode absence, par exemple. C'est le rôle des [règles]({{% relref "calaos_installer/rules" %}}), qui **écrivent la consigne ou le mode du device**, comme elles écriraient n'importe quel IO. Cette page donne des recettes complètes. Vous retrouverez la plupart dans des [projets d'exemple]({{% relref "calaos_installer/devices/examples" %}}) à télécharger et à ouvrir dans Calaos Installer.
 
 ## La commande dans une action de règle
 
@@ -34,6 +34,8 @@ Ne commandez jamais le **relais** d'un thermostat dans une règle : écrivez son
 ## 1. Programmer la consigne
 
 *Le bureau est chauffé à 21 °C de 7 h 30 à 18 h en semaine, à 17 °C le reste du temps.*
+
+Si le simple [programme horaire]({{% relref "calaos_installer/devices/program" %}}) du device suffit, préférez-le : il évite les règles. Cette recette sert quand la condition dépasse la semaine type.
 
 1. Créez une **plage horaire** « Bureau occupé » (lundi à vendredi, 7 h 30 à 18 h) : voir [Programmation horaire]({{% relref "calaos_installer/time" %}}).
 2. Règle « Bureau : confort en journée » : condition, la plage « Bureau occupé » est **vraie** ; action, « Radiateur bureau » reçoit `{"mode":"heat","target_temp":21}`.

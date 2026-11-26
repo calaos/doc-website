@@ -28,6 +28,8 @@ Colours have a meaning: **yellow** when the unit is heating, **cyan** when cooli
 | Stopped | `off` mode |
 | Unknown mode | the device has not received any mode yet: see [Troubleshooting]({{% relref "calaos_installer/devices/troubleshooting" %}}) |
 
+To schedule a climate's week from these clients, see [Weekly program]({{% relref "calaos_installer/devices/program" %}}).
+
 ## Web app
 
 Climates are **rows** in the room list: a mini dial, the name, the status, the setpoint, the room temperature.

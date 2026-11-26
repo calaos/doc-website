@@ -28,6 +28,8 @@ Les couleurs ont un sens : **jaune** quand l'appareil chauffe, **cyan** quand il
 | Arrêté | mode `off` |
 | Mode inconnu | le device n'a encore reçu aucun mode : voir [Dépannage]({{% relref "calaos_installer/devices/troubleshooting" %}}) |
 
+Pour programmer la semaine d'un climat depuis ces clients, voir [Programme horaire]({{% relref "calaos_installer/devices/program" %}}).
+
 ## Application web
 
 Les climats forment des **rangées** dans la liste de la pièce : un mini-cadran, le nom, le statut, la consigne, la température de la pièce.

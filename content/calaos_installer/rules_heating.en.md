@@ -5,7 +5,7 @@ weight = 50
 summary = "Schedule the setpoint, handle absence, open window, frost protection, a common circulator, a reversible floor on a heat pump and domestic hot water, step by step."
 +++
 
-A thermostat or air conditioner contains no policy: no schedule, no away mode. That is the job of [rules]({{% relref "calaos_installer/rules" %}}), which **write the device's setpoint or mode**, as they would write any IO. This page gives complete recipes. You will find most of them in [example projects]({{% relref "calaos_installer/devices/examples" %}}) to download and open in Calaos Installer.
+A thermostat or air conditioner can carry its own [weekly program]({{% relref "calaos_installer/devices/program" %}}), but contains no other policy: no away mode, for example. That is the job of [rules]({{% relref "calaos_installer/rules" %}}), which **write the device's setpoint or mode**, as they would write any IO. This page gives complete recipes. You will find most of them in [example projects]({{% relref "calaos_installer/devices/examples" %}}) to download and open in Calaos Installer.
 
 ## The command in a rule action
 
