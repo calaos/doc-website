@@ -45,7 +45,7 @@ You need a working server and the [admin password]({{% relref "calaos_os/admin" 
 
 The box restarts on that restore point by itself, once only. It stays offline for 1 to 3 minutes, and the page reconnects on its own. Do not send the request a second time if the page says it is waiting for the box.
 
-A restore point shown as **Not bootable** cannot be started this way. This is notably the case of the oldest ones, recorded before the system was able to start on a restore point in trial mode, which the web app refuses as too old. Use the boot menu (below) for those.
+A restore point shown as **Not bootable** cannot be started this way. This is notably the case of the oldest ones, recorded before the system was able to start on a restore point in trial mode, which the web app refuses as too old. They are not offered in trial mode from the web app, and there is no guarantee that they boot correctly from the boot menu.
 
 ### From the boot menu
 
@@ -69,7 +69,7 @@ The web app shows a **Rescue mode** banner on all its pages, with the number of 
 **If you change your mind, simply restart the computer.** It will boot the current system again, as if nothing had happened. In the web app, **Admin**, **Snapshots**, then **Return to normal system** does the same.
 {{% /notice %}}
 
-While in trial mode, **updates are refused**: neither the web app nor the terminal can install anything until you leave this mode.
+While in trial mode, **updates are refused** from the web app and the touchscreen until you leave this mode.
 
 This is the moment to check that this restore point is the right one: does your home automation respond correctly? Has the problem gone? If not, restart and choose an earlier date.
 

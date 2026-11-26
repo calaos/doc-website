@@ -40,12 +40,12 @@ Il y a deux façons de redémarrer sur un point de restauration. Elles mènent a
 Il faut un serveur qui fonctionne et le [mot de passe admin]({{% relref "calaos_os/admin" %}}).
 
 1. Ouvrez l'application web en `https://`, puis l'onglet **Admin**, et déverrouillez-le.
-2. Ouvrez la tuile **Snapshots**. Les points de restauration sont listés, du plus récent au plus ancien, avec leur date, leur type et une description. Deux pastilles vous aident : **Current** (celui sur lequel le système tourne) et **Default** (celui d'un démarrage normal).
-3. Cliquez sur **Reboot on this** sur la ligne voulue, en général la plus récente antérieure au problème, puis confirmez.
+2. Ouvrez la tuile **Snapshots**. Les points de restauration sont listés, du plus récent au plus ancien, avec leur date, leur type et une description. Deux pastilles vous aident : **Actuel** (celui sur lequel le système tourne) et **Par défaut** (celui d'un démarrage normal).
+3. Cliquez sur **Redémarrer dessus** sur la ligne voulue, en général la plus récente antérieure au problème, puis confirmez avec **Redémarrer**.
 
 Le serveur redémarre de lui-même sur ce point de restauration, une seule fois. Il reste hors ligne de 1 à 3 minutes, et la page se reconnecte toute seule. N'envoyez pas la demande une seconde fois si la page indique qu'elle attend le serveur.
 
-Un point de restauration marqué **Not bootable** ne peut pas être démarré ainsi. C'est notamment le cas des plus anciens, enregistrés avant que le système sache démarrer sur un point de restauration en mode d'essai : l'application web les refuse comme trop anciens. Utilisez pour eux le menu de démarrage (ci-dessous).
+Un point de restauration marqué **Non bootable** ne peut pas être démarré ainsi. C'est notamment le cas des plus anciens, enregistrés avant que le système sache démarrer sur un point de restauration en mode d'essai : l'application web les refuse comme trop anciens. Ils ne sont pas proposés en mode d'essai depuis l'application web, et il n'est pas garanti qu'ils démarrent correctement depuis le menu de démarrage.
 
 ### Depuis le menu de démarrage
 
@@ -63,13 +63,13 @@ Le système démarre alors sur le point de restauration choisi.
 
 À ce stade le système tourne en **mode d'essai** (ou **mode de secours**) : il vous montre à quoi ressemblerait votre serveur si vous reveniez à cette date, mais rien n'est conservé sur le disque. Tout ce que vous modifiez dans ce mode est perdu au prochain redémarrage.
 
-L'application web affiche sur toutes ses pages un bandeau **Rescue mode** avec le numéro du point de restauration. L'écran tactile affiche la fenêtre **Recovery System**.
+L'application web affiche sur toutes ses pages un bandeau **Mode secours** avec le numéro du point de restauration. L'écran tactile affiche la fenêtre **Système de récupération**.
 
 {{% notice info %}}
-**Si vous changez d'avis, redémarrez simplement l'ordinateur.** Il repartira sur le système actuel, comme si rien ne s'était passé. Dans l'application web, **Admin**, **Snapshots**, puis **Return to normal system** fait la même chose.
+**Si vous changez d'avis, redémarrez simplement l'ordinateur.** Il repartira sur le système actuel, comme si rien ne s'était passé. Dans l'application web, **Admin**, **Snapshots**, puis **Revenir au système normal** fait la même chose.
 {{% /notice %}}
 
-Dans le mode d'essai, **les mises à jour sont refusées** : ni l'application web ni le terminal ne peuvent rien installer tant que vous n'avez pas quitté ce mode.
+Dans le mode d'essai, **les mises à jour sont refusées** depuis l'application web et l'écran tactile tant que vous n'avez pas quitté ce mode.
 
 C'est le moment de vérifier que ce point de restauration est le bon : votre domotique répond-elle correctement ? Le problème a-t-il disparu ? Sinon, redémarrez et choisissez une date plus ancienne.
 
@@ -83,13 +83,13 @@ Le plus simple est de la rapatrier sur votre ordinateur avec **Calaos Installer*
 
 ### Depuis l'application web
 
-En mode d'essai, le bandeau **Rescue mode** explique la situation. Sa fenêtre d'information et le panneau **Admin**, **Snapshots** proposent **Roll back: make permanent**. Le mot de passe admin est demandé si l'onglet Admin est verrouillé. Cochez **I understand this is permanent**, puis cliquez sur **Roll back**.
+En mode d'essai, le bandeau **Mode secours** explique la situation. Sa fenêtre d'information (**Système de récupération**) et le panneau **Admin**, **Snapshots** proposent **Rollback : rendre permanent**. Le mot de passe admin est demandé si l'onglet Admin est verrouillé. Cochez **Je comprends que c'est définitif**, puis cliquez sur **Rollback**.
 
 Le serveur redémarre de lui-même. Il reste hors ligne de 1 à 3 minutes, et la page se reconnecte toute seule.
 
 ### Avec un écran tactile
 
-Quand vous avez démarré sur un point de restauration, l'interface **Calaos Home** propose une fenêtre **Recovery System** qui vous explique la situation, avec un bouton **Rollback** : cliquez dessus. La fenêtre est aussi accessible depuis le menu **Configuration** du panneau de contrôle. **Close** la masque sans rien changer.
+Quand vous avez démarré sur un point de restauration, l'interface **Calaos Home** propose une fenêtre **Système de récupération** qui vous explique la situation, avec un bouton **Retour en arrière** : cliquez dessus. L'option est aussi accessible depuis le menu **Configuration** du panneau de configuration. **Fermer** masque la fenêtre sans rien changer.
 
 Le serveur redémarre de lui-même.
 

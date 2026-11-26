@@ -63,7 +63,7 @@ Une box qui n'a pas encore l'onglet Admin se met à jour avec les outils habitue
 
 ## Revenir à une version précédente
 
-La tuile **Snapshots** de l'onglet Admin déverrouillé liste les points de restauration du serveur, du plus récent au plus ancien. **Reboot on this** redémarre le serveur une fois sur une version précédente, en mode d'essai (lecture seule, rien n'est conservé), puis un bandeau propose de rendre cette version définitive ou de revenir au système normal. La procédure complète est décrite dans [Revenir en arrière]({{% relref "calaos_os/rollback" %}}).
+La tuile **Snapshots** de l'onglet Admin déverrouillé liste les points de restauration du serveur, du plus récent au plus ancien. **Redémarrer dessus** redémarre le serveur une fois sur une version précédente, en mode d'essai (lecture seule, rien n'est conservé), puis un bandeau propose de rendre cette version définitive ou de revenir au système normal. La procédure complète est décrite dans [Revenir en arrière]({{% relref "calaos_os/rollback" %}}).
 
 ## Changer le mot de passe admin
 
