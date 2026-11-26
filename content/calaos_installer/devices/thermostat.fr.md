@@ -15,7 +15,7 @@ Si l'appareil possède sa propre régulation (clim split, pompe à chaleur ESPHo
 
 La **régulation** est dans le thermostat et ne se modifie pas : elle réagit à chaque changement de la température, de la consigne, du mode et de l'humidité, ainsi qu'à ses minuteurs.
 
-La **politique** reste à vos règles : abaissement de nuit, absence, fenêtre ouverte, programmation horaire. Elles écrivent la consigne ou le mode du thermostat, comme elles le feraient pour n'importe quel IO. Le thermostat n'a pas de planificateur interne ; voir [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}).
+La **politique** reste à vos règles : abaissement de nuit, absence, fenêtre ouverte. Elles écrivent la consigne ou le mode du thermostat, comme elles le feraient pour n'importe quel IO ; voir [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}). La semaine type se programme dans le [programme horaire]({{% relref "calaos_installer/devices/program" %}}) du thermostat.
 
 ## La régulation
 

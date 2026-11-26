@@ -5,7 +5,7 @@ weight = 50
 summary = "Schedule the setpoint, handle absence, open window, frost protection, a common circulator, a reversible floor on a heat pump and domestic hot water, step by step."
 +++
 
-A thermostat or air conditioner contains no policy: no schedule, no away mode. That is the job of [rules]({{% relref "calaos_installer/rules" %}}), which **write the device's setpoint or mode**, as they would write any IO. This page gives complete recipes. You will find most of them in [example projects]({{% relref "calaos_installer/devices/examples" %}}) to download and open in Calaos Installer.
+A thermostat or air conditioner can carry its own [weekly program]({{% relref "calaos_installer/devices/program" %}}), but contains no other policy: no away mode, for example. That is the job of [rules]({{% relref "calaos_installer/rules" %}}), which **write the device's setpoint or mode**, as they would write any IO. This page gives complete recipes. You will find most of them in [example projects]({{% relref "calaos_installer/devices/examples" %}}) to download and open in Calaos Installer.
 
 ## The command in a rule action
 
@@ -34,6 +34,8 @@ Never command a thermostat's **relay** in a rule: write its mode (`off`, `heat`)
 ## 1. Schedule the setpoint
 
 *The office is heated to 21 °C from 7:30 to 18:00 on weekdays, to 17 °C the rest of the time.*
+
+If the device's simple [weekly program]({{% relref "calaos_installer/devices/program" %}}) is enough, prefer it: it avoids rules. This recipe is for when the condition goes beyond the typical week.
 
 1. Create a **time range** "Bureau occupé" (Monday to Friday, 7:30 to 18:00): see [Time programming]({{% relref "calaos_installer/time" %}}).
 2. Rule "Bureau : confort en journée": condition, the "Bureau occupé" range is **true**; action, "Radiateur bureau" receives `{"mode":"heat","target_temp":21}`.

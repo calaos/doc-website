@@ -15,7 +15,7 @@ If the appliance has its own regulation (split air conditioner, ESPHome heat pum
 
 The **regulation** lives in the thermostat and cannot be changed: it reacts to every change of temperature, setpoint, mode and humidity, and to its timers.
 
-The **policy** stays in your rules: night setback, away mode, open window, schedules. They write the thermostat's setpoint or mode, as they would for any IO. The thermostat has no scheduler of its own; see [Heating rules]({{% relref "calaos_installer/rules_heating" %}}).
+The **policy** stays in your rules: night setback, away mode, open window. They write the thermostat's setpoint or mode, as they would for any IO; see [Heating rules]({{% relref "calaos_installer/rules_heating" %}}). The typical week is set in the thermostat's [weekly program]({{% relref "calaos_installer/devices/program" %}}).
 
 ## Regulation
 

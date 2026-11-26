@@ -19,6 +19,7 @@ Either way, the equipment is a **device**: one object that groups all the IOs of
 | understand what a device is | [How a device works]({{% relref "calaos_installer/devices/concepts" %}}) |
 | add an ESPHome air conditioner | [ESPHome air conditioner]({{% relref "hardware/esphome_climate" %}}) |
 | let Calaos regulate with relays | [Internal thermostat]({{% relref "calaos_installer/devices/thermostat" %}}) |
+| schedule a thermostat or air conditioner for the week | [Weekly program]({{% relref "calaos_installer/devices/program" %}}) |
 | create or edit a device in the installer | [Create a device with the wizard]({{% relref "calaos_installer/devices/templates" %}}) |
 | see the result on your screens | [Display and control]({{% relref "calaos_installer/devices/clients" %}}) |
 | start from a complete project | [Example projects]({{% relref "calaos_installer/devices/examples" %}}) |

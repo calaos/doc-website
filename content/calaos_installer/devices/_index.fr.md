@@ -19,6 +19,7 @@ Dans les deux cas, l'équipement est un **device** : un objet unique qui regroup
 | comprendre ce qu'est un device | [Le principe d'un device]({{% relref "calaos_installer/devices/concepts" %}}) |
 | ajouter une clim ESPHome | [Clim ESPHome]({{% relref "hardware/esphome_climate" %}}) |
 | faire réguler Calaos avec des relais | [Thermostat interne]({{% relref "calaos_installer/devices/thermostat" %}}) |
+| programmer la semaine d'un thermostat ou d'une clim | [Programme horaire]({{% relref "calaos_installer/devices/program" %}}) |
 | créer ou modifier un device dans l'installer | [Créer un device avec l'assistant]({{% relref "calaos_installer/devices/templates" %}}) |
 | voir le résultat sur vos écrans | [Afficher et régler]({{% relref "calaos_installer/devices/clients" %}}) |
 | partir d'un projet complet | [Projets d'exemple]({{% relref "calaos_installer/devices/examples" %}}) |
