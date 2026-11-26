@@ -61,6 +61,10 @@ Mettre à jour est aussi sûr qu'avec le terminal : un point de restauration est
 
 Une box qui n'a pas encore l'onglet Admin se met à jour avec les outils habituels : `calaos-os upgrade`, `apt upgrade` (voir [Mise à jour]({{% relref "calaos_os/update" %}})), ou le bouton de mise à jour de l'écran tactile. Il n'y a rien d'autre à faire : une fois cette mise à jour terminée, l'onglet Admin fonctionne. Pendant un court moment, l'application web peut afficher **Activation de l'administration en cours** le temps que la box termine : elle réessaie toute seule. Si elle affiche encore **Redémarrez la box** au bout de quelques minutes, redémarrez la box vous-même, car l'onglet Admin ne peut pas le faire dans cet état : débranchez-la puis rebranchez-la, ou tapez `reboot` en SSH (voir [Services]({{% relref "calaos_os/configuration/services" %}})).
 
+## Revenir à une version précédente
+
+La tuile **Snapshots** de l'onglet Admin déverrouillé liste les points de restauration du serveur, du plus récent au plus ancien. **Reboot on this** redémarre le serveur une fois sur une version précédente, en mode d'essai (lecture seule, rien n'est conservé), puis un bandeau propose de rendre cette version définitive ou de revenir au système normal. La procédure complète est décrite dans [Revenir en arrière]({{% relref "calaos_os/rollback" %}}).
+
 ## Changer le mot de passe admin
 
 Dans l'onglet Admin déverrouillé, section **Box**, **Mot de passe admin**, cliquez sur **Changer**. Vous restez déverrouillé avec le nouveau mot de passe.

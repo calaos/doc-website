@@ -61,6 +61,10 @@ Updating is as safe as with the terminal: a restore point is created before each
 
 A box that does not have the Admin tab yet is brought up to date with the usual tools: `calaos-os upgrade`, `apt upgrade` (see [Update]({{% relref "calaos_os/update" %}})), or the update button of the touchscreen. Nothing else to do: once that upgrade is done, the Admin tab works. For a short time the web app can show **Administration is being activated** while the box finishes: it retries on its own. Only if it still shows **Restart the box** after a couple of minutes, restart the box yourself, since the Admin tab cannot do it in that state: unplug it and plug it back in, or type `reboot` over SSH (see [Services]({{% relref "calaos_os/configuration/services" %}})).
 
+## Go back to a previous version
+
+The **Snapshots** tile of the unlocked Admin tab lists the restore points of the box, newest first. **Reboot on this** restarts the box once on a previous version, in trial mode (read-only, nothing kept), and a banner then offers to make that version permanent or to return to the normal system. The whole procedure is described in [Rolling back]({{% relref "calaos_os/rollback" %}}).
+
 ## Change the admin password
 
 In the unlocked Admin tab, go to the **Box** section, **Admin password**, and click **Change**. You stay unlocked with the new password.

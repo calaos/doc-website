@@ -17,7 +17,7 @@ Revenir en arrière remet votre serveur dans l'état où il était à une date a
 
 ## Comment ça marche
 
-Calaos OS enregistre automatiquement l'état du système : avant chaque installation ou mise à jour de logiciel, et régulièrement au fil du temps. Ces enregistrements s'appellent des **points de restauration**, et ils sont datés.
+Calaos OS enregistre automatiquement l'état du système : avant chaque installation ou mise à jour de logiciel, et régulièrement au fil du temps. Ces enregistrements s'appellent des **points de restauration**, et ils sont datés. L'application web les appelle des **snapshots** : c'est la même chose.
 
 Vous pouvez demander à l'ordinateur de redémarrer sur l'un d'eux. Il retrouve alors le système exactement tel qu'il était ce jour-là.
 
@@ -31,7 +31,23 @@ Un exemple : vous mettez à jour lundi, vous créez des règles mardi, vous reve
 **Récupérez donc votre configuration avant de confirmer.** L'étape 3 ci-dessous vous laisse tout le temps de le faire.
 {{% /notice %}}
 
-## 1. Choisir une date au démarrage
+## 1. Choisir un point de restauration
+
+Il y a deux façons de redémarrer sur un point de restauration. Elles mènent au même résultat.
+
+### Depuis l'application web
+
+Il faut un serveur qui fonctionne et le [mot de passe admin]({{% relref "calaos_os/admin" %}}).
+
+1. Ouvrez l'application web en `https://`, puis l'onglet **Admin**, et déverrouillez-le.
+2. Ouvrez la tuile **Snapshots**. Les points de restauration sont listés, du plus récent au plus ancien, avec leur date, leur type et une description. Deux pastilles vous aident : **Current** (celui sur lequel le système tourne) et **Default** (celui d'un démarrage normal).
+3. Cliquez sur **Reboot on this** sur la ligne voulue, en général la plus récente antérieure au problème, puis confirmez.
+
+Le serveur redémarre de lui-même sur ce point de restauration, une seule fois. Il reste hors ligne de 1 à 3 minutes, et la page se reconnecte toute seule. N'envoyez pas la demande une seconde fois si la page indique qu'elle attend le serveur.
+
+Un point de restauration marqué **Not bootable** ne peut pas être démarré ainsi. C'est notamment le cas des plus anciens, enregistrés avant que le système sache démarrer sur un point de restauration en mode d'essai : l'application web les refuse comme trop anciens. Utilisez pour eux le menu de démarrage (ci-dessous).
+
+### Depuis le menu de démarrage
 
 Redémarrez l'ordinateur. Juste après l'allumage, un menu s'affiche pendant cinq secondes.
 
@@ -45,13 +61,17 @@ Le système démarre alors sur le point de restauration choisi.
 
 ## 2. Rien n'est encore définitif
 
-À ce stade, le système fonctionne **en mode essai** : il vous montre à quoi ressemblerait votre serveur si vous reveniez à cette date, mais rien n'est encore écrit.
+À ce stade le système tourne en **mode d'essai** (ou **mode de secours**) : il vous montre à quoi ressemblerait votre serveur si vous reveniez à cette date, mais rien n'est conservé sur le disque. Tout ce que vous modifiez dans ce mode est perdu au prochain redémarrage.
+
+L'application web affiche sur toutes ses pages un bandeau **Rescue mode** avec le numéro du point de restauration. L'écran tactile affiche la fenêtre **Recovery System**.
 
 {{% notice info %}}
-**Si vous changez d'avis, redémarrez simplement l'ordinateur.** Il repartira sur le système actuel, comme si de rien n'était.
+**Si vous changez d'avis, redémarrez simplement l'ordinateur.** Il repartira sur le système actuel, comme si rien ne s'était passé. Dans l'application web, **Admin**, **Snapshots**, puis **Return to normal system** fait la même chose.
 {{% /notice %}}
 
-C'est le moment de vérifier que ce point de restauration est le bon : votre domotique répond-elle correctement ? Le problème a-t-il disparu ? Si ce n'est pas le cas, redémarrez et choisissez une date antérieure.
+Dans le mode d'essai, **les mises à jour sont refusées** : ni l'application web ni le terminal ne peuvent rien installer tant que vous n'avez pas quitté ce mode.
+
+C'est le moment de vérifier que ce point de restauration est le bon : votre domotique répond-elle correctement ? Le problème a-t-il disparu ? Sinon, redémarrez et choisissez une date plus ancienne.
 
 ## 3. Récupérer votre configuration
 
@@ -61,13 +81,23 @@ Le plus simple est de la rapatrier sur votre ordinateur avec **Calaos Installer*
 
 ## 4. Confirmer
 
+### Depuis l'application web
+
+En mode d'essai, le bandeau **Rescue mode** explique la situation. Sa fenêtre d'information et le panneau **Admin**, **Snapshots** proposent **Roll back: make permanent**. Le mot de passe admin est demandé si l'onglet Admin est verrouillé. Cochez **I understand this is permanent**, puis cliquez sur **Roll back**.
+
+Le serveur redémarre de lui-même. Il reste hors ligne de 1 à 3 minutes, et la page se reconnecte toute seule.
+
 ### Avec un écran tactile
 
-Quand vous avez démarré sur un point de restauration, l'interface **Calaos Home** affiche automatiquement une fenêtre qui vous explique la situation et vous propose un bouton pour confirmer le retour en arrière. Vous n'avez rien à chercher : cliquez sur ce bouton.
+Quand vous avez démarré sur un point de restauration, l'interface **Calaos Home** propose une fenêtre **Recovery System** qui vous explique la situation, avec un bouton **Rollback** : cliquez dessus. La fenêtre est aussi accessible depuis le menu **Configuration** du panneau de contrôle. **Close** la masque sans rien changer.
 
-### Sans écran tactile
+Le serveur redémarre de lui-même.
 
-La fenêtre ci-dessus n'apparaît que si un écran tactile est branché. Sinon, connectez-vous au serveur en SSH — cela fonctionne normalement, même démarré sur un point de restauration :
+Si un message indique qu'une mise à jour ou un redémarrage est déjà en cours, patientez quelques minutes et réessayez. Si la connexion est perdue, le serveur est probablement en train de redémarrer : attendez qu'il se reconnecte avant de réessayer.
+
+### En SSH
+
+Si vous n'avez ni écran tactile ni application web, connectez-vous au serveur en SSH — cela fonctionne normalement, même démarré sur un point de restauration :
 
 ```sh
 ssh root@ADRESSE_DE_VOTRE_SERVEUR
@@ -85,13 +115,22 @@ Si la commande répond `Not booted from a readonly btrfs snapshot`, c'est que l'
 
 ## 5. Redémarrer
 
-Redémarrez une dernière fois :
+Avec l'application web ou l'écran tactile, le serveur redémarre de lui-même deux secondes après la confirmation : il n'y a rien à faire. En SSH, redémarrez vous-même une dernière fois :
 
 ```sh
 reboot
 ```
 
 Votre serveur repart sur l'état restauré. C'est terminé.
+
+## Limites et précautions
+
+- **Le retour en arrière est définitif.** Votre configuration depuis cette date est perdue : voir l'avertissement plus haut.
+- **Une opération à la fois.** Pendant une mise à jour ou un retour en arrière, l'application web et l'écran tactile en refusent une nouvelle. Attendez la fin, qui peut prendre quelques minutes.
+- **Un retour en arrière qui échoue laisse le serveur comme avant.** Si quelque chose échoue avant la fin, le système remet l'état précédent et le serveur redémarre normalement dessus ; le message affiché nomme la cause. Vous pouvez réessayer une fois le problème réglé.
+- **Si un message dit _do not reboot_**, arrêtez-vous là et ne redémarrez pas : le retour en arrière n'a pas pu être annulé proprement et la réparation est manuelle, depuis un shell sur le serveur. Conservez le message affiché.
+- **Sans clavier ni écran, un point de restauration qui plante peut boucler.** Sur un serveur qui démarre en BIOS classique (ou sans partition EFI), un point de restauration lancé une fois depuis l'application web qui plante très tôt peut être relancé à chaque redémarrage. GRUB attend alors 3 secondes sans afficher son menu : appuyer sur **Échap** pendant ce délai affiche le menu normal, où vous choisissez le système habituel. Un serveur sans clavier ni écran a alors besoin d'une clé USB externe.
+- **L'application web liste les 200 points de restauration les plus récents.**
 
 ## Ce qui n'est pas restauré
 
