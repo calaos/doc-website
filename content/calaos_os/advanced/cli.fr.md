@@ -48,9 +48,9 @@ calaos-os upgrade NOM_DU_PAQUET
 
 Un point de restauration est créé automatiquement avant chaque opération, quelle que soit la commande utilisée. Voir [Revenir en arrière]({{% relref "calaos_os/rollback" %}}).
 
-{{% notice info %}}
+{{% callout info %}}
 Calaos OS étant basé sur Debian, `apt` fonctionne également et agit sur le même dépôt de paquets. `calaos-os upgrade` et `apt full-upgrade` produisent le même résultat.
-{{% /notice %}}
+{{% /callout %}}
 
 La procédure complète, expliquée pas à pas, est sur la page [Mise à jour]({{% relref "calaos_os/update" %}}).
 
@@ -76,9 +76,9 @@ calaos-os network configure static eth0 192.168.1.50 255.255.255.0 192.168.1.1 1
 
 Les arguments sont, dans l'ordre : l'interface, l'adresse IPv4, le masque de réseau, la passerelle, puis un ou plusieurs serveurs DNS séparés par des espaces. La passerelle et les DNS sont facultatifs, mais sans eux le serveur n'aura pas accès à Internet.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Si vous êtes connecté en SSH et que vous modifiez l'interface par laquelle vous êtes connecté, **votre session sera coupée**. Reconnectez-vous à la nouvelle adresse.
-{{% /notice %}}
+{{% /callout %}}
 
 Les explications détaillées sont sur la page [Réseau]({{% relref "calaos_os/configuration/network" %}}).
 

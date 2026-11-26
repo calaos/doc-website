@@ -38,9 +38,9 @@ systemctl status calaos-server
 systemctl restart calaos-server
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 `calaos-server` and `calaos-home` are two different things. If the touchscreen is frozen but your mobile applications still respond, `calaos-home` is the one to restart, and your home automation never stopped working.
-{{% /notice %}}
+{{% /callout %}}
 
 ## See what is running
 
@@ -124,6 +124,6 @@ systemctl enable SERVICE_NAME
 systemctl disable SERVICE_NAME
 ```
 
-{{% notice warning %}}
+{{% callout warning %}}
 Do not disable the maintenance tasks above: they are what makes rollbacks possible and what keeps the disk from filling up with restore points.
-{{% /notice %}}
+{{% /callout %}}

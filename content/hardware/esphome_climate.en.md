@@ -15,9 +15,9 @@ Indoor unit ──(serial)── ESP32 / ESPHome ──(MQTT)── Mosquitto br
 
 Calaos does not regulate: the unit keeps its own modulation. Calaos reads its state, sends the mode, setpoints, fan and swing, and can **relay the temperature of a room sensor** to it, which is more accurate than the unit's own sensor mounted high on the wall.
 
-{{% notice info %}}
+{{% callout info %}}
 The `esphome_climate` template of the wizard creates all the needed MQTT IOs in one go. It asks for the module's **topic prefix** and **entity id**: the wizard can [find them itself on the MQTT broker](#finding-it-on-the-mqtt-broker), or you read them by hand.
-{{% /notice %}}
+{{% /callout %}}
 
 ## The ESPHome module: Mitsubishi CN105 example
 
@@ -114,9 +114,9 @@ The `mqtt_subscribe` sensor reads the `<prefix>/calaos/remote_temp` topic. In Ca
 
 Calaos stops relaying a sensor that has been silent for `sensor_timeout` seconds (9000 s by default) or that reports itself disconnected: the unit then falls back to its own sensor by itself, instead of regulating on a stale value.
 
-{{% notice note %}}
+{{% callout note %}}
 Only modules that accept a remote temperature (here the serial CN105) benefit from it. An **infrared** air conditioner (`climate_ir`) cannot receive one: see the `esphome_climate_ir` template in [Create a device]({{% relref "calaos_installer/devices/templates" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Fujitsu example
 
@@ -196,9 +196,9 @@ The wizard asks for two values, which can be read in the module's MQTT topics:
 - the **prefix** is the `topic_prefix` of the module's `mqtt:` block (by default, the module name);
 - the **id** is the name of the climate entity (`name:`) in lower case, with spaces and punctuation replaced by underscores. "Clim salon" gives `clim_salon`, "Clim Mitsu Buanderie" gives `clim_mitsu_buanderie`.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Do not confuse the entity id with the module name: for a module `clim-mitsu` whose entity is called "Clim Mitsu Buanderie", the prefix is `clim_mitsu` and the id `clim_mitsu_buanderie`. A wrong id produces no error: the device simply stays silent.
-{{% /notice %}}
+{{% /callout %}}
 
 The safest is to listen to what the module publishes. From a computer that has `mosquitto-clients` (or with a graphical tool such as MQTTX, see [MQTT]({{% relref "hardware/mqtt" %}})):
 

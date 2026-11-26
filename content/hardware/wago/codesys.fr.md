@@ -41,17 +41,17 @@ La solution la plus simple est d'utiliser Calaos Installer. Pour cela il suffit 
 
 ![img](/en/hardware/wago/images/wago_flash.png?width=20pc&classes=shadow)
 
-{{% notice note %}}
+{{% callout note %}}
 La programmation de l'automate peut prendre plusieurs minutes, patientez meme si vous ne voyez rien qui bouge.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Programmer avec Codesys
 
 CodeSys est l'outil de développement des automates. Ce tutoriel utilise la version 2.3.9.xx. Il est recommandé d'utiliser la version complète de CodeSys, car la version de démonstration ne permet pas de conserver le code dans l'automate après un redémarrage.
 
-{{% notice note %}}
+{{% callout note %}}
 Il est conseillé d'utiliser CodeSys en anglais, car la version française présente des traductions parfois incompréhensibles. Pour changer la langue, accédez à Menu Projet, Options, Environnement de travail, puis choisissez Anglais.
-{{% /notice %}}
+{{% /callout %}}
 
 ### Ouvrir le projet dans Codesys
 

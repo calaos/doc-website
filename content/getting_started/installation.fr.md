@@ -22,9 +22,9 @@ Lorsque Calaos OS démarre vous avez le choix entre deux possibilités:
 - Utiliser Calaos OS en mode **Live** pour tester le système sans l'installer
 - Installer directement Calaos OS sur le disque interne de la machine
 
-{{% notice info %}}
+{{% callout info %}}
 Le mode **Live** permet de configurer le systeme, de tester les fonctionnalités et de voir si tout fonctionne correctement. Si vous êtes satisfait, vous pouvez alors installer Calaos OS sur le disque interne du serveur. Vous garderez alors toutes les configurations que vous avez faites en mode **Live**. Voir plus de détails sur la [page dédié]({{%relref "calaos_os/installation" %}})
-{{% /notice %}}
+{{% /callout %}}
 
 Lorsque le le mode **Live** a demarré, l'interface graphique de Calaos OS apparait sur l'écran. Vous pouvez alors configurer votre systeme, ajouter des I/O, des règles, des scénarios. Pour le moment l'interface est vide, mais nous allons voir comment la configurer dans la prochaine étape.
 

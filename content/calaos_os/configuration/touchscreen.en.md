@@ -17,9 +17,9 @@ It is also used for a few operations on the system itself:
 - [installing Calaos OS]({{% relref "calaos_os/installation" %}}) onto the disk, from Live mode;
 - confirming a [rollback]({{% relref "calaos_os/rollback" %}}).
 
-{{% notice info %}}
+{{% callout info %}}
 **The touchscreen is optional.** Without it your server works exactly the same: you control your home from the mobile applications or the web app, and you configure the server remotely over SSH.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Server screen or wall screen?
 
@@ -73,9 +73,9 @@ Then restart so the new calibration is taken into account:
 reboot
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 Touch the crosses as precisely as you can, with a fingertip or a stylus, looking straight at the screen. A calibration done at an angle gives a touch that is off near the edges.
-{{% /notice %}}
+{{% /callout %}}
 
 ## If touch does not respond at all
 
@@ -161,19 +161,19 @@ An IP address is enough. You can also give a full address if your setup requires
 calaos_config set calaos_server_host wss://myhome.calaos.fr/api
 ```
 
-{{% notice note %}}
+{{% callout note %}}
 As soon as this setting is filled in, **automatic discovery is disabled**: the interface will only connect to the server given. To go back to the normal behaviour, delete the setting:
 
 ```sh
 calaos_config del calaos_server_host
 ```
 
-{{% /notice %}}
+{{% /callout %}}
 
 ## Going further
 
 The display and calibration settings specific to your installation are kept in `/mnt/calaos/xorg.conf.d`. As this folder is part of your data, **its contents survive updates** — see [Backing up your configuration]({{% relref "calaos_os/backup" %}}).
 
-{{% notice note %}}
+{{% callout note %}}
 Touchscreens vary a great deal, so some fine settings such as display rotation depend on the model you use. If you run into difficulty with a particular screen, the Calaos forum is the best place to find a configuration that already works.
-{{% /notice %}}
+{{% /callout %}}

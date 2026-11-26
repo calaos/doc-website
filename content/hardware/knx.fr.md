@@ -25,9 +25,9 @@ Il a besoin d'une interface physique vers le bus, qui peut être :
 
 Tout repose sur les **adresses de groupe**, notées sous la forme `x/y/z`. Chaque fonction du bus — allumer une lampe, lire une température — possède la sienne, définie lors de la conception de l'installation KNX, généralement avec le logiciel ETS.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Munissez-vous du **projet ETS de l'installation**, ou à défaut de la liste des adresses de groupe. Sans elle, il faut deviner à quoi correspond chaque adresse, ce qui est fastidieux et risqué sur une installation en service.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Paramètres communs
 

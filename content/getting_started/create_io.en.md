@@ -22,17 +22,17 @@ To add a light, start by clicking on **Add** in the menu, then choose **Wago PLC
 ![new light](/en/getting_started/images/menu_light.png?width=20pc&classes=shadow)
 ![new light](/en/getting_started/images/wago_light.png?width=20pc&classes=shadow)
 
-{{% notice note %}}
+{{% callout note %}}
 Keep in mind that this example is based on using a Wago PLC, but you can also apply the same procedure for other types of light fixtures if needed.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Creating a Switch
 
 To add a switch, navigate to the Add option in the menu, then select Wago PLC followed by Switch. Next, assign a name to your switch and specify the appropriate output address on the PLC. Once these steps are completed, confirm by clicking OK.
 
-{{% notice note %}}
+{{% callout note %}}
 Just like adding a light, remember that this example is specific to a Wago PLC, but the process remains the same for other types of switches if needed.
-{{% /notice %}}
+{{% /callout %}}
 
 ![rule](/en/getting_started/images/io.png?width=20pc&classes=shadow)
 

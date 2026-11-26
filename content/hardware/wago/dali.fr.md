@@ -71,15 +71,15 @@ L'adressage des equipements DALI devra se faire avec le logiciel **Wago Dali Con
 - Pour trouver la couleur correspondante à l'adresse, on peut allumer la sélection
 - Configurer les ballasts et écrire la configuration (Dans l'exemple, on retrouve un ballast RGBW (⇒ 4 adresses))
 
-{{% notice note %}}
+{{% callout note %}}
 Il est conseillé de changer l'adresse des ballasts par une adresse supérieure à 3. En effet, si un ballast est ajouté par la suite, il peut rentrer en conflit avec les ballasts existants.
-{{% /notice %}}
+{{% /callout %}}
 
 ![module](/en/hardware/wago/images/daliconfiguratorparametres.jpg?width=20pc&classes=shadow)
 
-{{% notice note %}}
+{{% callout note %}}
 La position de la borne ne correspond pas à la position de la carte sur le bus mais au nombre de carte DALI (1)
-{{% /notice %}}
+{{% /callout %}}
 
 ![module](/en/hardware/wago/images/daliconfiguratoradressage.jpg?width=20pc&classes=shadow)
 
@@ -139,9 +139,9 @@ Ex:
 
 Avec le detecteur suivant:
 
-{{% notice note %}}
+{{% callout note %}}
 Multi Sensor Type 2: Presence address: 1 Light address: 2 IR address: 3 Offtimeout: 10000ms
-{{% /notice %}}
+{{% /callout %}}
 
 On pourra declarer dans calaos installer les IO suivants:
 

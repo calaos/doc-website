@@ -1,7 +1,7 @@
 baseURL = 'https://doc.calaos.fr'
 title = 'Calaos Documentation'
 
-theme = "hugo-theme-learn"
+theme = "hugo-theme-relearn"
 metaDataFormat = "yaml"
 
 # English is the default language
@@ -12,21 +12,20 @@ languageCode = 'en-us'
 defaultContentLanguageInSubdir= true
 
 [params]
-  editURL = "https://github.com/calaos/doc-website/"
-  description = "Documentation for Calaos"
-  author = "Calaos Team"
+  editURL = "https://github.com/calaos/doc-website/edit/master/content/${FilePath}"
+  author.name = "Calaos Team"
   showVisitedLinks = true
   disableBreadcrumb = false
   disableNextPrev = true
   disableLandingPageButton = false
-  disableMermaid = false
-  customMermaidURL = "https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"
   titleSeparator = "::"
   themeVariant = "calaos"
+  # The logo already carries the site name.
+  linkTitle = " "
+  logo = { src = "/images/logo_header.png", layout = "sidebar-row" }
 
-# For search functionality
 [outputs]
-home = [ "HTML", "RSS", "JSON"]
+home = [ "html", "rss" ]
 
 [Languages]
 
@@ -35,16 +34,18 @@ home = [ "HTML", "RSS", "JSON"]
 [Languages.en]
 title = "Calaos Documentation"
 weight = 1
-languageName = "English"
+label = "English"
 
-[[Languages.en.menu.shortcuts]] 
-name = "<i class='fa-arrow-up-right-from-square'></i> Calaos Website"
+[[Languages.en.menu.shortcuts]]
+pre = "<i class='fa-fw fas fa-arrow-up-right-from-square'></i> "
+name = "Calaos Website"
 identifier = "site"
 url = "https://calaos.fr/en/"
 weight = 10
 
-[[Languages.en.menu.shortcuts]] 
-name = "<i class='fab fa-github'></i> Github repo"
+[[Languages.en.menu.shortcuts]]
+pre = "<i class='fa-fw fab fa-github'></i> "
+name = "Github repo"
 identifier = "ds"
 url = "https://github.com/calaos/"
 weight = 20
@@ -54,16 +55,18 @@ weight = 20
 [Languages.fr]
 title = "Documentation Calaos"
 weight = 1
-languageName = "Français"
+label = "Français"
 
-[[Languages.fr.menu.shortcuts]] 
-name = "<i class='fa-arrow-up-right-from-square'></i> Site Calaos"
+[[Languages.fr.menu.shortcuts]]
+pre = "<i class='fa-fw fas fa-arrow-up-right-from-square'></i> "
+name = "Site Calaos"
 identifier = "site"
 url = "https://calaos.fr/fr/"
 weight = 10
 
-[[Languages.fr.menu.shortcuts]] 
-name = "<i class='fab fa-github'></i> Dépot Github"
+[[Languages.fr.menu.shortcuts]]
+pre = "<i class='fa-fw fab fa-github'></i> "
+name = "Dépot Github"
 identifier = "ds"
 url = "https://github.com/calaos/"
 weight = 20

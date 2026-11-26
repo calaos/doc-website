@@ -49,9 +49,9 @@ En sortie, le principe est symétrique : Calaos envoie une requête à l'adresse
 | `data` | Données à envoyer, pour les sorties |
 | `data_type` | Format de ces données |
 
-{{% notice note %}}
+{{% callout note %}}
 Ces IO comptent parmi les plus souples de Calaos, et donc parmi les plus dépendantes de l'appareil visé. **L'aide intégrée de Calaos Installer** affiche la description exacte de chaque paramètre pour le type choisi — voir [Créer des IO]({{% relref "calaos_installer/io" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Avant de configurer
 
@@ -75,9 +75,9 @@ Les deux permettent d'intégrer un appareil non supporté nativement, mais ils n
 
 Pour une température extérieure ou une production solaire, l'interrogation périodique convient parfaitement. Pour un détecteur d'ouverture, MQTT est nettement préférable : voir [MQTT]({{% relref "hardware/mqtt" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Évitez d'interroger trop fréquemment un **service en ligne**, sous peine de vous faire limiter ou bloquer. Pour une donnée météo, quelques minutes d'intervalle suffisent largement.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Diagnostic
 

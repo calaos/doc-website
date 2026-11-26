@@ -34,9 +34,9 @@ Voici la liste des règles supportés dans le mode dégradé:
 
 Afin de programmer la configuration dégradé dans l'automate, le plus simple est d'utiliser [Calaos Installer]({{%relref "calaos_installer" %}}) en utilisant l'outil **Envoyer programme dégradé** dans le menu **Wago**. Il faudra être connecté à l'automate au préalable.
 
-{{% notice note %}}
+{{% callout note %}}
 Calaos Installer va automatiquement envoyer et _convertir_ les règles configurés. Il faut garder à l'esprit que les regles complexes ne sont pas convertis et ne seront donc pas utilisé en mode dégradé. Cela peut laisser des interrupteurs sans fonction en mode dégradé. Une astuce c'est d'utiliser une 2eme configuration uniquement pour le mode dégradé dans Calaos Installer. Cette configuration ne devra pas être envoyé à Calaos Server, mais uniquement à l'automate.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Programmer le mode dégradé en console
 

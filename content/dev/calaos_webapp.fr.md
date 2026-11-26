@@ -32,9 +32,9 @@ gulp serve
 
 Dans ce mode, l'application ne tourne pas sur le serveur Calaos : il faut donc lui indiquer où le joindre, en renseignant l'URL de l'API dans `src/scripts/dev_config.js`, sous la forme `ws://serveur:5454/api`.
 
-{{% notice note %}}
+{{% callout note %}}
 Cette chaîne de construction (Bower, Gulp) date des débuts du projet et n'est plus celle qu'on choisirait aujourd'hui. C'est à connaître avant de monter un environnement de développement : les versions récentes de Node.js peuvent demander quelques ajustements.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Déploiement
 

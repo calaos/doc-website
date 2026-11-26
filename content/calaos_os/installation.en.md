@@ -23,9 +23,9 @@ In the **Project management** menu, choose **Create an image**. Select the lates
 
 Then insert your USB stick. It appears in the window: select it and click **Continue** so the image is copied onto it.
 
-{{% notice warning %}}
+{{% callout warning %}}
 The USB stick is **completely erased** during this operation. Make sure you selected the stick, and not an external drive holding your documents.
-{{% /notice %}}
+{{% /callout %}}
 
 The detailed procedure with screenshots is described in [Installation]({{% relref "getting_started/installation" %}}), in the Getting started chapter.
 
@@ -35,9 +35,9 @@ Plug the stick into the computer that will become your server, then switch it on
 
 Most computers boot from their internal disk by default. To ask them to boot from the stick, you must press a key as soon as the machine powers on, before the system logo appears. That key depends on the brand: most often **F12**, sometimes **F11**, **F9**, **F8** or **Esc**. A menu then appears, in which you choose the USB stick.
 
-{{% notice tip %}}
+{{% callout tip %}}
 If the stick does not appear in the list, shut the computer down completely, check that the stick is properly plugged in — preferably into a USB port at the back of the machine — and try again. If the problem persists, see the [Something went wrong]({{% relref "calaos_os/troubleshooting" %}}) page.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 3. Choose between trying and installing
 
@@ -50,27 +50,27 @@ You have five seconds to choose with the arrow keys, then Enter. If you do nothi
 
 ## 4. The first boot is slow
 
-{{% notice warning %}}
+{{% callout warning %}}
 **On the very first boot from the stick, Calaos OS has to unpack and install all its services. This takes a long time.**
 
 A welcome screen appears with the message *"Calaos-OS is currently initializing. Please wait..."*. Allow **several minutes** on a fast stick, and **up to 30 to 60 minutes on a slow one**.
 
 The computer has not crashed. Do not switch it off and do not restart it: let it finish, even if nothing seems to happen for a long while.
-{{% /notice %}}
+{{% /callout %}}
 
 This only happens **once**. Later boots from the stick are quick.
 
-{{% notice tip %}}
+{{% callout tip %}}
 The duration depends almost entirely on the speed of your USB stick. If you need to buy one, get a branded USB 3.0 stick: you will save most of this waiting time, both here and when copying the image.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 5. Try without installing anything
 
 **Live** mode runs a complete Calaos OS system from the USB stick.
 
-{{% notice info %}}
+{{% callout info %}}
 **The computer's disk is not touched.** You can explore, configure, test your hardware: nothing is written to the internal disk. If you are not happy with the result, switch the machine off and remove the stick — no trace will remain.
-{{% /notice %}}
+{{% /callout %}}
 
 This is the ideal moment to check that your hardware works: that the network card is recognised, that the screen displays correctly, that your USB devices are detected.
 
@@ -92,9 +92,9 @@ A confirmation screen asks whether you want to install Calaos OS. If you answer 
 
 If you answer yes, the list of disks in the machine is displayed, each with its model and capacity. Select the one to install onto, then confirm. Navigation uses the arrow keys, the space bar to tick, and Enter to confirm.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **The disk you choose is completely erased.** Everything it contains is permanently lost. Check the model and capacity displayed before confirming, especially if the machine holds several disks.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 7. Wait
 
@@ -102,27 +102,27 @@ The installation prepares the disk, copies the system onto it and sets up bootin
 
 This step takes several minutes. Do not cut the power. When it is finished, the computer restarts automatically: remove the USB stick so that it boots from its disk this time.
 
-{{% notice tip %}}
+{{% callout tip %}}
 **Your Live mode configuration is kept.** Everything you configured during the trial — Calaos settings, inputs/outputs, rules — is found unchanged on the installed system. You are not starting from scratch.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 8. First boot
 
 The computer now boots from its disk.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **This first boot is slow too.** The system reinstalls its services onto the disk, exactly as it did on the stick. The same waiting screen appears.
 
 It is usually quicker than on the stick, as the disk is faster, but still allow several minutes. Again, let the machine finish. And again, this only happens **once**.
-{{% /notice %}}
+{{% /callout %}}
 
 Once that step is done, the Calaos server starts automatically, along with the additional services.
 
 If a screen is connected, the Calaos Home interface is displayed. Otherwise the server is reachable over the network: from Calaos Installer, on your everyday computer, you will find it and send it your configuration — see [Upload the project]({{% relref "getting_started/upload" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 **One thing remains before using your server day to day: change the default passwords.** They are identical on every Calaos OS installation and published in this documentation. Go to [Changing the passwords]({{% relref "calaos_os/security" %}}); it only takes a few minutes.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Going further
 

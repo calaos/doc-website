@@ -25,19 +25,19 @@ Calaos connaît directement plusieurs familles de caméras, et sait comment leur
 | **Synology Surveillance Station** | Passe par le serveur de surveillance plutôt que par la caméra |
 | **Reolink** | Voir la section dédiée plus bas |
 
-{{% notice tip %}}
+{{% callout tip %}}
 Si votre modèle n'est pas dans la liste, essayez le type **MJPEG standard** : il suffit de connaître l'adresse du flux, que le fabricant documente généralement. Beaucoup de caméras non listées fonctionnent ainsi.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Ajouter une caméra
 
 Dans Calaos Installer, **Ajouter → Caméra**, puis choisissez la famille correspondant à votre modèle. Renseignez son adresse sur le réseau et, si elle en demande, ses identifiants.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Changez le mot de passe par défaut de vos caméras.** C'est le premier équipement visé sur un réseau domestique, et une caméra restée sur ses identifiants d'usine est accessible à quiconque atteint votre réseau.
 
 Ne l'exposez pas directement sur Internet — voir [DNS dynamique]({{% relref "calaos_os/configuration/calaos_ddns" %}}) pour un accès distant maîtrisé.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Ajuster l'image
 
@@ -74,9 +74,9 @@ Les types d'événements disponibles :
 | `package` | Colis |
 | `visitor` | Visiteur / sonnette |
 
-{{% notice tip %}}
+{{% callout tip %}}
 Ces détections spécialisées valent bien mieux que le simple mouvement : une règle déclenchée sur `person` ignore les branches agitées par le vent et les chats du voisinage, là où `motion` vous enverra des notifications toute la nuit.
-{{% /notice %}}
+{{% /callout %}}
 
 Une entrée Reolink s'utilise ensuite comme un détecteur classique : allumer un éclairage extérieur à l'arrivée d'une personne, envoyer une notification pour la sonnette, enregistrer l'événement dans l'historique. Voir [Créer des règles]({{% relref "calaos_installer/rules" %}}).
 

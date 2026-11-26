@@ -14,9 +14,9 @@ Calaos Installer comes in at two levels:
 - **declaring the PLC** in your project, so the server knows how to reach it;
 - **programming the PLC**, that is, sending it the Calaos program it must run.
 
-{{% notice info %}}
+{{% callout info %}}
 This page covers the **software** side. For choosing modules, wiring and electrical connections, see [Wago PLC]({{% relref "hardware/wago" %}}) in the hardware chapter.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Before you start
 
@@ -24,9 +24,9 @@ The PLC must have a **fixed IP address** and be reachable on your network. This 
 
 To check, simply open `http://plc-address` in a browser: the PLC's web page must be displayed.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Write that address down: you will need it both for programming and for declaring it in the project. And give the Calaos server a fixed address too — see [Network]({{% relref "calaos_os/configuration/network" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Programming the PLC
 
@@ -39,9 +39,9 @@ Two routes exist, described in detail in [Calaos installation]({{% relref "hardw
 
 The first is enough for the vast majority of installations.
 
-{{% notice warning %}}
+{{% callout warning %}}
 The program must match the **exact model of your PLC head**. A program meant for another reference will not work correctly.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Declaring the devices
 
@@ -53,9 +53,9 @@ Each IO asks for the **address** of the matching input or output on the PLC. Tha
 
 The details of addresses per module are in the hardware pages: [inputs]({{% relref "hardware/wago/input" %}}), [outputs]({{% relref "hardware/wago/output" %}}) and [analog inputs]({{% relref "hardware/wago/analog" %}}).
 
-{{% notice tip %}}
+{{% callout tip %}}
 Keep a table matching each terminal of the cabinet to its device, updated as you wire. It is tedious at the time, and it is what will save you at the first fault or when adding something two years later.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Failsafe mode
 
@@ -67,9 +67,9 @@ This is an important safety net: a server failure does not leave the house witho
 
 Calaos Installer can also update the PLC firmware. This operation is rarer and more delicate than simply sending the program.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Do not cut the power or the network during a firmware update: a PLC interrupted mid-operation can become unusable.
-{{% /notice %}}
+{{% /callout %}}
 
 ## If the PLC does not answer
 

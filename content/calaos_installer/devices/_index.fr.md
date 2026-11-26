@@ -26,4 +26,4 @@ Dans les deux cas, l'équipement est un **device** : un objet unique qui regroup
 | programmer le chauffage | [Règles de chauffage]({{% relref "calaos_installer/rules_heating" %}}) |
 | comprendre un problème | [Dépannage]({{% relref "calaos_installer/devices/troubleshooting" %}}) |
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}

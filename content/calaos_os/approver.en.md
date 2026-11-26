@@ -19,9 +19,9 @@ Updates and restarting the box stay protected by the admin password only. See [A
 
 A code is valid for 60 seconds and works once. Nothing arrived? Check that notifications are allowed for the Calaos app, then ask for a new code after 10 seconds. After 5 wrong codes, the admin session closes and you must enter the admin password again.
 
-{{% notice info %}}
+{{% callout info %}}
 Without an approver phone, the console cannot be opened and the admin password can only be changed over SSH with `calaos-os admin set`.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Enrol your phone
 
@@ -37,9 +37,9 @@ The phone then appears in the list. All the phones signed in to the box receive 
 
 You can enrol **two** phones at most. To add a second one, the first one receives a code to allow it. To remove one, click **Remove** next to it, confirm with **Send the code**, then enter the code; the last phone cannot be removed, so to change phones, add the new one first, then remove the old one.
 
-{{% notice warning %}}
+{{% callout warning %}}
 A phone whose app has not connected to the box for 30 days stops receiving codes. The list then tells you to open the Calaos app on that phone: do so, and it receives codes again.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Open the console
 

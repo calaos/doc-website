@@ -11,9 +11,9 @@ summary = "The tool that reads and changes the Calaos server settings."
 
 It works on the server's local configuration, stored in the `/mnt/calaos/config` folder.
 
-{{% notice info %}}
+{{% callout info %}}
 This tool only concerns **the server settings**: credentials, notifications, operating options. Your inputs/outputs, rules and scenarios are managed from **Calaos Installer**, not here.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Usage
 
@@ -133,9 +133,9 @@ Only enable these while diagnosing a problem. See [Logs]({{% relref "calaos_os/c
 
 This list covers the most common settings. `calaos_config list` shows you the ones actually defined on your installation.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Do not edit the configuration files by hand** while the server is running. Your changes may be overwritten, and a malformed file will prevent the server from starting. Always go through `calaos_config`.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Going further
 

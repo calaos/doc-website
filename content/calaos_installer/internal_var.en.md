@@ -50,11 +50,11 @@ This is the most important one, and the one whose absence shows at the worst mom
 
 Without it, the variable **goes back to its initial value on every restart** of the server. After an update or a power cut, your "Holiday" mode switches itself off, and the watering starts again while you are away.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Ask yourself: "if the server restarts tonight, must this value be found unchanged?" If so, enable **Save**.
 
 Conversely, a working variable — a counter reset every morning — is better off starting from zero.
-{{% /notice %}}
+{{% /callout %}}
 
 ## A complete example
 

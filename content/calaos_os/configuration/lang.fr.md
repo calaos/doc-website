@@ -9,7 +9,7 @@ summary = "Changer la langue de l'interface Calaos Home."
 
 Ce réglage modifie **uniquement la langue de l'interface Calaos Home**, celle qui s'affiche sur l'écran tactile branché au serveur.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Il ne change **pas** :
 
 - la langue des applications mobiles, qui suivent celle de votre téléphone ;
@@ -19,7 +19,7 @@ Il ne change **pas** :
 - les noms que vous avez donnés à vos pièces et à vos équipements, qui restent tels que vous les avez saisis.
 
 C'est le contresens le plus fréquent : changer ce réglage ne traduira pas toute votre installation.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Depuis l'écran tactile
 

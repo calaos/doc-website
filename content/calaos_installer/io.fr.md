@@ -60,9 +60,9 @@ Quelle que soit la famille, on retrouve les mêmes grands types :
 
 **En sortie** — lumière simple, lumière variable (dimmer), lumière RVB, volet, volet intelligent, sortie analogique, chaîne de caractères.
 
-{{% notice tip %}}
+{{% callout tip %}}
 **L'appui long est un type d'interrupteur à part entière.** Plutôt que de bricoler une règle avec un minuteur, choisissez le type adapté à la création : Calaos distingue alors l'appui court de l'appui long, et vous pouvez affecter une action différente à chacun.
-{{% /notice %}}
+{{% /callout %}}
 
 Le choix du type détermine aussi **comment l'équipement s'affiche** dans les interfaces : un volet aura des boutons montée/descente, une lumière variable un curseur.
 
@@ -79,9 +79,9 @@ Une fois l'IO créée, sa fenêtre de propriétés donne accès à des réglages
 
 Masquer une IO ne la désactive pas : elle continue de fonctionner dans les règles, elle n'encombre simplement pas les interfaces. C'est utile pour les entrées techniques dont personne n'a besoin au quotidien.
 
-{{% notice note %}}
+{{% callout note %}}
 Chaque type d'IO possède en plus ses propres paramètres — adresse, port, identifiant d'équipement. **Calaos Installer affiche une aide intégrée pour chacun** : c'est la description la plus à jour, puisqu'elle vient directement du serveur.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Nommer ses IO
 

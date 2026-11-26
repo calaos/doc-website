@@ -34,9 +34,9 @@ Here's a list of rules supported in fallback mode:
 
 The simplest way to program the fallback configuration in the PLC is to use Calaos Installer and the **Send Fallback Program** tool in the **Wago** menu. You must be connected to the PLC beforehand.
 
-{{% notice note %}}
+{{% callout note %}}
 Calaos Installer will automatically send and convert the configured rules. Keep in mind that complex rules are not converted and will therefore not be used in fallback mode. This may leave some switches non-functional in fallback mode. A trick is to use a 2nd configuration exclusively for fallback mode in Calaos Installer. This configuration should not be sent to Calaos Server, but only to the PLC.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Programming Fallback Mode via Console
 

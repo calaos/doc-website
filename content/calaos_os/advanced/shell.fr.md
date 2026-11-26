@@ -17,9 +17,9 @@ ssh root@ADRESSE_DE_VOTRE_SERVEUR
 
 Le mot de passe est celui que vous avez défini dans [Changer les mots de passe]({{% relref "calaos_os/security" %}}). Par défaut il vaut `calaos`, ce qui n'est acceptable que le temps de le changer.
 
-{{% notice tip %}}
+{{% callout tip %}}
 À la première connexion, votre ordinateur vous demande de confirmer l'empreinte de la machine : répondez `yes`. Et pendant la saisie du mot de passe, **rien ne s'affiche** — c'est normal.
-{{% /notice %}}
+{{% /callout %}}
 
 Pour vous déconnecter :
 
@@ -51,9 +51,9 @@ Une fois la clé validée, vous pouvez interdire la connexion par mot de passe e
 systemctl restart sshd
 ```
 
-{{% notice warning %}}
+{{% callout warning %}}
 Vérifiez que votre clé fonctionne **avant** de désactiver le mot de passe, en ouvrant une seconde session sans fermer la première. Sinon, une erreur de configuration vous laisserait dehors, et il faudrait un écran et un clavier branchés sur la machine pour vous rattraper.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Sans réseau
 
@@ -127,10 +127,10 @@ scp fichier.txt root@ADRESSE_DE_VOTRE_SERVEUR:/tmp/
 
 ## Bonnes pratiques
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Vos modifications manuelles peuvent être écrasées par une mise à jour.** Les fichiers du système appartiennent aux paquets installés : si vous éditez un fichier de configuration à la main, la prochaine mise à jour du paquet concerné peut le remplacer.
 
 Deux exceptions : le dossier `/mnt/calaos`, qui contient vos données et n'est jamais touché, et les réglages effectués avec `calaos_config` ou `calaos-os`, qui sont faits pour durer.
-{{% /notice %}}
+{{% /callout %}}
 
 Rappelez-vous enfin qu'un retour en arrière restaure **tout le système, `/mnt/calaos` compris** : il réparera donc une mauvaise manipulation, mais en annulant du même coup la configuration faite depuis le point de restauration choisi. Voir [Revenir en arrière]({{% relref "calaos_os/rollback" %}}) et [Sauvegarder sa configuration]({{% relref "calaos_os/backup" %}}).

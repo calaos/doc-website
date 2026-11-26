@@ -104,9 +104,9 @@ La consigne est ici une [variable interne]({{% relref "calaos_installer/internal
 
 ## Bonnes pratiques
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Un script bloque le serveur pendant son exécution.** Évitez les boucles longues et les attentes inutiles : une requête vers un site injoignable peut figer votre domotique le temps du délai d'attente.
-{{% /notice %}}
+{{% /callout %}}
 
 **Commentez les identifiants.** `io_12` ne dit rien ; une ligne de commentaire rappelant de quel équipement il s'agit vous fera gagner du temps plus tard.
 

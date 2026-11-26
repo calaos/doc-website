@@ -28,9 +28,9 @@ These manufacturers all expose a network control protocol, which Calaos uses dir
 
 **The receiver must be connected to the network**, preferably over Ethernet, and reachable from the Calaos server.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Give it a **fixed IP address**, or reserve one on your router. A receiver that changes address after an outage becomes unreachable, and the symptom — "commands no longer get through" — does not naturally point at the network.
-{{% /notice %}}
+{{% /callout %}}
 
 Also check in the device settings that **network control is enabled**. Many receivers disable it by default, or cut it in standby to save power: in the latter case, Calaos will not be able to switch them back on.
 

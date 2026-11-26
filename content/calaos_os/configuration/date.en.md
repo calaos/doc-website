@@ -58,19 +58,19 @@ To check or enable it:
 timedatectl set-ntp true
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 If the time is systematically wrong after every power cut, the **motherboard battery** is often dead. It is a cheap coin cell, easy to replace. Automatic synchronisation fixes the problem as soon as the network is available, but a few minutes may pass before that.
-{{% /notice %}}
+{{% /callout %}}
 
 ## The position of your home
 
 Time alone is not enough to know when the sun rises: you also need to know **where you are**. Without that information, rules such as "close the shutters at sunset" cannot work correctly.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **The default coordinates are those of Paris.** If you do not live nearby, your shutters will close at the Parisian sunset, with an offset that can reach a good half hour at the far ends of the country — and much more abroad.
 
 This is a setting to make once and for all, and one that is easily forgotten since nothing flags the mistake.
-{{% /notice %}}
+{{% /callout %}}
 
 So set the coordinates of your home:
 
@@ -81,9 +81,9 @@ calaos_config set longitude 7.494156
 
 Replace these values with your own. You can get them easily by looking your address up on any online map: both numbers are displayed, latitude first.
 
-{{% notice tip %}}
+{{% callout tip %}}
 A precision of a few decimal places is more than enough — there is no need to be accurate to the metre. Do watch the **decimal point** though: write `47.636507`, not `47,636507`.
-{{% /notice %}}
+{{% /callout %}}
 
 To check what has been saved:
 

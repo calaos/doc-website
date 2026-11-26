@@ -58,19 +58,19 @@ Pour vérifier ou activer :
 timedatectl set-ntp true
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 Si l'heure est systématiquement fausse après chaque coupure de courant, c'est souvent la **pile de la carte mère** qui est morte. C'est une pile bouton, peu coûteuse et facile à remplacer. La mise à l'heure automatique corrige le problème dès que le réseau est disponible, mais quelques minutes peuvent s'écouler avant.
-{{% /notice %}}
+{{% /callout %}}
 
 ## La position de votre habitation
 
 L'heure seule ne suffit pas pour savoir quand le soleil se lève : il faut aussi savoir **où vous êtes**. Sans cette information, les règles du type « fermer les volets au coucher du soleil » ne peuvent pas fonctionner correctement.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Les coordonnées par défaut sont celles de Paris.** Si vous n'habitez pas à proximité, vos volets se fermeront au coucher du soleil parisien, avec un décalage qui peut atteindre une bonne demi-heure aux extrémités du pays — et bien davantage à l'étranger.
 
 C'est un réglage à faire une fois pour toutes, et qu'on oublie facilement puisque rien ne signale l'erreur.
-{{% /notice %}}
+{{% /callout %}}
 
 Indiquez donc les coordonnées de votre habitation :
 
@@ -81,9 +81,9 @@ calaos_config set longitude 7.494156
 
 Remplacez ces valeurs par les vôtres. Vous les obtiendrez facilement en cherchant votre adresse sur n'importe quelle carte en ligne : les deux nombres sont affichés, la latitude en premier.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Une précision de quelques décimales est largement suffisante — inutile de viser le mètre près. En revanche, attention au **point décimal** : écrivez `47.636507` et non `47,636507`.
-{{% /notice %}}
+{{% /callout %}}
 
 Pour vérifier ce qui est enregistré :
 

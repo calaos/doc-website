@@ -42,9 +42,9 @@ envoy config set -h 192.168.1.134 -u mon.compte@exemple.fr -s 1234567890 -p mon_
 | `-s` | Numéro de série de la passerelle |
 | `-p` | Mot de passe du compte Enlighten |
 
-{{% notice tip %}}
+{{% callout tip %}}
 L'option `-h` est facultative : sans elle, le service **cherche la passerelle tout seul** sur le réseau local. Renseignez-la si la détection échoue, ou si vous avez plusieurs passerelles.
-{{% /notice %}}
+{{% /callout %}}
 
 Ces informations sont enregistrées avec le jeton d'authentification dans le dossier de données du service, sous `/mnt/calaos/envoy`. Elles font donc partie de vos données et survivent aux mises à jour — voir [Sauvegarder sa configuration]({{% relref "calaos_os/backup" %}}).
 
@@ -115,9 +115,9 @@ La réponse contient deux listes, `production` et `consumption`, chacune compos�
 | `whToday` | Énergie cumulée depuis le début de la journée, en wattheures |
 | `whLifetime` | Énergie cumulée depuis l'installation |
 
-{{% notice note %}}
+{{% callout note %}}
 Une donnée de production évolue de façon continue : inutile de l'interroger toutes les secondes. Un relevé toutes les quelques minutes suffit largement pour des courbes lisibles, et allège la charge sur la passerelle.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Historiser la production
 
@@ -140,8 +140,8 @@ Voir [Créer des règles]({{% relref "calaos_installer/rules" %}}).
 3. **le point d'entrée répond-il ?** `curl http://127.0.0.1:8100/api/production`
 4. **le mot de passe Enlighten a-t-il changé ?** L'authentification passe par le service en ligne d'Enphase : un changement de mot de passe interrompt la collecte.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Le service a besoin d'un **accès à Internet** pour renouveler son jeton auprès d'Enphase. Une coupure prolongée de la connexion finit donc par interrompre la remontée des données, même si la passerelle reste joignable sur le réseau local.
-{{% /notice %}}
+{{% /callout %}}
 
 Voir [Journaux]({{% relref "calaos_os/configuration/logs" %}}).

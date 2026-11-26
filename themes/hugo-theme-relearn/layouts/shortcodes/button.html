@@ -1,0 +1,17 @@
+{{- $_hugo_config := `{ "version": 1 }` }}
+{{- partial "shortcodes/button.html" (dict
+  "page"          .Page
+  "action"        (.Get "action")
+  "borderless"    (.Get "borderless")
+  "color"         (.Get "color")
+  "content"       .Inner
+  "hint"          (.Get "hint")
+  "href"          (.Get "href")
+  "icon"          (.Get "icon")
+  "iconposition"  ((.Get "iconposition") | default (.Get "icon-position"))
+  "istoggle"      (.Get "istoggle")
+  "style"         (.Get "style")
+  "title"         (.Get "title")
+  "target"        (.Get "target")
+  "type"          (.Get "type")
+) }}

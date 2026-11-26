@@ -30,9 +30,9 @@ Ensuite, **glissez-déposez** les équipements depuis l'arborescence : l'interru
 
 Vous venez de créer un télérupteur : l'appui sur l'interrupteur bascule la lampe.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Nommez vos règles par ce qu'elles font, pas par les équipements concernés. « Éteindre le garage après 5 minutes » se relit sans effort dans deux ans ; « Règle 12 » ou « Garage » ne dit rien.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Les conditions
 

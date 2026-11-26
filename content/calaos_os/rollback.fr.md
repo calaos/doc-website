@@ -21,7 +21,7 @@ Calaos OS enregistre automatiquement l'état du système : avant chaque installa
 
 Vous pouvez demander à l'ordinateur de redémarrer sur l'un d'eux. Il retrouve alors le système exactement tel qu'il était ce jour-là.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Revenir en arrière restaure aussi votre configuration Calaos.**
 
 Vos entrées/sorties, vos règles et vos scénarios reviennent eux aussi à la date choisie. Tout ce que vous avez créé depuis sera perdu, y compris l'historique des configurations enregistré par le serveur.
@@ -29,7 +29,7 @@ Vos entrées/sorties, vos règles et vos scénarios reviennent eux aussi à la d
 Un exemple : vous mettez à jour lundi, vous créez des règles mardi, vous revenez en arrière mercredi jusqu'à lundi — le travail de mardi disparaît.
 
 **Récupérez donc votre configuration avant de confirmer.** L'étape 3 ci-dessous vous laisse tout le temps de le faire.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 1. Choisir un point de restauration
 
@@ -53,9 +53,9 @@ Redémarrez l'ordinateur. Juste après l'allumage, un menu s'affiche pendant cin
 
 Utilisez les flèches du clavier pour entrer dans le sous-menu qui liste les points de restauration, puis choisissez la date qui vous convient — en général la plus récente antérieure au problème. Validez avec la touche Entrée.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Si le menu disparaît trop vite, redémarrez et appuyez plusieurs fois sur la flèche du haut dès l'allumage : cela arrête le compte à rebours et vous laisse tout le temps de choisir.
-{{% /notice %}}
+{{% /callout %}}
 
 Le système démarre alors sur le point de restauration choisi.
 
@@ -65,9 +65,9 @@ Le système démarre alors sur le point de restauration choisi.
 
 L'application web affiche sur toutes ses pages un bandeau **Mode secours** avec le numéro du point de restauration. L'écran tactile affiche la fenêtre **Système de récupération**.
 
-{{% notice info %}}
+{{% callout info %}}
 **Si vous changez d'avis, redémarrez simplement l'ordinateur.** Il repartira sur le système actuel, comme si rien ne s'était passé. Dans l'application web, **Admin**, **Snapshots**, puis **Revenir au système normal** fait la même chose.
-{{% /notice %}}
+{{% /callout %}}
 
 Dans le mode d'essai, **les mises à jour sont refusées** depuis l'application web et l'écran tactile tant que vous n'avez pas quitté ce mode.
 
@@ -109,9 +109,9 @@ puis lancez :
 calaos_rollback
 ```
 
-{{% notice note %}}
+{{% callout note %}}
 Si la commande répond `Not booted from a readonly btrfs snapshot`, c'est que l'ordinateur n'a pas démarré sur un point de restauration mais sur le système habituel. Reprenez à l'étape 1.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 5. Redémarrer
 

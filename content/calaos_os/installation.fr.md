@@ -23,9 +23,9 @@ Dans le menu **Gestion du projet**, choisissez **Créez une image**. Sélectionn
 
 Insérez ensuite votre clé USB. Elle apparaît dans la fenêtre : sélectionnez-la et cliquez sur **Continuer** pour que l'image y soit copiée.
 
-{{% notice warning %}}
+{{% callout warning %}}
 La clé USB est **entièrement effacée** pendant cette opération. Vérifiez que vous avez bien sélectionné la clé, et pas un disque externe contenant vos documents.
-{{% /notice %}}
+{{% /callout %}}
 
 La procédure détaillée avec les captures d'écran est décrite dans [Installation]({{% relref "getting_started/installation" %}}), au chapitre Démarrage.
 
@@ -35,9 +35,9 @@ Branchez la clé sur l'ordinateur qui deviendra votre serveur, puis allumez-le.
 
 La plupart des ordinateurs démarrent par défaut sur leur disque interne. Pour leur demander de démarrer sur la clé, il faut appuyer sur une touche dès l'allumage, avant l'apparition du logo du système. Cette touche varie selon la marque : c'est le plus souvent **F12**, parfois **F11**, **F9**, **F8** ou **Échap**. Un menu s'affiche alors, dans lequel vous choisissez la clé USB.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Si la clé n'apparaît pas dans la liste, éteignez complètement l'ordinateur, vérifiez que la clé est bien branchée — de préférence sur un port USB à l'arrière de la machine — et recommencez. Si le problème persiste, voyez la page [En cas de problème]({{% relref "calaos_os/troubleshooting" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## 3. Choisir entre essayer et installer
 
@@ -50,27 +50,27 @@ Vous avez cinq secondes pour choisir avec les flèches du clavier, puis la touch
 
 ## 4. Le premier démarrage est long
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Au tout premier démarrage sur la clé, Calaos OS doit décompresser et installer tous ses services. C'est long.**
 
 Un écran d'accueil s'affiche avec le message *« Calaos-OS is currently initializing. Please wait... »*. Comptez **plusieurs minutes** sur une clé rapide, et **jusqu'à 30 à 60 minutes sur une clé lente**.
 
 L'ordinateur n'est pas planté. Ne l'éteignez pas, ne le redémarrez pas : laissez-le terminer, même si rien ne semble bouger pendant un long moment.
-{{% /notice %}}
+{{% /callout %}}
 
 Cette opération n'a lieu **qu'une seule fois**. Les démarrages suivants sur la clé sont rapides.
 
-{{% notice tip %}}
+{{% callout tip %}}
 La durée dépend presque entièrement de la vitesse de votre clé USB. Si vous devez en acheter une, prenez une clé USB 3.0 de marque : vous gagnerez l'essentiel de ce temps d'attente, ici comme au moment de la copie de l'image.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 5. Essayer sans rien installer
 
 Le mode **Live** fait tourner un système Calaos OS complet depuis la clé USB.
 
-{{% notice info %}}
+{{% callout info %}}
 **Le disque de l'ordinateur n'est pas touché.** Vous pouvez explorer, configurer, tester votre matériel : rien n'est écrit sur le disque interne. Si le résultat ne vous convient pas, éteignez la machine et retirez la clé, il ne restera aucune trace.
-{{% /notice %}}
+{{% /callout %}}
 
 C'est le moment idéal pour vérifier que votre matériel fonctionne : que la carte réseau est reconnue, que l'écran s'affiche correctement, que vos périphériques USB sont détectés.
 
@@ -92,9 +92,9 @@ Un écran de confirmation vous demande si vous voulez installer Calaos OS. Si vo
 
 Si vous répondez oui, la liste des disques de la machine s'affiche, avec pour chacun son modèle et sa capacité. Sélectionnez celui sur lequel installer, puis validez. La navigation se fait avec les flèches, la barre d'espace pour cocher et la touche Entrée pour valider.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Le disque que vous choisissez est entièrement effacé.** Tout ce qu'il contient est définitivement perdu. Vérifiez bien le modèle et la capacité affichés avant de valider, surtout si la machine contient plusieurs disques.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 7. Patienter
 
@@ -102,27 +102,27 @@ L'installation prépare le disque, y copie le système et met en place le démar
 
 Cette étape dure plusieurs minutes. Ne coupez pas l'alimentation. Quand elle est terminée, l'ordinateur redémarre automatiquement : retirez la clé USB pour qu'il démarre cette fois sur son disque.
 
-{{% notice tip %}}
+{{% callout tip %}}
 **Votre configuration du mode Live est conservée.** Tout ce que vous avez configuré pendant l'essai — réglages Calaos, entrées/sorties, règles — se retrouve à l'identique sur le système installé. Vous ne recommencez pas de zéro.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 8. Premier démarrage
 
 L'ordinateur démarre désormais sur son disque.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Ce premier démarrage est long, lui aussi.** Le système réinstalle ses services sur le disque, exactement comme il l'avait fait sur la clé. Le même écran d'attente s'affiche.
 
 C'est en général plus rapide que sur la clé, le disque étant plus véloce, mais comptez tout de même plusieurs minutes. Là encore, laissez la machine terminer. Et là encore, cela n'arrive **qu'une fois**.
-{{% /notice %}}
+{{% /callout %}}
 
 Une fois cette étape passée, le serveur Calaos se lance automatiquement, ainsi que les services complémentaires.
 
 Si un écran est branché, l'interface Calaos Home s'affiche. Sinon, le serveur est accessible depuis le réseau : c'est depuis Calaos Installer, sur votre ordinateur habituel, que vous allez le retrouver et lui envoyer votre configuration — voir [Envoyer le projet]({{% relref "getting_started/upload" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Il reste une chose à faire avant d'utiliser votre serveur au quotidien : changer les mots de passe par défaut.** Ils sont identiques sur toutes les installations de Calaos OS et publiés dans cette documentation. Rendez-vous sur [Changer les mots de passe]({{% relref "calaos_os/security" %}}), c'est l'affaire de quelques minutes.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Pour aller plus loin
 

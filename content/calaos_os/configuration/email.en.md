@@ -54,9 +54,9 @@ To check what has been saved:
 calaos_config list
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 Many mail services now refuse your usual password for this kind of use and require an **application password**, to be generated from your account. If sending fails while your credentials are correct, this is very likely the cause.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Testing
 
@@ -75,9 +75,9 @@ If it fails, run the command again adding `--verbose`: the details of the exchan
 calaos_mail --from me@example.com --to me@example.com --subject "Calaos test" --body /tmp/test.txt --verbose
 ```
 
-{{% notice note %}}
+{{% callout note %}}
 Remember to check your junk mail folder: messages sent by a home server often land there the first time.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Attaching files
 
@@ -109,8 +109,8 @@ calaos_config set notif/io_connected_push_enabled true
 
 The `_mail_` settings send an email — and therefore assume the configuration above — while the `_push_` settings send a notification to your phone. You can enable either, or both.
 
-{{% notice tip %}}
+{{% callout tip %}}
 The low-battery alert is the most useful one: it warns you before a sensor stops working, rather than letting you find out on the day you need it.
-{{% /notice %}}
+{{% /callout %}}
 
 See [Zigbee]({{% relref "hardware/zigbee" %}}) for the devices concerned.

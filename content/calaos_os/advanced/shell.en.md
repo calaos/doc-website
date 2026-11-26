@@ -17,9 +17,9 @@ ssh root@YOUR_SERVER_ADDRESS
 
 The password is the one you set in [Changing the passwords]({{% relref "calaos_os/security" %}}). By default it is `calaos`, which is only acceptable for as long as it takes you to change it.
 
-{{% notice tip %}}
+{{% callout tip %}}
 On the first connection your computer asks you to confirm the machine's fingerprint: answer `yes`. And while you type the password, **nothing is displayed** — that is normal.
-{{% /notice %}}
+{{% /callout %}}
 
 To disconnect:
 
@@ -51,9 +51,9 @@ Once the key is confirmed working, you can forbid password login by adding `Pass
 systemctl restart sshd
 ```
 
-{{% notice warning %}}
+{{% callout warning %}}
 Check that your key works **before** disabling passwords, by opening a second session without closing the first. Otherwise a configuration mistake would lock you out, and you would need a screen and a keyboard on the machine to recover.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Without a network
 
@@ -127,10 +127,10 @@ scp file.txt root@YOUR_SERVER_ADDRESS:/tmp/
 
 ## Good practice
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Your manual changes can be overwritten by an update.** System files belong to the installed packages: if you edit a configuration file by hand, the next update of that package may replace it.
 
 Two exceptions: the `/mnt/calaos` folder, which holds your data and is never touched, and the settings made with `calaos_config` or `calaos-os`, which are designed to last.
-{{% /notice %}}
+{{% /callout %}}
 
 Finally, remember that a rollback restores **the whole system, including `/mnt/calaos`**: it will therefore repair a bad move, but at the same time undo the configuration done since the chosen restore point. See [Rolling back]({{% relref "calaos_os/rollback" %}}) and [Backing up your configuration]({{% relref "calaos_os/backup" %}}).

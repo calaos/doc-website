@@ -63,9 +63,9 @@ Les types génériques ne dépendent d'aucun matériel : `InputSwitch`, `InputSw
 
 Les pilotes matériels vivent dans leurs sous-dossiers : `Wago`, `KNX`, `Gpio`, `OneWire`, `Mqtt`, `Hue`, `OLA`, `MySensors`, `Reolink`, `LAN`, `Web`, `RemoteUI`. `ExternProc` permet en outre de déléguer une IO à un processus externe.
 
-{{% notice tip %}}
+{{% callout tip %}}
 **Ajouter un pilote** consiste à dériver `IOBase`, à décrire ses paramètres via `IODoc`, puis à l'enregistrer dans `IOFactory`. `IODoc` alimente la documentation intégrée des paramètres, ce qui rend le nouveau type immédiatement exploitable depuis Calaos Installer.
-{{% /notice %}}
+{{% /callout %}}
 
 Le fichier `IO/io_types.txt` récapitule les types disponibles.
 

@@ -32,9 +32,9 @@ ssh root@ADRESSE_DE_VOTRE_SERVEUR
 
 en remplaçant `ADRESSE_DE_VOTRE_SERVEUR` par l'adresse IP de votre serveur Calaos. Le mot de passe demandé est `calaos`.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Lors de la toute première connexion, votre ordinateur vous demande de confirmer qu'il ne connaît pas encore cette machine. Répondez `yes`. Et ne soyez pas surpris : quand vous tapez un mot de passe dans un terminal, **rien ne s'affiche**, pas même des étoiles. C'est normal, tapez et validez.
-{{% /notice %}}
+{{% /callout %}}
 
 Plus de détails sur cette connexion à distance dans [Accès SSH]({{% relref "calaos_os/advanced/shell" %}}).
 
@@ -75,9 +75,9 @@ calaos_config get cn_user
 
 L'outil `calaos_config` est présenté en détail sur sa [page dédiée]({{% relref "calaos_os/configuration/calaos_config" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Après ce changement, **toutes vos applications vont refuser de se connecter** tant que vous ne leur aurez pas donné les nouveaux identifiants : Calaos Installer, les applications mobiles, la web app. Pensez à les mettre à jour dans la foulée, sinon vous croirez à une panne.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Si vous oubliez un mot de passe
 

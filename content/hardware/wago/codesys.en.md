@@ -41,17 +41,17 @@ The simplest solution is to use Calaos Installer. Just open the **Flash PLC with
 
 ![img](/en/hardware/wago/images/wago_flash.png?width=20pc&classes=shadow)
 
-{{% notice note %}}
+{{% callout note %}}
 Programming the PLC can take several minutes, be patient even if you don't see any progress.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Programming with Codesys
 
 Codesys is the PLC development tool. This tutorial uses version 2.3.9.xx. It's recommended to use the full version of Codesys, as the demo version does not allow the code to remain in the PLC after a restart.
 
-{{% notice note %}}
+{{% callout note %}}
 It's advised to use Codesys in English, as the French version has some translations that are hard to understand. To change the language, go to Project Menu, Options, Working Environment, and choose English.
-{{% /notice %}}
+{{% /callout %}}
 
 ### Opening the project in Codesys
 

@@ -42,9 +42,9 @@ envoy config set -h 192.168.1.134 -u my.account@example.com -s 1234567890 -p my_
 | `-s` | Serial number of the gateway |
 | `-p` | Enlighten account password |
 
-{{% notice tip %}}
+{{% callout tip %}}
 The `-h` option is optional: without it the service **finds the gateway on its own** on the local network. Fill it in if discovery fails, or if you have several gateways.
-{{% /notice %}}
+{{% /callout %}}
 
 This information is stored along with the authentication token in the service's data folder, under `/mnt/calaos/envoy`. It is therefore part of your data and survives updates — see [Backing up your configuration]({{% relref "calaos_os/backup" %}}).
 
@@ -115,9 +115,9 @@ The response holds two lists, `production` and `consumption`, each made of measu
 | `whToday` | Energy accumulated since the start of the day, in watt-hours |
 | `whLifetime` | Energy accumulated since installation |
 
-{{% notice note %}}
+{{% callout note %}}
 Production data changes continuously: there is no point querying it every second. A reading every few minutes is more than enough for readable curves, and lightens the load on the gateway.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Recording production history
 
@@ -140,8 +140,8 @@ See [Create rules]({{% relref "calaos_installer/rules" %}}).
 3. **does the endpoint answer?** `curl http://127.0.0.1:8100/api/production`
 4. **has the Enlighten password changed?** Authentication goes through Enphase's online service: a password change interrupts collection.
 
-{{% notice warning %}}
+{{% callout warning %}}
 The service needs **Internet access** to renew its token with Enphase. A prolonged connection outage therefore ends up interrupting data collection, even if the gateway remains reachable on the local network.
-{{% /notice %}}
+{{% /callout %}}
 
 See [Logs]({{% relref "calaos_os/configuration/logs" %}}).

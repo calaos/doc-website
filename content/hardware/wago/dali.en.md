@@ -71,15 +71,15 @@ The addressing of DALI equipment should be done with the **Wago Dali Configurato
 - To find the color corresponding to the address, you can light up the selection
 - Configure the ballasts and write the configuration (In the example, there is an RGBW ballast (⇒ 4 addresses))
 
-{{% notice note %}}
+{{% callout note %}}
 It is recommended to change the ballasts' address to a number higher than 3. Indeed, if a ballast is added later, it might conflict with the existing ballasts.
-{{% /notice %}}
+{{% /callout %}}
 
 ![module](/en/hardware/wago/images/daliconfiguratorparametres.jpg?width=20pc&classes=shadow)
 
-{{% notice note %}}
+{{% callout note %}}
 The terminal position doesn't correlate with the card's position on the bus but rather with the number of DALI cards (1).
-{{% /notice %}}
+{{% /callout %}}
 
 ![module](/en/hardware/wago/images/daliconfiguratoradressage.jpg?width=20pc&classes=shadow)
 
@@ -139,9 +139,9 @@ Ex:
 
 For the following detector:
 
-{{% notice note %}}
+{{% callout note %}}
 Multi Sensor Type 2: Presence address: 1 Light address: 2 IR address: 3 Offtimeout: 10000ms
-{{% /notice %}}
+{{% /callout %}}
 
 In Calaos Installer, the following IOs can be declared:
 

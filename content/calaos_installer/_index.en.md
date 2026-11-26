@@ -2,12 +2,8 @@
 title = "Calaos Installer"
 date = 2024-03-06T19:56:48Z
 weight = 30
-chapter = true
+type = "chapter"
 +++
-
-### The configuration
-
-# Calaos Installer
 
 Calaos Installer is the software with which you describe your installation: the rooms of the house, the devices in them, and the rules that make them react.
 
@@ -37,9 +33,9 @@ The configuration is built in a natural order, each step relying on the previous
 
 The other pages of this chapter cover more specific needs: [internal variables]({{% relref "calaos_installer/internal_var" %}}) to remember a state, [scenarios]({{% relref "calaos_installer/scenario" %}}) to chain actions, [time scheduling]({{% relref "calaos_installer/time" %}}) to trigger on the clock, and [Lua scripts]({{% relref "calaos_installer/scripts" %}}) when rules are no longer enough.
 
-{{% notice tip %}}
+{{% callout tip %}}
 If you are new to Calaos, do not start with this chapter: follow [Getting started]({{% relref "getting_started" %}}) first, which walks you through creating a room, a light, a switch and a first rule. You will come back here to go deeper.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Connecting to the server
 
@@ -62,4 +58,4 @@ Calaos Installer is also used for a few tasks that go beyond the project itself:
 - **flashing and configuring Remote UI wall screens** — see [Remote UI]({{% relref "hardware/remote_ui" %}});
 - **programming the Wago PLC** — see [Wago Configuration]({{% relref "calaos_installer/wago" %}}).
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}

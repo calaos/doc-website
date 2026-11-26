@@ -9,7 +9,7 @@ summary = "Changing the language of the Calaos Home interface."
 
 This setting only changes **the language of the Calaos Home interface**, the one displayed on the touchscreen connected to the server.
 
-{{% notice warning %}}
+{{% callout warning %}}
 It does **not** change:
 
 - the language of the mobile applications, which follow your phone's language;
@@ -19,7 +19,7 @@ It does **not** change:
 - the names you gave your rooms and devices, which stay exactly as you typed them.
 
 This is the most common misunderstanding: changing this setting will not translate your whole installation.
-{{% /notice %}}
+{{% /callout %}}
 
 ## From the touchscreen
 

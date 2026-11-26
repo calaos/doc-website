@@ -27,9 +27,9 @@ La pièce apparaît alors dans l'arborescence, prête à recevoir des équipemen
 
 Les noms que vous choisissez ici seront lus au quotidien, sur un écran mural ou dans une application, souvent par d'autres personnes que vous.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Préférez le nom que votre famille emploie réellement — « Salon », « Chambre des enfants » — plutôt qu'une référence de plan d'architecte. Et restez cohérent : si vous écrivez « Chambre 1 » et « Chambre parents », les listes seront désordonnées.
-{{% /notice %}}
+{{% /callout %}}
 
 Évitez aussi de faire figurer l'étage dans chaque nom si votre maison n'a qu'un niveau : cela allonge inutilement l'affichage sur les petits écrans.
 
@@ -45,9 +45,9 @@ Le plus simple est de suivre les pièces réelles de la maison. Deux cas mérite
 
 Renommer une pièce ou changer son type se fait à tout moment ; les équipements qu'elle contient ne sont pas affectés.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Supprimer une pièce supprime les équipements qu'elle contient**, et les règles qui s'y réfèrent cesseront de fonctionner. Si vous voulez réorganiser, créez d'abord la nouvelle pièce et déplacez-y les équipements avant de supprimer l'ancienne.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Et ensuite
 

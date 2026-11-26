@@ -53,11 +53,11 @@ Un point de restauration photographie **le sous-volume racine**. Les sous-volume
 | **`/mnt/calaos` — toute votre configuration Calaos** | `/opt`, `/srv`, `/root`, `/usr/local` |
 | | `/boot/grub` |
 
-{{% notice warning %}}
+{{% callout warning %}}
 `/mnt/calaos` est un **dossier ordinaire du sous-volume racine**, et non un sous-volume séparé. Il est donc capturé par les points de restauration et **rejoué lors d'un retour en arrière**.
 
 C'est la raison pour laquelle un retour en arrière annule aussi la configuration Calaos réalisée depuis la date choisie. Voir [Revenir en arrière]({{% relref "calaos_os/rollback" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 À l'inverse, `/var/log` étant sur un sous-volume séparé, les journaux **survivent** à un retour en arrière : c'est ce qui permet d'analyser un incident après l'avoir contourné.
 
@@ -98,9 +98,9 @@ snapper delete NUMÉRO        # supprimer un point précis
 btrfs filesystem usage /     # occupation réelle du disque
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 L'espace occupé par un point de restauration n'est pas visible immédiatement : au moment de sa création il ne coûte quasiment rien, puis il grossit à mesure que le système diverge de l'état photographié. `btrfs filesystem usage /` donne l'image réelle de l'occupation, là où `df` peut être trompeur.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Menu de démarrage
 

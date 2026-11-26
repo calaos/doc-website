@@ -32,9 +32,9 @@ ssh root@YOUR_SERVER_ADDRESS
 
 replacing `YOUR_SERVER_ADDRESS` with the IP address of your Calaos server. The password asked for is `calaos`.
 
-{{% notice tip %}}
+{{% callout tip %}}
 On the very first connection, your computer asks you to confirm that it does not know this machine yet. Answer `yes`. And do not be surprised: when you type a password in a terminal, **nothing is displayed**, not even asterisks. That is normal — type it and press Enter.
-{{% /notice %}}
+{{% /callout %}}
 
 More details about this remote connection in [SSH access]({{% relref "calaos_os/advanced/shell" %}}).
 
@@ -75,9 +75,9 @@ calaos_config get cn_user
 
 The `calaos_config` tool is presented in detail on its [own page]({{% relref "calaos_os/configuration/calaos_config" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 After this change, **all your applications will refuse to connect** until you give them the new credentials: Calaos Installer, the mobile applications, the web app. Remember to update them straight away, otherwise you will think something is broken.
-{{% /notice %}}
+{{% /callout %}}
 
 ## If you forget a password
 

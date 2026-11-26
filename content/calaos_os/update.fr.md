@@ -13,13 +13,13 @@ Vous n'avez rien à faire pour que ces points de restauration existent : ils son
 
 Les mises à jour de Calaos OS sont **incrémentales** : seuls les composants qui ont changé sont téléchargés et remplacés. Il n'y a jamais besoin de refaire une clé USB ni de réinstaller.
 
-{{% notice info %}}
+{{% callout info %}}
 **Votre configuration n'est pas touchée par une mise à jour.** Vos entrées/sorties, vos règles, vos scénarios et l'historique de vos mesures sont conservés tels quels.
-{{% /notice %}}
+{{% /callout %}}
 
-{{% notice tip %}}
+{{% callout tip %}}
 Vous préférez éviter le terminal ? Dès que votre box a l'onglet Admin, vous pouvez installer les mises à jour depuis l'application web : voir [Administrer depuis l'application web]({{% relref "calaos_os/admin" %}}). La toute première mise à jour vers cette version se fait avec les outils ci-dessous.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Avant de commencer
 
@@ -39,9 +39,9 @@ ssh root@ADRESSE_DE_VOTRE_SERVEUR
 
 en remplaçant `ADRESSE_DE_VOTRE_SERVEUR` par l'adresse IP de votre serveur. Le mot de passe est celui que vous avez défini dans [Changer les mots de passe]({{% relref "calaos_os/security" %}}).
 
-{{% notice tip %}}
+{{% callout tip %}}
 Vous pouvez aussi brancher un clavier et un écran directement sur le serveur et taper les commandes dessus. C'est moins pratique, mais cela fonctionne exactement pareil.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 1. Voir ce qui est disponible
 

@@ -21,11 +21,11 @@ En prime, un **certificat de sécurité Let's Encrypt** est obtenu automatiqueme
 
 **Votre serveur doit avoir une adresse fixe sur le réseau local**, sinon la redirection pointera un jour vers un autre appareil. Voir [Réseau]({{% relref "calaos_os/configuration/network" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Ouvrir un accès depuis Internet rend votre domotique **joignable par n'importe qui**, pas seulement par vous.
 
 Avant de le faire, assurez-vous d'avoir changé les mots de passe par défaut — voir [Changer les mots de passe]({{% relref "calaos_os/security" %}}) — et choisissez un mot de passe long, que vous n'utilisez nulle part ailleurs. C'est le minimum absolu.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Enregistrer votre nom de domaine
 
@@ -50,9 +50,9 @@ Enter your email address:
 
 Saisissez une adresse valide et validez. La génération du certificat prend quelques instants.
 
-{{% notice note %}}
+{{% callout note %}}
 Si vous laissez le champ vide, l'enregistrement fonctionne quand même, mais **aucun certificat n'est généré** et votre connexion depuis l'extérieur ne sera pas chiffrée. C'est déconseillé.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Ajouter des sous-domaines
 
@@ -72,9 +72,9 @@ calaos_ddns register mamaison camera1=192.168.0.20:4444
 
 Une visite de `camera1.mamaison.calaos.fr` sera alors dirigée vers l'équipement situé en `192.168.0.20:4444` sur votre réseau local. Vous pouvez indiquer plusieurs sous-domaines à la suite, séparés par des espaces.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Cet aiguillage est pratique, mais rappelez-vous que **l'équipement visé devient joignable depuis Internet**. Ne l'utilisez que pour des appareils dont vous maîtrisez le mot de passe, et jamais pour une caméra restée sur ses identifiants d'usine.
-{{% /notice %}}
+{{% /callout %}}
 
 ## La mise à jour est automatique
 
@@ -90,9 +90,9 @@ calaos_ddns update
 
 Le test se fait **depuis l'extérieur de chez vous** : coupez le Wi-Fi de votre téléphone pour passer en réseau mobile, puis essayez de vous connecter à votre serveur avec votre nom en `.calaos.fr`.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Beaucoup de box ne savent pas rediriger une connexion vers l'extérieur puis la ramener vers l'intérieur. Autrement dit, tester votre nom depuis chez vous peut échouer alors que tout fonctionne parfaitement depuis l'extérieur. Testez toujours depuis une connexion mobile.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Les autres commandes
 
@@ -122,13 +122,13 @@ Puis de refaire un enregistrement normal :
 calaos_ddns register mamaison
 ```
 
-{{% notice note %}}
+{{% callout note %}}
 `calaos_ddns reset` fait exactement la même chose que la commande `calaos_config del` ci-dessus. Si `reset` échoue lui aussi, passez directement par `calaos_config del ddns_token`, qui se contente d'effacer le réglage localement sans rien demander au service.
-{{% /notice %}}
+{{% /callout %}}
 
-{{% notice warning %}}
+{{% callout warning %}}
 Cette manipulation efface la trace locale de l'enregistrement, mais **pas l'enregistrement lui-même côté service**. Si vous reprenez le même nom de domaine, tout rentre dans l'ordre. Si vous en changez, l'ancien nom peut rester réservé quelque temps.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Si ça ne marche pas
 

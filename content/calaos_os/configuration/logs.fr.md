@@ -83,13 +83,13 @@ Puis récupérez ce fichier sur votre ordinateur :
 scp root@ADRESSE_DE_VOTRE_SERVEUR:/tmp/journal.txt .
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 Précisez toujours **l'heure approximative** à laquelle le problème s'est produit : c'est ce qui permet de retrouver les bonnes lignes dans un journal qui en contient des milliers.
-{{% /notice %}}
+{{% /callout %}}
 
-{{% notice warning %}}
+{{% callout warning %}}
 Relisez ce que vous publiez : les journaux peuvent contenir des adresses, des noms d'équipements, parfois des identifiants. Retirez ce que vous ne souhaitez pas rendre public.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Les journaux des services complémentaires
 
@@ -117,7 +117,7 @@ Il est aussi possible de cibler un domaine particulier, pour éviter d'être noy
 calaos_config set debug_domains ota:5,remote_ui:5,remoteui:5
 ```
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Remettez ce réglage à `false` une fois le diagnostic terminé.** Les journaux détaillés remplissent le disque vite, et rendent la lecture des journaux ordinaires beaucoup plus pénible.
 
 ```sh
@@ -125,7 +125,7 @@ calaos_config set debug_enabled false
 systemctl restart calaos-server
 ```
 
-{{% /notice %}}
+{{% /callout %}}
 
 Ces réglages sont listés sur la page [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}).
 

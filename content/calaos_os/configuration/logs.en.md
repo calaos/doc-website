@@ -83,13 +83,13 @@ Then fetch that file onto your computer:
 scp root@YOUR_SERVER_ADDRESS:/tmp/journal.txt .
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 Always state **the approximate time** at which the problem happened: that is what makes it possible to find the right lines in a log containing thousands of them.
-{{% /notice %}}
+{{% /callout %}}
 
-{{% notice warning %}}
+{{% callout warning %}}
 Read what you publish: logs can contain addresses, device names, sometimes credentials. Remove anything you do not want to make public.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Logs of the additional services
 
@@ -117,7 +117,7 @@ You can also target a particular area, to avoid drowning in messages. Each area 
 calaos_config set debug_domains ota:5,remote_ui:5,remoteui:5
 ```
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Set this back to `false` once you are done diagnosing.** Detailed logs fill the disk quickly, and make ordinary logs much harder to read.
 
 ```sh
@@ -125,7 +125,7 @@ calaos_config set debug_enabled false
 systemctl restart calaos-server
 ```
 
-{{% /notice %}}
+{{% /callout %}}
 
 These settings are listed on the [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}) page.
 

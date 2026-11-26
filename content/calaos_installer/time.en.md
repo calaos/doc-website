@@ -25,11 +25,11 @@ This is the tool to use whenever an automation should only apply at certain time
 
 For each day of the week you define the periods where the range is active. The boundaries can be fixed times, but also **sunrise and sunset**, which naturally follows the seasons.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Sunrise and sunset times depend on where your home is. If you have not set that, Calaos uses **the coordinates of Paris** by default, and your shutters will close at Parisian time.
 
 This is a one-off setting: see [Date & Time]({{% relref "calaos_os/configuration/date" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## The schedule
 
@@ -50,9 +50,9 @@ Two options determine its behaviour:
 
 With auto restart you get a **regular beat**: an action every ten minutes, a check every hour. Without it, the timer is single-use and must be restarted by a rule.
 
-{{% notice tip %}}
+{{% callout tip %}}
 The timer is the answer to "switch off automatically after a while": one rule starts the timer when the light comes on, another switches the light off when it expires. This is the classic setup for a garage or cellar light people forget to switch off.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Choosing between the three
 

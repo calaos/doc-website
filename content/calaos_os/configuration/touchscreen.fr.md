@@ -17,9 +17,9 @@ Elle sert aussi à quelques opérations sur le système lui-même :
 - [installer Calaos OS]({{% relref "calaos_os/installation" %}}) sur le disque, depuis le mode Live ;
 - confirmer un [retour en arrière]({{% relref "calaos_os/rollback" %}}).
 
-{{% notice info %}}
+{{% callout info %}}
 **L'écran tactile est optionnel.** Sans lui, votre serveur fonctionne exactement pareil : vous pilotez votre maison depuis les applications mobiles ou la web app, et vous configurez le serveur à distance en SSH.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Écran sur le serveur ou écran mural ?
 
@@ -73,9 +73,9 @@ Redémarrez ensuite pour que la nouvelle calibration soit prise en compte :
 reboot
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 Touchez les croix le plus précisément possible, avec la pointe du doigt ou un stylet, et en regardant l'écran bien en face. Une calibration faite de biais donne un tactile décalé sur les bords.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Si le tactile ne répond pas du tout
 
@@ -161,19 +161,19 @@ Une adresse IP suffit. Vous pouvez aussi donner une adresse complète si votre i
 calaos_config set calaos_server_host wss://mamaison.calaos.fr/api
 ```
 
-{{% notice note %}}
+{{% callout note %}}
 Dès que ce réglage est renseigné, **la détection automatique est désactivée** : l'interface ne se connectera qu'au serveur indiqué. Pour revenir au comportement normal, supprimez le réglage :
 
 ```sh
 calaos_config del calaos_server_host
 ```
 
-{{% /notice %}}
+{{% /callout %}}
 
 ## Pour aller plus loin
 
 Les réglages d'affichage et de calibration propres à votre installation sont conservés dans `/mnt/calaos/xorg.conf.d`. Ce dossier faisant partie de vos données, **son contenu survit aux mises à jour** — voir [Sauvegarder sa configuration]({{% relref "calaos_os/backup" %}}).
 
-{{% notice note %}}
+{{% callout note %}}
 Les écrans tactiles étant très variés, certains réglages fins comme la rotation de l'affichage dépendent du modèle que vous utilisez. Si vous rencontrez une difficulté avec un écran particulier, le forum Calaos est le meilleur endroit pour trouver une configuration déjà éprouvée.
-{{% /notice %}}
+{{% /callout %}}

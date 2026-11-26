@@ -30,9 +30,9 @@ Then **drag and drop** the devices from the tree: the switch into the conditions
 
 You have just created a toggle switch: pressing the switch flips the lamp.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Name your rules by what they do, not by the devices involved. "Switch the garage off after 5 minutes" reads effortlessly in two years' time; "Rule 12" or "Garage" says nothing.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Conditions
 

@@ -128,9 +128,9 @@ Un **grand widget** (2×2, 3×3 et plus) contient le climat complet, sans vue in
 ![Écran 800×480](/en/calaos_installer/devices/images/rui-800x480.png?width=30pc&classes=shadow)
 *Sur un panneau 800×480.*
 
-{{% notice tip %}}
+{{% callout tip %}}
 Si un widget lié à un climat s'affiche en rouge « Unsupported », c'est un type de widget que le logiciel du panneau ne connaît pas : voir [Dépannage]({{% relref "calaos_installer/devices/troubleshooting" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## L'assistant MCP
 

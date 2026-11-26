@@ -1,0 +1,11 @@
+@import "theme-blue.css";
+
+/* The blue variant is the Learn palette the site used; these keep the few Calaos tweaks. */
+:root {
+  --MAIN-TEXT-color: rgba( 50, 50, 50, 1 );
+  --MENU-HOME-LINK-color: rgba( 50, 50, 50, 1 );
+  --MENU-HOME-LINK-HOVER-color: rgba( 94, 94, 94, 1 );
+  --MENU-SEARCH-color: rgba( 161, 210, 253, 1 );
+  --MENU-SECTIONS-LINK-color: rgba( 204, 204, 204, 1 );
+  --LOGO-IMAGE-width: 100%;
+}

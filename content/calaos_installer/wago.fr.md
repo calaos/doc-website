@@ -14,9 +14,9 @@ Calaos Installer intervient à deux niveaux :
 - **déclarer l'automate** dans votre projet, pour que le serveur sache le joindre ;
 - **programmer l'automate**, c'est-à-dire lui envoyer le programme Calaos qu'il doit exécuter.
 
-{{% notice info %}}
+{{% callout info %}}
 Cette page traite du **logiciel**. Pour le choix des modules, le câblage et le raccordement électrique, voyez [Automate Wago]({{% relref "hardware/wago" %}}) dans le chapitre matériel.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Avant de commencer
 
@@ -24,9 +24,9 @@ L'automate doit avoir une **adresse IP fixe** et être joignable sur votre rése
 
 Pour vérifier, ouvrez simplement `http://adresse-de-l-automate` dans un navigateur : la page web de l'automate doit s'afficher.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Notez cette adresse : elle vous servira aussi bien pour la programmation que pour la déclaration dans le projet. Et donnez au serveur Calaos une adresse fixe également — voir [Réseau]({{% relref "calaos_os/configuration/network" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Programmer l'automate
 
@@ -39,9 +39,9 @@ Deux voies existent, décrites en détail dans [Installation Calaos]({{% relref 
 
 La première suffit dans la grande majorité des installations.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Le programme doit correspondre au **modèle exact de votre tête d'automate**. Un programme prévu pour une autre référence ne fonctionnera pas correctement.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Déclarer les équipements
 
@@ -53,9 +53,9 @@ Chaque IO demande l'**adresse** de l'entrée ou de la sortie correspondante sur 
 
 Le détail des adresses selon les modules figure dans les pages matériel : [entrées]({{% relref "hardware/wago/input" %}}), [sorties]({{% relref "hardware/wago/output" %}}) et [entrées analogiques]({{% relref "hardware/wago/analog" %}}).
 
-{{% notice tip %}}
+{{% callout tip %}}
 Tenez à jour un tableau associant chaque borne du coffret à son équipement, au fur et à mesure du câblage. C'est fastidieux sur le moment, et c'est ce qui vous sauvera lors de la première panne ou d'un ajout deux ans plus tard.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Le mode de secours
 
@@ -67,9 +67,9 @@ C'est une sécurité importante : une panne du serveur ne laisse pas la maison s
 
 Calaos Installer permet également de mettre à jour le firmware de l'automate. Cette opération est plus rare et plus délicate que le simple envoi du programme.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Ne coupez ni l'alimentation ni le réseau pendant une mise à jour de firmware : un automate interrompu en cours d'opération peut devenir inutilisable.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Si l'automate ne répond pas
 

@@ -2,18 +2,14 @@
 title = 'Software stack'
 date = 2024-03-06T20:19:42Z
 weight = 100
-chapter = true
+type = "chapter"
 +++
-
-### For developers
-
-# Calaos software stack
 
 This chapter describes how Calaos works internally, component by component. It is aimed at developers, contributors and advanced users who want to understand how the pieces fit together, write a client, or port Calaos to new hardware.
 
-{{% notice info %}}
+{{% callout info %}}
 **Nothing in this chapter is needed to use Calaos.** To install and configure your system, see [Getting started]({{% relref "getting_started" %}}) and [Calaos OS]({{% relref "calaos_os" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Overview
 
@@ -89,4 +85,4 @@ The API on port 8000 is the one Calaos Home uses to install the system, configur
 
 Calaos is free software, released under **GPL v3** for most of its components. Contributions are welcome: every repository accepts pull requests, and discussions happen on the forum and in GitHub issues.
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}

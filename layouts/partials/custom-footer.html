@@ -1,0 +1,5 @@
+<script defer data-domain="doc.calaos.fr" src="https://stvince.calaos.fr/js/script.js"></script>
+<script>window.vince = window.vince || function() { (window.vince.q = window.vince.q || []).push(arguments) }</script>
+{{- if eq .Kind "404" }}
+<script>document.addEventListener('DOMContentLoaded', function () { vince('404') });</script>
+{{- end }}
