@@ -87,7 +87,7 @@ Après ce changement, **toutes vos applications vont refuser de se connecter** t
 
 ## Le mot de passe admin
 
-Les mises à jour et redémarrages depuis l'application web sont protégés par un troisième mot de passe, le **mot de passe admin**, que vous choisissez dans l'application web elle-même. Voir [Administrer depuis l'application web]({{% relref "calaos_os/admin" %}}), y compris que faire si vous le perdez.
+Les mises à jour et redémarrages depuis l'application web sont protégés par un troisième mot de passe, le **mot de passe admin**, que vous choisissez dans l'application web elle-même. Voir [Administrer depuis l'application web]({{% relref "calaos_os/admin" %}}), y compris que faire si vous le perdez. Les actions sensibles (console web, changement de ce mot de passe) demandent aussi un code envoyé à un [téléphone approbateur]({{% relref "calaos_os/approver" %}}).
 
 ## Pour aller plus loin
 
