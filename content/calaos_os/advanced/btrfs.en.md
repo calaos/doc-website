@@ -112,15 +112,16 @@ When you boot on a restore point, the root is mounted **read-only**, and an over
 
 The `calaos_rollback` script:
 
-1. checks that the machine really booted on a read-only restore point — otherwise it stops with the message `Not booted from a readonly btrfs snapshot`;
+1. takes a lock and checks that the machine really booted on a read-only restore point — otherwise it stops with the message `Not booted from a readonly btrfs snapshot`;
 2. reads the restore point number from `/proc/cmdline`, in the form `subvol=@/.snapshots/<number>/snapshot`;
-3. temporarily mounts the main volume and the restore points subvolume;
+3. temporarily mounts the main volume and the restore points subvolume, in a private mount under `/run`;
 4. calls `snapper rollback <number>`, which makes that point the new root;
-5. unmounts everything.
+5. regenerates the GRUB configuration (`update-grub`, in a chroot of the new root) and checks that the default entry boots the new root;
+6. unmounts everything.
 
-All that remains is to reboot onto the restored root.
+If a step fails, the previous default root and the previous GRUB configuration are put back and the box starts as before. All that remains is to reboot onto the restored root.
 
-The script is started either by the Calaos Home interface, which automatically displays a window in this context, or by hand from a terminal.
+The script is started by the admin service when you confirm from the web app or from the Calaos Home interface, which then restarts the box about two seconds after answering, or by hand from a terminal, in which case you reboot yourself.
 
 ## Maintenance tasks
 

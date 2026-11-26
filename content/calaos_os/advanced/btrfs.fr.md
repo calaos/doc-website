@@ -112,15 +112,16 @@ Quand vous démarrez sur un point de restauration, la racine est montée **en le
 
 Le script `calaos_rollback` :
 
-1. vérifie qu'on a bien démarré sur un point de restauration en lecture seule — sinon il s'arrête avec le message `Not booted from a readonly btrfs snapshot` ;
+1. prend un verrou et vérifie qu'on a bien démarré sur un point de restauration en lecture seule — sinon il s'arrête avec le message `Not booted from a readonly btrfs snapshot` ;
 2. lit le numéro du point de restauration dans `/proc/cmdline`, sous la forme `subvol=@/.snapshots/<numéro>/snapshot` ;
-3. monte temporairement le volume principal et le sous-volume des points de restauration ;
+3. monte temporairement le volume principal et le sous-volume des points de restauration, dans un montage privé sous `/run` ;
 4. appelle `snapper rollback <numéro>`, qui fait de ce point la nouvelle racine ;
-5. démonte le tout.
+5. régénère la configuration de GRUB (`update-grub`, dans un chroot de la nouvelle racine) et vérifie que l'entrée par défaut démarre la nouvelle racine ;
+6. démonte le tout.
 
-Il reste à redémarrer pour repartir sur la racine restaurée.
+Si une étape échoue, l'ancienne racine par défaut et l'ancienne configuration de GRUB sont remises en place et le serveur démarre comme avant. Il reste à redémarrer pour repartir sur la racine restaurée.
 
-Le script est lancé soit par l'interface Calaos Home, qui affiche automatiquement une fenêtre dans ce contexte, soit à la main depuis un terminal.
+Le script est lancé par le service d'administration quand vous confirmez depuis l'application web ou depuis l'interface Calaos Home, qui redémarre alors le serveur environ deux secondes après avoir répondu, ou à la main depuis un terminal : dans ce cas vous redémarrez vous-même.
 
 ## Tâches d'entretien
 
