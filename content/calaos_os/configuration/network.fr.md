@@ -11,11 +11,11 @@ Par défaut, votre serveur demande une adresse à votre box : c'est le mode **au
 
 L'inconvénient est que cette adresse peut changer, notamment après une coupure de courant ou un redémarrage de la box. Vos applications, qui cherchent le serveur à son ancienne adresse, ne le trouvent alors plus.
 
-{{% notice tip %}}
+{{% callout tip %}}
 **Donnez une adresse fixe à votre serveur.** Vous le retrouverez toujours au même endroit, et vos applications continueront de fonctionner après une coupure. C'est le seul réglage réseau vraiment recommandé.
 
 Deux façons d'y arriver : configurer une adresse fixe sur le serveur, comme décrit ci-dessous, ou demander à votre box de toujours attribuer la même adresse à cette machine — cherchez « bail statique » ou « réservation DHCP » dans son interface.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Depuis l'écran tactile
 
@@ -63,9 +63,9 @@ Dans cet exemple :
 - `255.255.255.0` est le masque de réseau, cette valeur convient à la quasi-totalité des installations domestiques ;
 - `192.168.1.1` est l'adresse de votre box, qui sert à la fois de passerelle et de serveur DNS.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Choisissez une adresse **en dehors de la plage distribuée automatiquement par votre box**, sinon deux appareils pourraient se retrouver avec la même adresse. Cette plage est indiquée dans l'interface de votre box, souvent dans la section DHCP.
-{{% /notice %}}
+{{% /callout %}}
 
 Vous pouvez indiquer plusieurs serveurs DNS à la suite, séparés par des espaces.
 
@@ -79,9 +79,9 @@ ping -c 3 calaos.fr
 
 Trois réponses signifient que tout va bien.
 
-{{% notice info %}}
+{{% callout info %}}
 Si vous étiez connecté en SSH et que vous avez changé l'adresse du serveur, **votre connexion est coupée** : c'est normal, le serveur n'est plus à la même adresse. Reconnectez-vous à la nouvelle.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Le nom de la machine
 

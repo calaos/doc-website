@@ -40,6 +40,6 @@ L'exemple 2 est différent : ses IO sont les vrais IO MQTT d'une clim ESPHome, m
 
 Menu **Calaos Server**, **Envoyer le projet à Calaos Server...** : voir [Envoyer la config]({{% relref "getting_started/upload" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Le projet **remplace** toute la configuration de la box. Si vous voulez garder la vôtre, récupérez-la d'abord avec **Charger le projet depuis Calaos Server...**, ou essayez l'exemple sur une box de test.
-{{% /notice %}}
+{{% /callout %}}

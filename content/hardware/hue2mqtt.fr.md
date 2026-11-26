@@ -29,9 +29,9 @@ Calaos Installer propose un type de sortie **lumière RVB pilotée par un pont H
 | `api` | string | oui | Clé d'API renvoyée par le pont lors de l'association |
 | `id_hue` | string | oui | Identifiant unique de la lampe sur le pont |
 
-{{% notice tip %}}
+{{% callout tip %}}
 Ne cherchez pas à obtenir la clé d'API et les identifiants à la main : **Calaos Installer intègre un assistant Hue** qui les récupère automatiquement. Il faut simplement appuyer sur le bouton du pont au moment où il le demande, comme pour toute association Hue.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Méthode 2 — La passerelle hue2mqtt
 
@@ -68,9 +68,9 @@ Les IO se créent ensuite comme des IO MQTT, en s'abonnant aux topics publiés s
 
 Les ampoules doivent déjà être **appairées au pont** via l'application Philips Hue. Calaos les pilote, il ne les appaire pas.
 
-{{% notice note %}}
+{{% callout note %}}
 Une ampoule Hue coupée par un interrupteur mural devient injoignable : c'est le fonctionnement normal de ces produits, qui doivent rester alimentés en permanence. Si vos lampes disparaissent régulièrement, vérifiez d'abord ce point avant de chercher du côté de la configuration.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Diagnostic
 

@@ -11,9 +11,9 @@ Vous pouvez installer les mises à jour et redémarrer votre box depuis l'**appl
 
 Ces actions sont protégées par un **mot de passe admin**, distinct du mot de passe que vous utilisez pour vous connecter à Calaos. Il n'est demandé que lorsque vous ouvrez l'onglet Admin.
 
-{{% notice info %}}
+{{% callout info %}}
 Cette fonction n'existe que sous **Calaos OS**. Voir [Docker et autres installations](#docker-et-autres-installations) plus bas.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Ouvrir l'application web en https
 
@@ -29,15 +29,15 @@ Si vous ouvrez l'onglet Admin sur une adresse qui ne commence pas par `https://`
 2. Si l'onglet affiche **Changez d'abord votre mot de passe de connexion**, remplissez le formulaire qui s'y trouve (nom d'utilisateur, nouveau mot de passe deux fois) et cliquez sur **Enregistrer et continuer**. Une box qui utilise encore l'identifiant par défaut `user` / `pass` ne peut pas recevoir de mot de passe admin : ces valeurs sont connues de tous. C'est le mot de passe de Calaos Server, voir [Changer les identifiants de Calaos Server]({{% relref "calaos_os/security#2-changer-les-identifiants-de-calaos-server" %}}).
 3. Saisissez un mot de passe admin d'**au moins 10 caractères**, deux fois, puis cliquez sur **Définir le mot de passe admin**.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Une fois le mot de passe de connexion changé, Calaos Installer, les applications mobiles et l'application web ont toutes besoin du nouveau.
-{{% /notice %}}
+{{% /callout %}}
 
 Le mot de passe admin n'est stocké nulle part en clair : **notez-le** dans votre gestionnaire de mots de passe. Si vous le perdez, voir [Si vous perdez le mot de passe admin](#si-vous-perdez-le-mot-de-passe-admin).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Choisissez vous-même le mot de passe admin, peu après l'installation. Tant qu'il n'est pas défini, quiconque connaît votre mot de passe de connexion peut le définir le premier. Si vous constatez que quelqu'un d'autre l'a fait, la récupération ci-dessous remet les choses en ordre.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Déverrouiller l'onglet Admin
 
@@ -53,9 +53,9 @@ La box reste utilisable pendant la mise à jour. L'application web peut perdre l
 
 Quand c'est fini, l'application web affiche **Mise à jour terminée**. Si elle affiche **Mise à jour terminée — redémarrez la box**, une partie de ce qui a été installé ne prend effet qu'après un redémarrage : cliquez sur **Redémarrer la box** dans la section **Box** de l'onglet, puis sur **Redémarrer** pour confirmer. Comptez environ une minute ; l'application web se reconnecte quand la box est revenue.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Mettre à jour est aussi sûr qu'avec le terminal : un point de restauration est créé avant chaque installation. Voir [Revenir en arrière]({{% relref "calaos_os/rollback" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ### La toute première mise à jour
 
@@ -91,9 +91,9 @@ Après `calaos-os admin reset`, quiconque connaît votre mot de passe de connexi
 
 Ces deux commandes exigent l'accès `root` à la box, c'est pourquoi aucun écran web ne peut faire la même chose.
 
-{{% notice note %}}
+{{% callout note %}}
 Un [retour en arrière]({{% relref "calaos_os/rollback" %}}) restaure aussi le mot de passe admin (et le mot de passe de connexion) qui existaient à la date choisie.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Autoriser d'autres noms : `api_allowed_hosts`
 
@@ -105,9 +105,9 @@ calaos_config set api_allowed_hosts "calaos.example.net,box.local"
 
 (voir [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}).) Si possible, faites-le **avant** de choisir le mot de passe admin : l'écran de choix du mot de passe affiche la liste en vigueur pour que vous puissiez la vérifier.
 
-{{% notice note %}}
+{{% callout note %}}
 Si vous avez modifié le fichier `haproxy.cfg` à la main, conservez la ligne `http-request set-header X-Forwarded-Proto` dans chaque frontend. Sans elle, la box ne peut pas savoir que la connexion est sécurisée.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Derrière un reverse proxy externe
 
@@ -147,9 +147,9 @@ location / {
 
 (avec un certificat auto-signé, utilisez `proxy_ssl_verify off;` et supprimez les deux autres lignes `proxy_ssl_` du nom et de l'AC.)
 
-{{% notice note %}}
+{{% callout note %}}
 Si la box n'arrive pas à renouveler son certificat Let's Encrypt, elle retombe sur un certificat auto-signé et le proxy refuse la connexion. C'est voulu : pas de dégradation silencieuse de la vérification.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Docker et autres installations
 

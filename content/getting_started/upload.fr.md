@@ -16,12 +16,12 @@ Lorsque vous envoyez la configuration vers le serveur Calaos, cette action entra
 
 ![upload](/en/getting_started/images/upload.png?width=20pc&classes=shadow)
 
-{{% notice info %}}
+{{% callout info %}}
 Par défaut, les identifiants de connexion sont définis comme suit : nom d'utilisateur: `user` et mot de passe `pass`.
-{{% /notice %}}
+{{% /callout %}}
 
-{{% notice note %}}
+{{% callout note %}}
 En sélectionnant l'option **Charger le projet depuis Calaos Server**, vous pouvez ouvrir l'intégralité du projet à partir d'un serveur Calaos. Cette action permet le téléchargement des fichiers XML nécessaires depuis le serveur, qui seront ensuite ouverts automatiquement dans Calaos Installer.
-{{% /notice %}}
+{{% /callout %}}
 
 [Chapitre suivant]({{% relref "getting_started/test" %}})

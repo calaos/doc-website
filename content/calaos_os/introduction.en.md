@@ -25,9 +25,9 @@ A computer that will stay powered on permanently, a USB stick, and a way to conn
 
 A touchscreen is **optional**. With a screen you get the local Calaos Home interface, which displays your home and allows a few settings. Without a screen, everything is configured remotely from another computer.
 
-{{% notice note %}}
+{{% callout note %}}
 This documentation only covers **Calaos v4**. Previous versions (v1, v2, v3) are not covered.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Where to start
 

@@ -19,9 +19,9 @@ Les mises à jour et le redémarrage de la box restent protégés par le seul mo
 
 Un code est valable 60 secondes et ne sert qu'une fois. Rien reçu ? Vérifiez que les notifications de l'application Calaos sont autorisées, puis redemandez un code au bout de 10 secondes. Après 5 codes incorrects, la session admin se ferme et il faut saisir à nouveau le mot de passe admin.
 
-{{% notice info %}}
+{{% callout info %}}
 Sans téléphone approbateur, la console ne peut pas s'ouvrir et le mot de passe admin ne se change qu'en SSH avec `calaos-os admin set`.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Enrôler votre téléphone
 
@@ -37,9 +37,9 @@ Le téléphone apparaît alors dans la liste. Tous les téléphones connectés �
 
 Vous pouvez enrôler **deux** téléphones au plus. Pour ajouter le second, le premier reçoit un code pour l'autoriser. Pour en retirer un, cliquez sur **Retirer** à côté de lui, confirmez avec **Envoyer le code**, puis saisissez le code ; le dernier téléphone ne peut pas être retiré, donc pour changer de téléphone, ajoutez d'abord le nouveau, puis retirez l'ancien.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Un téléphone dont l'application ne s'est pas connectée à la box depuis 30 jours ne reçoit plus de codes. La liste vous invite alors à ouvrir l'application Calaos sur ce téléphone : faites-le, et il reçoit de nouveau les codes.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Ouvrir la console
 

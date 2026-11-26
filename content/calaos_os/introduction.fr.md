@@ -25,9 +25,9 @@ Un ordinateur qui restera allumé en permanence, une clé USB, et de quoi le rel
 
 Un écran tactile est **optionnel**. Avec un écran, vous disposez de l'interface locale Calaos Home, qui affiche votre maison et permet quelques réglages. Sans écran, tout se configure à distance depuis un autre ordinateur.
 
-{{% notice note %}}
+{{% callout note %}}
 Cette documentation ne concerne que **Calaos v4**. Les versions précédentes (v1, v2, v3) ne sont pas couvertes.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Par où commencer
 

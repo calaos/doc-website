@@ -15,9 +15,9 @@ Unité intérieure ──(série)── ESP32 / ESPHome ──(MQTT)── broke
 
 Calaos ne régule pas : la clim garde sa propre modulation. Calaos lit son état, envoie le mode, les consignes, la ventilation et l'oscillation, et peut lui **relayer la température d'une sonde de la pièce**, plus juste que celle de l'unité installée haut sur le mur.
 
-{{% notice info %}}
+{{% callout info %}}
 Le modèle `esphome_climate` de l'assistant crée en une fois tous les IO MQTT nécessaires. Il demande le **préfixe de topic** et l'**identifiant de l'entité** du module : l'assistant peut les [trouver lui-même sur le broker MQTT](#le-trouver-sur-le-broker-mqtt), ou vous les lisez à la main.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Le module ESPHome : exemple Mitsubishi CN105
 
@@ -114,9 +114,9 @@ Le capteur `mqtt_subscribe` lit le topic `<préfixe>/calaos/remote_temp`. Dans C
 
 Calaos cesse de relayer une sonde qui ne dit plus rien depuis `sensor_timeout` secondes (9000 s par défaut) ou qui se déclare déconnectée : la clim retombe alors d'elle-même sur sa sonde, sans régler sur une valeur périmée.
 
-{{% notice note %}}
+{{% callout note %}}
 Seuls les modules qui acceptent une température distante (ici le CN105 à liaison série) en profitent. Une clim **infrarouge** (`climate_ir`) ne peut pas en recevoir : voir le modèle `esphome_climate_ir` dans [Créer un device]({{% relref "calaos_installer/devices/templates" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Exemple Fujitsu
 
@@ -196,9 +196,9 @@ L'assistant demande deux valeurs qui se lisent dans les topics MQTT du module :
 - le **préfixe** est le `topic_prefix` du bloc `mqtt:` du module (par défaut, le nom du module) ;
 - l'**identifiant** est le nom de l'entité climate (`name:`) en minuscules, avec les espaces et la ponctuation remplacés par des tirets bas. « Clim salon » donne `clim_salon`, « Clim Mitsu Buanderie » donne `clim_mitsu_buanderie`.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Ne confondez pas l'identifiant de l'entité avec le nom du module : pour un module `clim-mitsu` dont l'entité s'appelle « Clim Mitsu Buanderie », le préfixe est `clim_mitsu` et l'identifiant `clim_mitsu_buanderie`. Un identifiant faux ne produit aucune erreur : le device reste simplement muet.
-{{% /notice %}}
+{{% /callout %}}
 
 Le plus sûr est d'écouter ce que le module publie. Depuis un poste qui a `mosquitto-clients` (ou avec un outil graphique comme MQTTX, voir [MQTT]({{% relref "hardware/mqtt" %}})) :
 

@@ -11,9 +11,9 @@ Calaos Home est l'interface affichée sur l'**écran tactile branché au serveur
 
 Elle est écrite en **Qt / QML** et vit dans le dépôt [calaos_mobile](https://github.com/calaos/calaos_mobile), qu'elle partage avec les applications mobiles.
 
-{{% notice info %}}
+{{% callout info %}}
 Le dépôt s'appelle `calaos_mobile` mais contient **deux produits** : l'application de bureau pour écran tactile (Calaos Home) et les applications iOS/Android. La partie de bureau se compile avec le drapeau `CALAOS_DESKTOP`.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Organisation du code
 
@@ -87,9 +87,9 @@ L'authentification se fait par jeton, lu dans `/run/calaos/calaos-ct.token` — 
 
 Ces points d'entrée expliquent des comportements décrits ailleurs dans la documentation : le bouton de confirmation qui apparaît quand on a démarré sur un point de restauration — voir [Revenir en arrière]({{% relref "calaos_os/rollback" %}}) — et l'installation sur disque proposée depuis le mode Live, décrite dans [Installation]({{% relref "calaos_os/installation" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Cette API n'écoute que sur la boucle locale. Elle n'est pas accessible depuis le réseau, et n'est pas destinée à être consommée par autre chose que l'interface locale.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Compiler
 

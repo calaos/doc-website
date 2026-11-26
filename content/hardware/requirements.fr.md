@@ -33,9 +33,9 @@ Adopter Calaos dès la conception de votre maison ou au début d'une grande rén
 
 Le circuit de commande est séparé et provient directement du tableau de communication ou d'une boîte de dérivation. Le câblage est alors effectué par bouclage arborescent (quatre ou cinq interrupteurs à la suite selon le type de câble) avec du câble de type téléphone quatre paires (section 0,6 mm²) ou plus.
 
-{{% notice info %}}
+{{% callout info %}}
 Toutes les commandes sont des boutons poussoirs simples
-{{% /notice %}}
+{{% /callout %}}
 
 Pour exemple, voici un schéma de câblage des boutons poussoirs. Un câble 4 paires permet de câbler jusqu'à 7 boutons poussoirs étant donné qu'il faut un fil pour faire le +24v commun. Cependant, il est préférable dans certains cas de conserver des fils de réserve pour pouvoir rajouter des interrupteurs par la suite.
 
@@ -45,9 +45,9 @@ Pour exemple, voici un schéma de câblage des boutons poussoirs. Un câble 4 pa
 
 Le circuit de puissance provient directement du tableau de répartition ou d'une boîte de dérivation. Chaque circuit est séparé pour pouvoir être piloté séparément. Le câble à utiliser est de section traditionnelle ( 3×1,5mm² pour les lumières et 4×1,5mm² pour des volets roulants). 
 
-{{% notice info %}}
+{{% callout info %}}
 Pour un soucis de compatibilité avec le système Calaos, tous les volets roulants doivent être filaires et commandés en 230v avec pour simple action montée/descente.
-{{% /notice %}}
+{{% /callout %}}
 
 Pour exemple, voici un schéma de câblage des lumières.
 

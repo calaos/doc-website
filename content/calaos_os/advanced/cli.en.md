@@ -48,9 +48,9 @@ calaos-os upgrade PACKAGE_NAME
 
 A restore point is created automatically before every operation, whichever command you use. See [Rolling back]({{% relref "calaos_os/rollback" %}}).
 
-{{% notice info %}}
+{{% callout info %}}
 As Calaos OS is based on Debian, `apt` also works and acts on the same package repository. `calaos-os upgrade` and `apt full-upgrade` produce the same result.
-{{% /notice %}}
+{{% /callout %}}
 
 The complete step-by-step procedure is on the [Update]({{% relref "calaos_os/update" %}}) page.
 
@@ -76,9 +76,9 @@ calaos-os network configure static eth0 192.168.1.50 255.255.255.0 192.168.1.1 1
 
 The arguments are, in order: the interface, the IPv4 address, the network mask, the gateway, then one or more DNS servers separated by spaces. The gateway and DNS are optional, but without them the server will have no Internet access.
 
-{{% notice warning %}}
+{{% callout warning %}}
 If you are connected over SSH and change the interface you are connected through, **your session will be dropped**. Reconnect to the new address.
-{{% /notice %}}
+{{% /callout %}}
 
 Detailed explanations are on the [Network]({{% relref "calaos_os/configuration/network" %}}) page.
 

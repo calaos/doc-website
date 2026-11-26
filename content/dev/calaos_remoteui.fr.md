@@ -13,9 +13,9 @@ Contrairement à [Calaos Home]({{% relref "dev/calaos_home" %}}), qui tourne sur
 
 Dépôt : [calaos_remote_ui](https://github.com/calaos/calaos_remote_ui), écrit en **C**.
 
-{{% notice info %}}
+{{% callout info %}}
 Pour l'installation, le câblage et l'appairage d'un écran, voyez la page matériel [Remote UI]({{% relref "hardware/remote_ui" %}}). La présente page traite du firmware lui-même.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Plateforme
 

@@ -33,9 +33,9 @@ Opting for Calaos from the outset of your home design or at the beginning of a m
 
 The control circuit is separate and comes directly from the communication panel or a junction box. The wiring is then done by branching loop (four or five switches in a row, depending on the type of cable) with a four-pair telephone type cable (section 0.6 mm²) or more.
 
-{{% notice info %}}
+{{% callout info %}}
 All controls are simple push buttons
-{{% /notice %}}
+{{% /callout %}}
 
 For example, here is a wiring diagram for push buttons. A 4-pair cable can wire up to 7 push buttons since one wire is needed for the +24v common. However, it's sometimes better to reserve some wires for adding switches later.
 
@@ -45,9 +45,9 @@ For example, here is a wiring diagram for push buttons. A 4-pair cable can wire 
 
 The power circuit comes directly from the distribution panel or a junction box. Each circuit is separated to be controlled individually. The cable used should be of traditional section (3×1.5mm² for lights and 4×1.5mm² for roller shutters).
 
-{{% notice info %}}
+{{% callout info %}}
 For compatibility with the Calaos system, all roller shutters must be wired and controlled at 230v with simple up/down actions.
-{{% /notice %}}
+{{% /callout %}}
 
 For example, here is a wiring diagram for lights.
 

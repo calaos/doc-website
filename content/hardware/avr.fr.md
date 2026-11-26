@@ -28,9 +28,9 @@ Ces fabricants exposent tous un protocole de commande réseau, que Calaos utilis
 
 **L'ampli doit être raccordé au réseau**, en Ethernet de préférence, et joignable depuis le serveur Calaos.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Donnez-lui une **adresse IP fixe**, ou réservez-la sur votre box. Un ampli qui change d'adresse après une coupure devient injoignable, et le symptôme — « les commandes ne passent plus » — n'oriente pas naturellement vers le réseau.
-{{% /notice %}}
+{{% /callout %}}
 
 Vérifiez également dans les réglages de l'appareil que la **commande réseau est activée**. Beaucoup d'amplis la désactivent par défaut, ou la coupent en veille pour économiser l'énergie : dans ce dernier cas, Calaos ne pourra pas les rallumer.
 

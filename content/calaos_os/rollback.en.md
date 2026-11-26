@@ -21,7 +21,7 @@ Calaos OS automatically records the state of the system: before every software i
 
 You can ask the computer to restart on one of them. It then finds the system exactly as it was on that day.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Rolling back also restores your Calaos configuration.**
 
 Your inputs/outputs, rules and scenarios go back to the chosen date as well. Everything you created since will be lost, including the configuration history recorded by the server.
@@ -29,7 +29,7 @@ Your inputs/outputs, rules and scenarios go back to the chosen date as well. Eve
 An example: you update on Monday, you create rules on Tuesday, you roll back on Wednesday to Monday — Tuesday's work disappears.
 
 **So retrieve your configuration before confirming.** Step 3 below gives you all the time you need.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 1. Choose a restore point
 
@@ -53,9 +53,9 @@ Restart the computer. Just after power-on, a menu is displayed for five seconds.
 
 Use the arrow keys to enter the submenu listing the restore points, then choose the date you want — usually the most recent one before the problem. Confirm with Enter.
 
-{{% notice tip %}}
+{{% callout tip %}}
 If the menu disappears too quickly, restart and press the up arrow several times as soon as the machine powers on: this stops the countdown and gives you all the time you need to choose.
-{{% /notice %}}
+{{% /callout %}}
 
 The system then boots on the chosen restore point.
 
@@ -65,9 +65,9 @@ At this stage the system runs in **trial mode** (also called **rescue mode**): i
 
 The web app shows a **Rescue mode** banner on all its pages, with the number of the restore point. The touchscreen shows the **Recovery System** window.
 
-{{% notice info %}}
+{{% callout info %}}
 **If you change your mind, simply restart the computer.** It will boot the current system again, as if nothing had happened. In the web app, **Admin**, **Snapshots**, then **Return to normal system** does the same.
-{{% /notice %}}
+{{% /callout %}}
 
 While in trial mode, **updates are refused** from the web app and the touchscreen until you leave this mode.
 
@@ -109,9 +109,9 @@ then run:
 calaos_rollback
 ```
 
-{{% notice note %}}
+{{% callout note %}}
 If the command answers `Not booted from a readonly btrfs snapshot`, the computer did not boot on a restore point but on the usual system. Start again from step 1.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 5. Restart
 

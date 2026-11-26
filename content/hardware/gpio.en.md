@@ -11,19 +11,19 @@ summary = 'GPIO using Linux kernel support'
 
 It is the simplest way to connect a few devices when you have no PLC: a door contact, a relay, a button.
 
-{{% notice info %}}
+{{% callout info %}}
 GPIOs suit **a handful of points**. For a complete installation the Wago PLC remains preferable: it brings the number of inputs/outputs, the electrical protection and the [failsafe mode]({{% relref "hardware/wago/failsafe" %}}) that an expansion header cannot offer — see [Requirements]({{% relref "hardware/requirements" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Identifying a pin
 
 Each pin carries a **number**, which is the one used by the Linux kernel — not necessarily the one printed on the header nor the physical pinout number.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Numbering is the main source of mistakes. On a single board three different numberings often coexist: the physical pin number, the controller number and the kernel one. It is **the last one** that Calaos expects.
 
 Refer to your board's documentation, and test on a known pin before wiring everything.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Inverted level
 
@@ -63,11 +63,11 @@ In Calaos Installer, **Add → GPIO**, then the type you want. Fill in the pin n
 
 ## Electrical precautions
 
-{{% notice warning %}}
+{{% callout warning %}}
 **GPIOs work at very low voltage and can drive no load.** You never connect a 230 V circuit directly to them: you must go through a relay or a suitable control module.
 
 A wiring mistake on an expansion header usually destroys the board, and sometimes more.
-{{% /notice %}}
+{{% /callout %}}
 
 For inputs, check the voltage your board expects: applying 5 V to an input designed for 3.3 V will damage it.
 

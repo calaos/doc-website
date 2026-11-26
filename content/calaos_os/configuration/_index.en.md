@@ -11,11 +11,11 @@ summary = "Setting up the network, services, date, language and notifications."
 
 **Remotely, over SSH.** From your everyday computer you connect to the server and type commands. This method is available in every case.
 
-{{% notice info %}}
+{{% callout info %}}
 **The touchscreen is optional, and not all options are available there yet.** Today, Calaos Home lets you configure the network, the login credentials and its own language. Everything else goes through the command line.
 
 If you have no screen, you lose nothing essential: the SSH route covers every setting.
-{{% /notice %}}
+{{% /callout %}}
 
 Each page below states which of the two methods is available for that particular setting.
 
@@ -25,4 +25,4 @@ For the SSH route you will need your server's `root` password: see [Changing the
 
 Most settings go through the `calaos_config` tool, presented on its [own page]({{% relref "calaos_os/configuration/calaos_config" %}}).
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}

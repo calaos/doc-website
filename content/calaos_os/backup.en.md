@@ -48,11 +48,11 @@ Every time you send a new configuration from Calaos Installer, the Calaos server
 
 Every upload therefore leaves a trace, which lets you go back to an earlier version of your configuration.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **This history is not a backup.** It sits on the server itself, inside `/mnt/calaos`. So it protects you neither from a disk failure nor from a rollback — which will restore it like the rest and make the recent versions disappear.
 
 Think of it as a handy safety net, not as your backup.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Restore point or backup?
 

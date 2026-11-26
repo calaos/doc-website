@@ -40,6 +40,6 @@ Example 2 is different: its IOs are the real MQTT IOs of an ESPHome unit, but th
 
 **Calaos Server** menu, **Send project to Calaos Server...**: see [Upload config]({{% relref "getting_started/upload" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 The project **replaces** the whole configuration of the box. If you want to keep yours, fetch it first with **Download project from Calaos Server...**, or try the example on a test box.
-{{% /notice %}}
+{{% /callout %}}

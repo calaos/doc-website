@@ -53,11 +53,11 @@ A restore point photographs **the root subvolume**. Separately mounted subvolume
 | **`/mnt/calaos` — your whole Calaos configuration** | `/opt`, `/srv`, `/root`, `/usr/local` |
 | | `/boot/grub` |
 
-{{% notice warning %}}
+{{% callout warning %}}
 `/mnt/calaos` is an **ordinary folder inside the root subvolume**, not a separate subvolume. It is therefore captured by restore points and **replayed during a rollback**.
 
 This is why a rollback also undoes the Calaos configuration made since the chosen date. See [Rolling back]({{% relref "calaos_os/rollback" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 Conversely, since `/var/log` sits on a separate subvolume, the logs **survive** a rollback: this is what allows an incident to be analysed after working around it.
 
@@ -98,9 +98,9 @@ snapper delete NUMBER        # delete one specific point
 btrfs filesystem usage /     # real disk usage
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 The space taken by a restore point is not visible immediately: when created it costs almost nothing, then grows as the system diverges from the photographed state. `btrfs filesystem usage /` gives the real picture, where `df` can be misleading.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Boot menu
 

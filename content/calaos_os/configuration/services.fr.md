@@ -38,9 +38,9 @@ systemctl status calaos-server
 systemctl restart calaos-server
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 `calaos-server` et `calaos-home` sont deux choses différentes. Si l'écran tactile est figé mais que vos applications mobiles répondent, c'est `calaos-home` qu'il faut redémarrer, et votre domotique n'a jamais cessé de fonctionner.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Voir ce qui tourne
 
@@ -124,6 +124,6 @@ systemctl enable NOM_DU_SERVICE
 systemctl disable NOM_DU_SERVICE
 ```
 
-{{% notice warning %}}
+{{% callout warning %}}
 Ne désactivez pas les tâches d'entretien ci-dessus : ce sont elles qui rendent possibles les retours en arrière et qui évitent que le disque se remplisse de points de restauration.
-{{% /notice %}}
+{{% /callout %}}

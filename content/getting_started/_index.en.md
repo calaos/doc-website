@@ -2,12 +2,8 @@
 title = "Getting Started"
 date = 2024-01-31T08:05:03Z
 weight = 5
-chapter = true
+type = "chapter"
 +++
-
-### Getting Started
-
-# Getting Started with Calaos
 
 Learn how to quickly install and configure Calaos.
 

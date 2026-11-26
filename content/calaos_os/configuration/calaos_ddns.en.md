@@ -21,11 +21,11 @@ As a bonus, a **Let's Encrypt security certificate** is obtained automatically, 
 
 **Your server must have a fixed address on the local network**, otherwise the forwarding will one day point at another device. See [Network]({{% relref "calaos_os/configuration/network" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Opening access from the Internet makes your home automation **reachable by anyone**, not just by you.
 
 Before doing so, make sure you have changed the default passwords — see [Changing the passwords]({{% relref "calaos_os/security" %}}) — and choose a long password that you use nowhere else. That is the absolute minimum.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Registering your domain name
 
@@ -50,9 +50,9 @@ Enter your email address:
 
 Enter a valid address and confirm. Generating the certificate takes a few moments.
 
-{{% notice note %}}
+{{% callout note %}}
 If you leave the field empty, registration still works, but **no certificate is generated** and your connection from outside will not be encrypted. This is not recommended.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Adding subdomains
 
@@ -72,9 +72,9 @@ calaos_ddns register myhome camera1=192.168.0.20:4444
 
 Visiting `camera1.myhome.calaos.fr` will then be routed to the device at `192.168.0.20:4444` on your local network. You can list several subdomains one after the other, separated by spaces.
 
-{{% notice tip %}}
+{{% callout tip %}}
 This routing is handy, but remember that **the target device becomes reachable from the Internet**. Only use it for devices whose password you control, and never for a camera still on its factory credentials.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Updates are automatic
 
@@ -90,9 +90,9 @@ calaos_ddns update
 
 The test must be done **from outside your home**: turn off your phone's Wi-Fi to switch to mobile data, then try to connect to your server using your `.calaos.fr` name.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Many routers cannot forward a connection out and then back in. In other words, testing your name from home may fail while everything works perfectly from outside. Always test from a mobile connection.
-{{% /notice %}}
+{{% /callout %}}
 
 ## The other commands
 
@@ -122,13 +122,13 @@ Then register again as normal:
 calaos_ddns register myhome
 ```
 
-{{% notice note %}}
+{{% callout note %}}
 `calaos_ddns reset` does exactly the same thing as the `calaos_config del` command above. If `reset` fails too, go straight to `calaos_config del ddns_token`, which simply clears the setting locally without asking the service anything.
-{{% /notice %}}
+{{% /callout %}}
 
-{{% notice warning %}}
+{{% callout warning %}}
 This clears the local trace of the registration, but **not the registration itself on the service side**. If you take the same domain name again, everything falls back into place. If you change it, the old name may stay reserved for a while.
-{{% /notice %}}
+{{% /callout %}}
 
 ## If it does not work
 

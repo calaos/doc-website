@@ -13,9 +13,9 @@ Unlike [Calaos Home]({{% relref "dev/calaos_home" %}}), which runs on the server
 
 Repository: [calaos_remote_ui](https://github.com/calaos/calaos_remote_ui), written in **C**.
 
-{{% notice info %}}
+{{% callout info %}}
 For installing, wiring and pairing a screen, see the hardware page [Remote UI]({{% relref "hardware/remote_ui" %}}). This page covers the firmware itself.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Platform
 

@@ -16,12 +16,12 @@ When you send the configuration to the Calaos server, this action will automatic
 
 ![upload](/en/getting_started/images/upload.png?width=20pc&classes=shadow)
 
-{{% notice info %}}
+{{% callout info %}}
 By default, the login credentials are set as follows: username: `user` and password `pass`.
-{{% /notice %}}
+{{% /callout %}}
 
-{{% notice note %}}
+{{% callout note %}}
 By selecting the **Load Project from Calaos Server** option, you can open the entire project from a Calaos server. This action enables the download of the necessary XML files from the server, which will then be automatically opened in Calaos Installer.
-{{% /notice %}}
+{{% /callout %}}
 
 [Next Chapter]({{% relref "getting_started/test" %}})

@@ -25,19 +25,19 @@ Calaos knows several camera families directly, and knows how to ask them for a p
 | **Synology Surveillance Station** | Goes through the surveillance server rather than the camera |
 | **Reolink** | See the dedicated section below |
 
-{{% notice tip %}}
+{{% callout tip %}}
 If your model is not in the list, try the **standard MJPEG** type: all you need is the stream address, which the manufacturer usually documents. Many unlisted cameras work this way.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Adding a camera
 
 In Calaos Installer, **Add → Camera**, then choose the family matching your model. Fill in its network address and, if it asks for them, its credentials.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Change the default password on your cameras.** They are the first device targeted on a home network, and a camera left on its factory credentials is accessible to anyone who reaches your network.
 
 Do not expose it directly on the Internet — see [Dynamic DNS]({{% relref "calaos_os/configuration/calaos_ddns" %}}) for controlled remote access.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Adjusting the picture
 
@@ -74,9 +74,9 @@ The available event types:
 | `package` | Package |
 | `visitor` | Visitor / doorbell |
 
-{{% notice tip %}}
+{{% callout tip %}}
 These specialised detections are far better than plain motion: a rule triggered on `person` ignores branches moving in the wind and the neighbourhood cats, where `motion` will send you notifications all night.
-{{% /notice %}}
+{{% /callout %}}
 
 A Reolink input is then used like a conventional detector: switching on outdoor lighting when someone arrives, sending a notification for the doorbell, recording the event in the history. See [Create rules]({{% relref "calaos_installer/rules" %}}).
 

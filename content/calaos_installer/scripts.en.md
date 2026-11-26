@@ -104,9 +104,9 @@ The target here is an [internal variable]({{% relref "calaos_installer/internal_
 
 ## Good practice
 
-{{% notice warning %}}
+{{% callout warning %}}
 **A script blocks the server while it runs.** Avoid long loops and needless waits: a request to an unreachable site can freeze your home automation for the length of the timeout.
-{{% /notice %}}
+{{% /callout %}}
 
 **Comment your identifiers.** `io_12` says nothing; a comment line recalling which device it is will save you time later.
 

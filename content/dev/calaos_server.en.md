@@ -63,9 +63,9 @@ The generic types depend on no hardware: `InputSwitch`, `InputSwitchLongPress`, 
 
 Hardware drivers live in their own subfolders: `Wago`, `KNX`, `Gpio`, `OneWire`, `Mqtt`, `Hue`, `OLA`, `MySensors`, `Reolink`, `LAN`, `Web`, `RemoteUI`. `ExternProc` additionally allows an IO to be delegated to an external process.
 
-{{% notice tip %}}
+{{% callout tip %}}
 **Adding a driver** means deriving `IOBase`, describing its parameters through `IODoc`, then registering it in `IOFactory`. `IODoc` feeds the built-in parameter documentation, which makes the new type immediately usable from Calaos Installer.
-{{% /notice %}}
+{{% /callout %}}
 
 The `IO/io_types.txt` file lists the available types.
 

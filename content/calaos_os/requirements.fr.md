@@ -24,9 +24,9 @@ Calaos OS s'installe sur un **PC 64 bits** (architecture x86_64). Les machines a
 
 En pratique, un **mini-PC sans ventilateur** est le meilleur choix pour une installation permanente : il est silencieux, consomme peu, et n'a pas de pièce mécanique qui s'use. Un ancien ordinateur portable ou un PC de bureau récupéré fait parfaitement l'affaire pour découvrir Calaos.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Pour simplement essayer Calaos OS, vous n'avez besoin d'aucun matériel dédié : le mode **Live** permet de démarrer le système depuis la clé USB sans rien installer, et sans toucher au disque de l'ordinateur. Voir [Installation]({{% relref "calaos_os/installation" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## La clé USB
 
@@ -60,9 +60,9 @@ Il est **facultatif**. Sans écran, vous configurez le serveur à distance depui
 
 Pour des écrans muraux répartis dans la maison, regardez plutôt du côté des [écrans Remote UI]({{% relref "hardware/remote_ui" %}}), conçus pour cet usage.
 
-{{% notice note %}}
+{{% callout note %}}
 Cette page traite du **matériel informatique** de votre serveur. Pour tout ce qui concerne l'installation électrique de la maison — câblage, tableau, automate — voyez [Prérequis]({{% relref "hardware/requirements" %}}) dans le chapitre matériel.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Pour aller plus loin
 

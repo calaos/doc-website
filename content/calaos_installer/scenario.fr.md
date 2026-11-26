@@ -29,9 +29,9 @@ Les deux se ressemblent, et la confusion est fréquente.
 
 Autrement dit : la **règle décide quand**, le **scénario décrit quoi faire**. Les deux se combinent très bien — une règle horaire qui déclenche le scénario « Nuit » est plus lisible que la même règle contenant quinze actions.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Dès qu'une suite d'actions doit pouvoir être lancée **depuis plusieurs endroits** — un bouton mural, l'application, une règle horaire — faites-en un scénario. Vous ne la décrirez qu'une fois, et une modification profitera à tous les déclencheurs.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Créer un scénario
 

@@ -32,9 +32,9 @@ You have nothing to install: they are already there. Some are only useful if you
 
 ## They are managed like any other service
 
-{{% notice info %}}
+{{% callout info %}}
 **The fact that they run in containers changes nothing about how you use them.** Each one is driven by the system just like every other service: you start them, stop them and check their state with the same commands.
-{{% /notice %}}
+{{% /callout %}}
 
 Connect to the server over SSH (see [SSH access]({{% relref "calaos_os/advanced/shell" %}})), then use `systemctl` as you would for any service:
 
@@ -93,9 +93,9 @@ Each service stores its data in its own subfolder of `/mnt/calaos`:
 
 Backing up this folder backs up everything: see [Backing up your configuration]({{% relref "calaos_os/backup" %}}).
 
-{{% notice info %}}
+{{% callout info %}}
 The `zigbee2mqtt` folder deserves particular attention: it holds the list of your paired Zigbee devices. Losing it would force you to pair them all again, one by one.
-{{% /notice %}}
+{{% /callout %}}
 
 ## When a service stops working
 

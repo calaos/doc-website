@@ -128,9 +128,9 @@ A **large widget** (2×2, 3×3 and up) holds the whole climate, with no intermed
 ![800×480 screen](/en/calaos_installer/devices/images/rui-800x480.png?width=30pc&classes=shadow)
 *On an 800×480 panel.*
 
-{{% notice tip %}}
+{{% callout tip %}}
 If a widget linked to a climate shows a red "Unsupported", it is a widget type the panel software does not know: see [Troubleshooting]({{% relref "calaos_installer/devices/troubleshooting" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## The MCP assistant
 

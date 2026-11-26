@@ -11,11 +11,11 @@ summary = "Régler le réseau, les services, la date, la langue et les notificat
 
 **À distance, en SSH.** Depuis votre ordinateur habituel, vous vous connectez au serveur et vous tapez des commandes. C'est la méthode disponible dans tous les cas.
 
-{{% notice info %}}
+{{% callout info %}}
 **L'écran tactile est optionnel, et toutes les options n'y sont pas encore disponibles.** Aujourd'hui, Calaos Home permet de configurer le réseau, les identifiants de connexion et sa propre langue. Tout le reste passe par la ligne de commande.
 
 Si vous n'avez pas d'écran, vous ne perdez rien d'essentiel : la voie SSH couvre l'intégralité des réglages.
-{{% /notice %}}
+{{% /callout %}}
 
 Chaque page ci-dessous indique laquelle des deux méthodes est disponible pour le réglage concerné.
 
@@ -25,4 +25,4 @@ Pour la voie SSH, vous aurez besoin du mot de passe `root` de votre serveur : vo
 
 La plupart des réglages passent par l'outil `calaos_config`, présenté sur sa [page dédiée]({{% relref "calaos_os/configuration/calaos_config" %}}).
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}

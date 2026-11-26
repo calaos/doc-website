@@ -11,19 +11,19 @@ Les **GPIO** sont les broches d'entrée/sortie présentes sur certaines cartes �
 
 C'est le moyen le plus simple de connecter quelques équipements quand on n'a pas d'automate : un contact de porte, un relais, un bouton.
 
-{{% notice info %}}
+{{% callout info %}}
 Les GPIO conviennent à **quelques points** de commande. Pour une installation complète, l'automate Wago reste préférable : il apporte le nombre d'entrées/sorties, la protection électrique et le [mode de secours]({{% relref "hardware/wago/failsafe" %}}) qu'un connecteur d'extension n'offre pas — voir [Prérequis]({{% relref "hardware/requirements" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Identifier une broche
 
 Chaque broche porte un **numéro**, qui est celui utilisé par le noyau Linux — pas nécessairement celui imprimé sur le connecteur ni celui du brochage physique.
 
-{{% notice warning %}}
+{{% callout warning %}}
 La numérotation est la principale source d'erreurs. Sur une même carte coexistent souvent trois numérotations différentes : le numéro de broche physique, le numéro du contrôleur et celui du noyau. C'est **ce dernier** qu'attend Calaos.
 
 Reportez-vous à la documentation de votre carte, et vérifiez sur une broche connue avant de câbler l'ensemble.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Le niveau inversé
 
@@ -63,11 +63,11 @@ Dans Calaos Installer, **Ajouter → GPIO**, puis le type voulu. Renseignez le n
 
 ## Précautions électriques
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Les GPIO fonctionnent en très basse tension et ne supportent aucune charge.** On ne branche jamais un circuit 230 V directement dessus : il faut passer par un relais ou un module de commande adapté.
 
 Une erreur de câblage sur un connecteur d'extension détruit généralement la carte, et parfois davantage.
-{{% /notice %}}
+{{% /callout %}}
 
 Pour les entrées, vérifiez la tension attendue par votre carte : appliquer 5 V sur une entrée prévue pour 3,3 V l'endommage.
 

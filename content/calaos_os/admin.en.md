@@ -11,9 +11,9 @@ You can install updates and restart your box from the Calaos **web app**, in its
 
 These actions are protected by an **admin password**, separate from the password you use to log in to Calaos. The admin password is only asked for when you open the Admin tab.
 
-{{% notice info %}}
+{{% callout info %}}
 This is available on **Calaos OS** only. See [Docker and other installations](#docker-and-other-installations) below.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Open the web app over https
 
@@ -29,15 +29,15 @@ If you open the Admin tab on an address that does not start with `https://`, the
 2. If the tab shows **Change your sign-in password first**, fill in the form right there (user name, new password twice) and click **Save and continue**. A box that still uses the default `user` / `pass` login cannot get an admin password: those values are known to everybody. This is your Calaos Server password, see [Change the Calaos Server credentials]({{% relref "calaos_os/security#2-change-the-calaos-server-credentials" %}}).
 3. Type an admin password of **at least 10 characters**, twice, and click **Set the admin password**.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Once the sign-in password has changed, Calaos Installer, the mobile applications and the web app all need the new one.
-{{% /notice %}}
+{{% /callout %}}
 
 The admin password is not stored anywhere readable, so **write it down** in your password manager. If you lose it, see [If you lose the admin password](#if-you-lose-the-admin-password).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Choose the admin password yourself, soon after installation. Until one is set, anyone who knows your login password can set it first. If you ever find that someone else did, the recovery below puts things back.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Unlock the Admin tab
 
@@ -53,9 +53,9 @@ The box stays usable during the update. The web app may lose its connection for 
 
 When it is done, the web app says **Update finished**. If it says **Update finished — restart the box**, part of what was installed only takes effect after a restart: click **Restart the box** in the **Box** section of the tab, then **Restart** to confirm. It takes about a minute and the web app reconnects when the box is back.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Updating is as safe as with the terminal: a restore point is created before each installation. See [Rolling back]({{% relref "calaos_os/rollback" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ### The very first upgrade
 
@@ -91,9 +91,9 @@ After `calaos-os admin reset`, anyone who knows your sign-in password could choo
 
 Both commands need `root` access to the box, which is why no web screen can do the same thing.
 
-{{% notice note %}}
+{{% callout note %}}
 A [rollback]({{% relref "calaos_os/rollback" %}}) also restores the admin password (and the login password) that existed at the date you went back to.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Allowing other host names: `api_allowed_hosts`
 
@@ -105,9 +105,9 @@ calaos_config set api_allowed_hosts "calaos.example.net,box.local"
 
 (see [calaos_config]({{% relref "calaos_os/configuration/calaos_config" %}}).) Set it **before** choosing the admin password if you can: the screen where you choose the password shows the current list so that you can check it.
 
-{{% notice note %}}
+{{% callout note %}}
 If you edited the `haproxy.cfg` file by hand, keep the `http-request set-header X-Forwarded-Proto` line in each frontend. Without it the box cannot tell that the connection is secure.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Behind an external reverse proxy
 
@@ -147,9 +147,9 @@ location / {
 
 (with a self-signed certificate, use `proxy_ssl_verify off;` and drop the two other `proxy_ssl_` lines for the name and the CA.)
 
-{{% notice note %}}
+{{% callout note %}}
 If the box fails to renew its Let's Encrypt certificate, it falls back to a self-signed one and the proxy refuses the connection. This is on purpose: no silent downgrade of the check.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Docker and other installations
 

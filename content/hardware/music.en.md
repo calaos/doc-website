@@ -32,9 +32,9 @@ This library comes from the music server, not from Calaos: the tracks you see ar
 
 Before anything else, check that you can start a track in a room from the system's native interface. If you cannot, the problem is upstream of Calaos.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Give the music server a **fixed IP address**, as well as the players. This is the most frequent cause of zones disappearing after a power cut.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Adding a zone
 

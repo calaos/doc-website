@@ -18,9 +18,9 @@ Le client tourne sur le serveur, déclare un nom en `.calaos.fr` auprès du serv
 
 Les deux sont écrits en **Go**. Le service de référence est joignable sur `https://ns1.calaos.fr/`.
 
-{{% notice info %}}
+{{% callout info %}}
 Pour l'usage courant — enregistrer un domaine, ouvrir un port, diagnostiquer — voyez [DNS dynamique]({{% relref "calaos_os/configuration/calaos_ddns" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Commandes
 

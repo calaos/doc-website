@@ -27,9 +27,9 @@ La valeur enregistrée est un texte :
 
 Seuls les champs présents sont appliqués, et un champ invalide est refusé et journalisé sans empêcher les autres. Un bouton permet de repasser en saisie de texte si vous préférez écrire le JSON vous-même. La valeur ne peut pas être « celle d'un autre IO » : pour recopier une valeur dans une consigne, la règle écrit directement l'IO de consigne.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Ne commandez jamais le **relais** d'un thermostat dans une règle : écrivez son mode (`off`, `heat`). Le thermostat remettrait le relais dans l'état voulu, et le journal se remplirait d'avertissements.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 1. Programmer la consigne
 

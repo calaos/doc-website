@@ -13,13 +13,13 @@ You have nothing to do for these restore points to exist: they are created on th
 
 Calaos OS updates are **incremental**: only the components that changed are downloaded and replaced. You never need to make a new USB stick or reinstall.
 
-{{% notice info %}}
+{{% callout info %}}
 **Your configuration is not affected by an update.** Your inputs/outputs, rules, scenarios and measurement history are kept unchanged.
-{{% /notice %}}
+{{% /callout %}}
 
-{{% notice tip %}}
+{{% callout tip %}}
 Prefer not to use a terminal? Once your box has the Admin tab, you can install updates from the web app: see [Administering from the web app]({{% relref "calaos_os/admin" %}}). The very first upgrade to that version is done with the tools below.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Before you start
 
@@ -39,9 +39,9 @@ ssh root@YOUR_SERVER_ADDRESS
 
 replacing `YOUR_SERVER_ADDRESS` with the IP address of your server. The password is the one you set in [Changing the passwords]({{% relref "calaos_os/security" %}}).
 
-{{% notice tip %}}
+{{% callout tip %}}
 You can also plug a keyboard and a screen directly into the server and type the commands there. It is less convenient, but works exactly the same.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 1. See what is available
 

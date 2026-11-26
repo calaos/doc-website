@@ -29,9 +29,9 @@ Calaos Installer offers an output type for an **RGB light driven by a Hue bridge
 | `api` | string | yes | API key returned by the bridge when the association is made |
 | `id_hue` | string | yes | Unique identifier of the lamp on the bridge |
 
-{{% notice tip %}}
+{{% callout tip %}}
 Do not try to obtain the API key and identifiers by hand: **Calaos Installer includes a Hue wizard** that fetches them automatically. You simply have to press the button on the bridge when it asks, as for any Hue association.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Method 2 — The hue2mqtt gateway
 
@@ -68,9 +68,9 @@ The IOs are then created as MQTT IOs, subscribing to the topics published under 
 
 The bulbs must already be **paired with the bridge** through the Philips Hue application. Calaos drives them, it does not pair them.
 
-{{% notice note %}}
+{{% callout note %}}
 A Hue bulb cut off by a wall switch becomes unreachable: this is the normal behaviour of these products, which must stay powered at all times. If your lamps regularly disappear, check this first before looking at the configuration.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Diagnosis
 

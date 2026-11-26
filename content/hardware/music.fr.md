@@ -32,9 +32,9 @@ Cette bibliothèque vient du serveur de musique, pas de Calaos : les morceaux qu
 
 Vérifiez avant toute chose que vous savez lancer un morceau dans une pièce depuis l'interface native du système. Si ce n'est pas le cas, le problème est en amont de Calaos.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Donnez une **adresse IP fixe** au serveur de musique, comme aux lecteurs. C'est la cause la plus fréquente de zones qui disparaissent après une coupure de courant.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Ajouter une zone
 

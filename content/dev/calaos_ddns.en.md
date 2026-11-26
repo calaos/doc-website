@@ -18,9 +18,9 @@ The client runs on the server, registers a `.calaos.fr` name with the Calaos ser
 
 Both are written in **Go**. The reference service is reachable at `https://ns1.calaos.fr/`.
 
-{{% notice info %}}
+{{% callout info %}}
 For everyday usage — registering a domain, opening a port, diagnosing — see [Dynamic DNS]({{% relref "calaos_os/configuration/calaos_ddns" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Commands
 

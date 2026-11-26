@@ -11,9 +11,9 @@ Calaos Home is the interface displayed on the **touchscreen connected to the ser
 
 It is written in **Qt / QML** and lives in the [calaos_mobile](https://github.com/calaos/calaos_mobile) repository, which it shares with the mobile applications.
 
-{{% notice info %}}
+{{% callout info %}}
 The repository is called `calaos_mobile` but contains **two products**: the desktop application for touchscreens (Calaos Home) and the iOS/Android applications. The desktop part is built with the `CALAOS_DESKTOP` flag.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Code layout
 
@@ -87,9 +87,9 @@ Authentication uses a token, read from `/run/calaos/calaos-ct.token` — a file 
 
 These endpoints explain behaviours described elsewhere in this documentation: the confirmation button that appears when you have booted on a restore point — see [Rolling back]({{% relref "calaos_os/rollback" %}}) — and the disk installation offered from Live mode, described in [Installation]({{% relref "calaos_os/installation" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 This API only listens on the loopback interface. It is not reachable from the network, and is not meant to be consumed by anything other than the local interface.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Building
 

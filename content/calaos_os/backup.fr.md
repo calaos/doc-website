@@ -48,11 +48,11 @@ La manipulation est décrite en détail dans [Envoyer le projet]({{% relref "get
 
 Chaque envoi laisse ainsi une trace, ce qui permet de revenir à une version antérieure de votre configuration.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Cet historique n'est pas une sauvegarde.** Il se trouve sur le serveur lui-même, dans `/mnt/calaos`. Il ne vous protège donc ni d'une panne de disque, ni d'un retour en arrière — qui le restaurera comme le reste et fera disparaître les versions récentes.
 
 Considérez-le comme un filet de sécurité pratique, pas comme votre sauvegarde.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Point de restauration ou sauvegarde ?
 

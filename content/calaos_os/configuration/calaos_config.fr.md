@@ -11,9 +11,9 @@ summary = "L'outil qui lit et modifie les réglages du serveur Calaos."
 
 Il travaille sur la configuration locale du serveur, rangée dans le dossier `/mnt/calaos/config`.
 
-{{% notice info %}}
+{{% callout info %}}
 Cet outil ne concerne **que les réglages du serveur** : identifiants, notifications, options de fonctionnement. Vos entrées/sorties, vos règles et vos scénarios se gèrent depuis **Calaos Installer**, pas ici.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Utilisation
 
@@ -133,9 +133,9 @@ Voir [Écran tactile]({{% relref "calaos_os/configuration/touchscreen" %}}).
 
 Cette liste couvre les réglages les plus courants. `calaos_config list` vous montre ceux qui sont réellement définis sur votre installation.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **N'éditez pas les fichiers de configuration à la main** pendant que le serveur tourne. Vos modifications risquent d'être écrasées, et un fichier mal formé empêchera le serveur de démarrer. Passez toujours par `calaos_config`.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Pour aller plus loin
 

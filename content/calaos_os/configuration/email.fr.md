@@ -54,9 +54,9 @@ Pour vérifier ce qui est enregistré :
 calaos_config list
 ```
 
-{{% notice tip %}}
+{{% callout tip %}}
 Beaucoup de services de messagerie refusent désormais votre mot de passe habituel pour ce type d'usage et réclament un **mot de passe d'application**, à générer depuis votre compte. Si l'envoi échoue alors que vos identifiants sont bons, c'est très probablement la cause.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Tester
 
@@ -75,9 +75,9 @@ En cas d'échec, relancez la commande en ajoutant `--verbose` : le détail des �
 calaos_mail --from moi@exemple.fr --to moi@exemple.fr --subject "Test Calaos" --body /tmp/test.txt --verbose
 ```
 
-{{% notice note %}}
+{{% callout note %}}
 Pensez à vérifier votre dossier de courrier indésirable : les messages envoyés par un serveur domestique y atterrissent souvent la première fois.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Joindre des fichiers
 
@@ -109,8 +109,8 @@ calaos_config set notif/io_connected_push_enabled true
 
 Les réglages `_mail_` envoient un email — et supposent donc la configuration ci-dessus — tandis que les réglages `_push_` envoient une notification sur votre téléphone. Vous pouvez activer l'un, l'autre, ou les deux.
 
-{{% notice tip %}}
+{{% callout tip %}}
 L'alerte de pile faible est celle qui rend le plus service : elle vous prévient avant qu'un détecteur cesse de fonctionner, plutôt que de vous laisser le découvrir le jour où vous en avez besoin.
-{{% /notice %}}
+{{% /callout %}}
 
 Voir [Zigbee]({{% relref "hardware/zigbee" %}}) pour les équipements concernés.

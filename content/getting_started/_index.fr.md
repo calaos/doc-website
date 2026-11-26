@@ -2,12 +2,8 @@
 title = "Démarrage"
 date = 2024-01-31T08:05:03Z
 weight = 5
-chapter = true
+type = "chapter"
 +++
-
-### Démarrage
-
-# Débuter avec Calaos
 
 Découvrez comment installer et configurer rapidement Calaos.
 

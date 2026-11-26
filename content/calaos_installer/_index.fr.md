@@ -2,12 +2,8 @@
 title = "Calaos Installer"
 date = 2024-03-06T19:56:46Z
 weight = 30
-chapter = true
+type = "chapter"
 +++
-
-### La configuration
-
-# Calaos Installer
 
 Calaos Installer est le logiciel avec lequel vous décrivez votre installation : les pièces de la maison, les équipements qui s'y trouvent, et les règles qui les font réagir.
 
@@ -37,9 +33,9 @@ La configuration se construit dans un ordre naturel, chaque étape s'appuyant su
 
 Les autres pages de ce chapitre couvrent des besoins plus spécifiques : les [variables internes]({{% relref "calaos_installer/internal_var" %}}) pour mémoriser un état, les [scénarios]({{% relref "calaos_installer/scenario" %}}) pour enchaîner des actions, la [programmation horaire]({{% relref "calaos_installer/time" %}}) pour déclencher sur l'heure, et les [scripts Lua]({{% relref "calaos_installer/scripts" %}}) quand les règles ne suffisent plus.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Si vous découvrez Calaos, ne commencez pas par ce chapitre : suivez d'abord [Démarrage]({{% relref "getting_started" %}}), qui vous fait créer une pièce, une lumière, un interrupteur et une première règle. Vous reviendrez ici pour approfondir.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Se connecter au serveur
 
@@ -62,4 +58,4 @@ Calaos Installer sert aussi à quelques tâches qui débordent du projet lui-mê
 - **flasher et configurer les écrans muraux** Remote UI — voir [Remote UI]({{% relref "hardware/remote_ui" %}}) ;
 - **programmer l'automate Wago** — voir [Configuration Wago]({{% relref "calaos_installer/wago" %}}).
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}

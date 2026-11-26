@@ -25,9 +25,9 @@ On the server side, `CalaosConfig` loads them at startup: `IOFactory` instantiat
 
 This is why adding a new IO type to the server is enough to make it declarable in these files — see [Calaos Server]({{% relref "dev/calaos_server" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Do not edit these files by hand while the server is running.** The next upload from Calaos Installer will overwrite your changes, and a malformed file will prevent the server from starting.
-{{% /notice %}}
+{{% /callout %}}
 
 ## local_config.xml
 
@@ -42,9 +42,9 @@ The list of keys is described in [calaos_config]({{% relref "calaos_os/configura
 
 The tool's implementation is about a hundred lines, in `src/bin/tools/calaos_config.cpp`. It exposes four actions — `list`, `get`, `set`, `del` — and calls `sync()` after writing to make sure the value reaches the disk.
 
-{{% notice tip %}}
+{{% callout tip %}}
 This simplicity is deliberate: **adding a setting requires no change to the tool**. You just read the new key where you need it, and `calaos_config set` already knows how to write it.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Configuration history
 

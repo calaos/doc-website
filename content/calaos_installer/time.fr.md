@@ -25,11 +25,11 @@ C'est l'outil à utiliser dès qu'une automatisation ne doit s'appliquer qu'à c
 
 Vous définissez pour chaque jour de la semaine les périodes où la plage est active. Les bornes peuvent être des heures fixes, mais aussi le **lever et le coucher du soleil**, ce qui suit naturellement les saisons.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Les heures de lever et de coucher du soleil dépendent de la position de votre maison. Si vous ne l'avez pas renseignée, Calaos utilise **les coordonnées de Paris** par défaut, et vos volets se fermeront à l'heure parisienne.
 
 C'est un réglage à faire une fois : voir [Date & Heure]({{% relref "calaos_os/configuration/date" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## La programmation
 
@@ -50,9 +50,9 @@ Deux options en déterminent le comportement :
 
 Avec le redémarrage automatique, vous obtenez un **battement régulier** : une action toutes les dix minutes, une vérification toutes les heures. Sans lui, le minuteur est à usage unique et doit être relancé par une règle.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Le minuteur est la réponse à « éteindre automatiquement après un moment » : une règle démarre le minuteur quand la lumière s'allume, une autre éteint la lumière à l'échéance. C'est le montage classique pour un éclairage de garage ou de cave qu'on oublie d'éteindre.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Choisir entre les trois
 

@@ -26,4 +26,4 @@ Either way, the equipment is a **device**: one object that groups all the IOs of
 | schedule the heating | [Heating rules]({{% relref "calaos_installer/rules_heating" %}}) |
 | understand a problem | [Troubleshooting]({{% relref "calaos_installer/devices/troubleshooting" %}}) |
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}

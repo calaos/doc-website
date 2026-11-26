@@ -27,9 +27,9 @@ The stored value is text:
 
 Only the fields present are applied, and an invalid field is refused and logged without blocking the others. A button switches to text entry if you prefer to write the JSON yourself. The value cannot be "that of another IO": to copy a value into a setpoint, the rule writes the setpoint IO directly.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Never command a thermostat's **relay** in a rule: write its mode (`off`, `heat`). The thermostat would put the relay back to the wanted state, and the log would fill with warnings.
-{{% /notice %}}
+{{% /callout %}}
 
 ## 1. Schedule the setpoint
 

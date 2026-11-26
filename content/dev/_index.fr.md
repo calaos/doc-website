@@ -2,18 +2,14 @@
 title = "Pile logicielle Calaos"
 date = 2024-03-06T19:59:28Z
 weight = 100
-chapter = true
+type = "chapter"
 +++
-
-### Pour les développeurs
-
-# Pile logicielle Calaos
 
 Ce chapitre décrit le fonctionnement interne de Calaos, composant par composant. Il s'adresse aux développeurs, aux contributeurs et aux utilisateurs avancés qui veulent comprendre comment les morceaux s'assemblent, écrire un client, ou porter Calaos sur un nouveau matériel.
 
-{{% notice info %}}
+{{% callout info %}}
 **Rien de ce chapitre n'est nécessaire pour utiliser Calaos.** Pour installer et configurer votre installation, voyez [Démarrage]({{% relref "getting_started" %}}) et [Calaos OS]({{% relref "calaos_os" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Vue d'ensemble
 
@@ -89,4 +85,4 @@ L'API du port 8000 est celle qu'utilise Calaos Home pour installer le système, 
 
 Calaos est un logiciel libre, publié sous **GPL v3** pour l'essentiel de ses composants. Les contributions sont les bienvenues : chaque dépôt accepte les *pull requests*, et les discussions se tiennent sur le forum et les *issues* GitHub.
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}

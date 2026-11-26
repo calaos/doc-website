@@ -33,9 +33,9 @@ Laissez faire. L'opération n'a lieu qu'une fois : les démarrages suivants sont
 
 Si vous avez éteint la machine en cours de route, rallumez-la simplement — l'installation des services reprendra.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Pour la prochaine fois : la durée dépend presque entièrement de la vitesse de votre clé USB. Une clé USB 3.0 de marque ramène cette attente à quelques minutes. Voir [De quoi ai-je besoin ?]({{% relref "calaos_os/requirements" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ---
 
@@ -118,9 +118,9 @@ journalctl --vacuum-time=30d
 
 **Les points de restauration** sont normalement nettoyés automatiquement : Calaos OS n'en conserve qu'un nombre limité et supprime les plus anciens tout seul. Si le disque se remplit malgré tout, voyez [Sous le capot]({{% relref "calaos_os/advanced/btrfs" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Ne supprimez pas de fichiers au hasard pour faire de la place, en particulier dans `/mnt/calaos` : c'est là que vit toute votre configuration.
-{{% /notice %}}
+{{% /callout %}}
 
 ---
 
@@ -141,6 +141,6 @@ Pour obtenir une réponse utile du premier coup, précisez :
 - **l'heure approximative** du problème ;
 - **les journaux** correspondants, récupérés comme expliqué dans [Journaux]({{% relref "calaos_os/configuration/logs" %}}).
 
-{{% notice tip %}}
+{{% callout tip %}}
 Avant de tout réinstaller, demandez : une réinstallation fait perdre du temps et efface souvent les traces qui auraient permis de comprendre la panne. Dans la plupart des cas, un retour en arrière ou le redémarrage d'un service suffit.
-{{% /notice %}}
+{{% /callout %}}

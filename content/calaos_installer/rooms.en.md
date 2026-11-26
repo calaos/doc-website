@@ -27,9 +27,9 @@ The room then appears in the tree, ready to receive devices — see [Create IOs]
 
 The names you choose here will be read every day, on a wall screen or in an application, often by people other than you.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Prefer the name your family actually uses — "Living room", "Kids' bedroom" — rather than a reference from an architect's plan. And stay consistent: if you write "Bedroom 1" and "Parents bedroom", your lists will look untidy.
-{{% /notice %}}
+{{% /callout %}}
 
 Also avoid putting the floor in every name if your house has only one level: it needlessly lengthens the display on small screens.
 
@@ -45,9 +45,9 @@ The simplest approach is to follow the real rooms of the house. Two cases deserv
 
 Renaming a room or changing its type can be done at any time; the devices it contains are unaffected.
 
-{{% notice warning %}}
+{{% callout warning %}}
 **Deleting a room deletes the devices it contains**, and the rules referring to them will stop working. If you want to reorganise, create the new room first and move the devices into it before deleting the old one.
-{{% /notice %}}
+{{% /callout %}}
 
 ## What comes next
 

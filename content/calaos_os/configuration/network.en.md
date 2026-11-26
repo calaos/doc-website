@@ -11,11 +11,11 @@ By default your server asks your router for an address: this is **automatic** mo
 
 The drawback is that this address can change, especially after a power cut or a router restart. Your applications, which look for the server at its old address, then no longer find it.
 
-{{% notice tip %}}
+{{% callout tip %}}
 **Give your server a fixed address.** You will always find it at the same place, and your applications will keep working after an outage. It is the only network setting that is really recommended.
 
 There are two ways to get there: configure a fixed address on the server, as described below, or ask your router to always hand the same address to that machine — look for "static lease" or "DHCP reservation" in its interface.
-{{% /notice %}}
+{{% /callout %}}
 
 ## From the touchscreen
 
@@ -63,9 +63,9 @@ In this example:
 - `255.255.255.0` is the network mask; this value suits almost every home installation;
 - `192.168.1.1` is your router's address, used both as gateway and as DNS server.
 
-{{% notice warning %}}
+{{% callout warning %}}
 Choose an address **outside the range handed out automatically by your router**, otherwise two devices could end up with the same address. That range is shown in your router's interface, often in the DHCP section.
-{{% /notice %}}
+{{% /callout %}}
 
 You can list several DNS servers one after the other, separated by spaces.
 
@@ -79,9 +79,9 @@ ping -c 3 calaos.fr
 
 Three replies mean everything is fine.
 
-{{% notice info %}}
+{{% callout info %}}
 If you were connected over SSH and changed the server's address, **your connection is dropped**: that is normal, the server is no longer at the same address. Reconnect to the new one.
-{{% /notice %}}
+{{% /callout %}}
 
 ## The machine name
 

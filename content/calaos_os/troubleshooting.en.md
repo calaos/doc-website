@@ -33,9 +33,9 @@ Let it run. It only happens once: later boots are quick.
 
 If you did switch the machine off along the way, simply turn it back on — installing the services will resume.
 
-{{% notice tip %}}
+{{% callout tip %}}
 For next time: the duration depends almost entirely on the speed of your USB stick. A branded USB 3.0 stick brings this wait down to a few minutes. See [What do I need?]({{% relref "calaos_os/requirements" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ---
 
@@ -118,9 +118,9 @@ journalctl --vacuum-time=30d
 
 **Restore points** are normally cleaned up automatically: Calaos OS only keeps a limited number and deletes the oldest on its own. If the disk fills up anyway, see [Under the hood]({{% relref "calaos_os/advanced/btrfs" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Do not delete files at random to make space, particularly inside `/mnt/calaos`: that is where your whole configuration lives.
-{{% /notice %}}
+{{% /callout %}}
 
 ---
 
@@ -141,6 +141,6 @@ To get a useful answer straight away, state:
 - **the approximate time** of the problem;
 - **the matching logs**, retrieved as explained in [Logs]({{% relref "calaos_os/configuration/logs" %}}).
 
-{{% notice tip %}}
+{{% callout tip %}}
 Before reinstalling everything, ask: a reinstall wastes time and often erases the traces that would have explained the failure. In most cases a rollback or restarting a service is enough.
-{{% /notice %}}
+{{% /callout %}}

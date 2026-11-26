@@ -25,9 +25,9 @@ It needs a physical interface to the bus, which can be:
 
 Everything rests on **group addresses**, written as `x/y/z`. Each function of the bus — switching a lamp on, reading a temperature — has its own, defined when the KNX installation was designed, usually with the ETS software.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Get hold of the **ETS project for the installation**, or failing that the list of group addresses. Without it you have to guess what each address does, which is tedious and risky on a live installation.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Common parameters
 

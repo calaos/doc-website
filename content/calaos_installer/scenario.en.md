@@ -29,9 +29,9 @@ The two look alike, and the confusion is common.
 
 In other words: the **rule decides when**, the **scenario describes what to do**. The two combine very well — a time rule triggering the "Night" scenario reads better than the same rule holding fifteen actions.
 
-{{% notice tip %}}
+{{% callout tip %}}
 As soon as a series of actions must be startable **from several places** — a wall button, the application, a time rule — make it a scenario. You will describe it only once, and a change will benefit every trigger.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Creating a scenario
 

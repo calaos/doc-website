@@ -60,9 +60,9 @@ Whatever the family, the same broad types come back:
 
 **As outputs** — simple light, dimmable light, RGB light, shutter, smart shutter, analog output, character string.
 
-{{% notice tip %}}
+{{% callout tip %}}
 **Long press is a switch type in its own right.** Rather than hacking a rule together with a timer, choose the right type at creation time: Calaos then tells a short press from a long one, and you can assign a different action to each.
-{{% /notice %}}
+{{% /callout %}}
 
 The type also determines **how the device is displayed** in the interfaces: a shutter gets up/down buttons, a dimmable light gets a slider.
 
@@ -79,9 +79,9 @@ Once the IO is created, its properties window gives access to settings common to
 
 Hiding an IO does not disable it: it keeps working in rules, it simply does not clutter the interfaces. This is useful for technical inputs nobody needs day to day.
 
-{{% notice note %}}
+{{% callout note %}}
 Each IO type additionally has its own parameters — address, port, device identifier. **Calaos Installer displays built-in help for each of them**: it is the most up-to-date description, since it comes straight from the server.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Naming your IOs
 

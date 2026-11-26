@@ -50,11 +50,11 @@ C'est la plus importante, et celle dont l'oubli se remarque au pire moment.
 
 Sans elle, la variable **repart à sa valeur initiale à chaque redémarrage** du serveur. Après une mise à jour ou une coupure de courant, votre mode « Vacances » se désactive tout seul, et l'arrosage repart alors que vous êtes absent.
 
-{{% notice tip %}}
+{{% callout tip %}}
 Demandez-vous : « si le serveur redémarre cette nuit, cette valeur doit-elle être retrouvée telle quelle ? » Si oui, activez **Sauvegarder**.
 
 À l'inverse, une variable de travail — un compteur remis à zéro chaque matin — gagne à repartir de zéro.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Un exemple complet
 

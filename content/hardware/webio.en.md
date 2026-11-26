@@ -49,9 +49,9 @@ For outputs the principle is symmetrical: Calaos sends a request to the given ad
 | `data` | Data to send, for outputs |
 | `data_type` | Format of that data |
 
-{{% notice note %}}
+{{% callout note %}}
 These IOs are among the most flexible in Calaos, and therefore among the most dependent on the target device. **The built-in help in Calaos Installer** shows the exact description of every parameter for the chosen type — see [Create IOs]({{% relref "calaos_installer/io" %}}).
-{{% /notice %}}
+{{% /callout %}}
 
 ## Before configuring
 
@@ -75,9 +75,9 @@ Both allow integrating a device that is not natively supported, but they are not
 
 For an outdoor temperature or solar output, periodic polling is perfectly fine. For an opening detector, MQTT is clearly preferable: see [MQTT]({{% relref "hardware/mqtt" %}}).
 
-{{% notice warning %}}
+{{% callout warning %}}
 Avoid querying an **online service** too often, or you risk being rate-limited or blocked. For weather data, a few minutes between requests is more than enough.
-{{% /notice %}}
+{{% /callout %}}
 
 ## Diagnosis
 
