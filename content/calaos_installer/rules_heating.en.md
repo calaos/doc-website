@@ -35,6 +35,8 @@ Never command a thermostat's **relay** in a rule: write its mode (`off`, `heat`)
 
 *The office is heated to 21 °C from 7:30 to 18:00 on weekdays, to 17 °C the rest of the time.*
 
+If the device's simple [weekly program]({{% relref "calaos_installer/devices/program" %}}) is enough, prefer it: it avoids rules. This recipe is for when the condition goes beyond the typical week.
+
 1. Create a **time range** "Bureau occupé" (Monday to Friday, 7:30 to 18:00): see [Time programming]({{% relref "calaos_installer/time" %}}).
 2. Rule "Bureau : confort en journée": condition, the "Bureau occupé" range is **true**; action, "Radiateur bureau" receives `{"mode":"heat","target_temp":21}`.
 3. Rule "Bureau : réduit hors journée": condition, the range is **false**; action, `{"target_temp":17}`.

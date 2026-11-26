@@ -16,7 +16,7 @@ Un climat peut porter son **programme hebdomadaire**, sans règle à écrire. Il
 
 ### Priorités
 
-Quand deux plages se recouvrent, le **niveau le plus bas l'emporte** : le niveau 1 passe avant le niveau 2. Cette priorité n'est pas réglable.
+Quand deux plages se recouvrent, le **niveau le plus bas l'emporte** : le niveau 1 passe avant le niveau 2. Le numéro du niveau est la priorité : dans le formulaire d'une plage, on peut monter ou descendre le niveau pour la changer.
 
 ### Consigne par défaut
 
@@ -46,11 +46,11 @@ Un interrupteur **Programme activé** existe par climat. En pause, la dernière 
 
 ## Modifier le programme
 
-### Application web, mobile et écran mural
+### Application web, application mobile et écran mural
 
-Ouvrez le climat, puis **Modifier le programme**. Choisissez l'onglet **Chauffage** ou **Clim**, puis le jour (Lun à Dim). Une frise de 24 h montre les plages du jour.
+Ouvrez le climat, puis le bouton d'édition du programme (**Modifier le programme** sur le web, **Programme et réglages** sur téléphone). Choisissez l'onglet **Chauffage** ou **Clim**, puis le jour (Lun à Dim). Une frise de 24 h montre les plages du jour.
 
-- **+ Créneau** (ou **Ajouter une plage**) ajoute une plage : heure de début, de fin, température. Le champ d'heure avance par 15 minutes.
+- **+ Créneau** (ou **Ajouter une plage**) ajoute une plage : heure de début, de fin, température. Le champ d'heure avance par pas de 15 minutes ; la saisie à la minute reste possible.
 - Sur ordinateur et sur écran mural, on peut aussi **tirer sur la frise** pour créer une sélection, par pas de 15 minutes. L'application web n'a pas ce glisser.
 - Une 11e température différente est refusée : « Cette semaine utilise déjà 10 températures différentes. Choisissez l'une d'elles : », avec les températures existantes à toucher.
 - **Copier ce jour…** recopie le jour affiché vers d'autres jours, pour l'onglet actif seulement. La copie **remplace** les plages des jours cibles ; une confirmation est demandée si l'un d'eux en contient déjà. Un jour source vide est refusé.
@@ -64,7 +64,7 @@ Sur la ligne du climat, une pastille indique le prochain changement, par exemple
 
 ## Dans Calaos Installer
 
-À l'étape 0 de la recette, la case **Programme** (dans Chauffage et/ou le groupe Clim) active le programme horaire. La décocher **supprime** les consignes, plages et niveaux du programme. Le nombre de niveaux n'est plus un réglage : il est de 10 dès que le programme est activé.
+Ouvrez le thermostat, puis **Programme horaire de…**. La case **Programme** (dans Chauffage et/ou le groupe Clim ; cochez celle des modes que propose votre pompe à chaleur) active le programme horaire. La décocher **supprime** les consignes, plages et niveaux du programme. Le nombre de niveaux n'est plus un réglage : il est de 10 dès que le programme est activé.
 
 - Les IO du programme appartiennent au device et se trouvent dans le sous-nœud **Programme**.
 - Après avoir ajouté un programme à un device existant, **redémarrez le serveur** : c'est lui qui crée les IO.

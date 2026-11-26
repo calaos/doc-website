@@ -16,7 +16,7 @@ A climate can carry its own **weekly program**, with no rules to write. It requi
 
 ### Priorities
 
-When two slots overlap, the **lowest level wins**: level 1 beats level 2. This priority cannot be changed.
+When two slots overlap, the **lowest level wins**: level 1 beats level 2. The level number is the priority: in a slot's form, move the level up or down to change it.
 
 ### Default setpoint
 
@@ -46,11 +46,11 @@ A **Program enabled** switch exists for each climate. While paused, the last set
 
 ## Editing the program
 
-### Web app, mobile and wall display
+### Web app, mobile app and wall display
 
-Open the climate, then **Edit program**. Choose the **Heating** or **Cooling** tab, then the day (Mon to Sun). A 24 h strip shows the day's slots.
+Open the climate, then the program edit button (**Modifier le programme** on the web, **Programme et réglages** on phones). Choose the **Heating** or **Cooling** tab, then the day (Mon to Sun). A 24 h strip shows the day's slots.
 
-- **+ Slot** (or **Add a slot**) adds a slot: start time, end time, temperature. The time field moves in 15-minute steps.
+- **+ Slot** (or **Add a slot**) adds a slot: start time, end time, temperature. The time field moves in 15-minute steps; typing to the minute is still possible.
 - On desktop and on the wall display you can also **drag on the strip** to create a selection, in 15-minute steps. The web app has no drag.
 - An 11th different temperature is refused: "This week already uses 10 different temperatures. Choose one of them:", with the existing temperatures to tap.
 - **Copy this day…** copies the displayed day to other days, for the active tab only. The copy **replaces** the target days' slots; a confirmation is asked if one of them already has slots. An empty source day is refused.
@@ -64,7 +64,7 @@ The climate row shows a badge for the next change, for example "▶ 17:30".
 
 ## In Calaos Installer
 
-In step 0 of the recipe, the **Program** checkbox (in Heating and/or the Cooling group) enables the weekly program. Unchecking it **deletes** the program's setpoints, slots and levels. The number of levels is no longer a setting: it is 10 as soon as the program is enabled.
+Open the thermostat, then **Programme horaire de…** (the weekly-program dialog). The **Program** checkbox (in Heating and/or the Cooling group; tick the modes your heat pump offers) enables the weekly program. Unchecking it **deletes** the program's setpoints, slots and levels. The number of levels is no longer a setting: it is 10 as soon as the program is enabled.
 
 - The program's IOs belong to the device and sit in the **Program** sub-node.
 - After adding a program to an existing device, **restart the server**: it creates the IOs.
