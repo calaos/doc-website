@@ -16,6 +16,8 @@ defaultContentLanguageInSubdir= true
   author.name = "Calaos Team"
   showVisitedLinks = true
   disableBreadcrumb = false
+  # Keep links to folders, not to their index.html (permalink.gotmpl appends it by default).
+  disableExplicitIndexURLs = true
   disableNextPrev = true
   disableLandingPageButton = false
   titleSeparator = "::"
